@@ -1,6 +1,6 @@
 {
   "name": "arabic-deck-builder",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "private": true,
   "description": "Local Arabic lesson PowerPoint generator",
   "scripts": {
@@ -18,5 +18,9 @@
     "@types/node": "^26.6.6",
     "typescript": "^7.0.2"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "yaml": "^2.9.1",
+    "zod": "^4.6.7"
+  }
 }

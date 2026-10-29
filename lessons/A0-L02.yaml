@@ -1,0 +1,18 @@
+id: A0-L02
+level: A0
+title: هَذَا وهَذِهِ
+goal: يشير الطالب إلى الأشياء والأشخاص ويسأل ويجيب باستخدام ما ومن وهذا وهذه
+
+activities:
+  - type: introduce
+    arabic: هَذَا
+    russian: это / этот
+
+  - type: introduce
+    arabic: هَذِهِ
+    russian: это / эта
+
+  - type: question_reveal
+    question: مَا هَذَا؟
+    answer: هَذَا كِتَاب
+    image: book
