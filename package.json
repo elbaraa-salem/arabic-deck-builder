@@ -3,12 +3,20 @@
   "version": "1.0.0",
   "private": true,
   "description": "Local Arabic lesson PowerPoint generator",
-  "scripts": {},
+  "scripts": {
+    "dev": "node src/index.ts",
+    "typecheck": "tsc --noEmit"
+  },
   "keywords": [
     "arabic",
     "education",
     "powerpoint"
   ],
   "author": "Elbaraa Salem",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "typescript": "^7.0.2"
+  },
+  "type": "module"
 }
