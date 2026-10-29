@@ -1,0 +1,14 @@
+{
+  "name": "arabic-deck-builder",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Local Arabic lesson PowerPoint generator",
+  "scripts": {},
+  "keywords": [
+    "arabic",
+    "education",
+    "powerpoint"
+  ],
+  "author": "Elbaraa Salem",
+  "license": "MIT"
+}
