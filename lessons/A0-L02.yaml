@@ -17,3 +17,12 @@ activities:
     question: مَا هَذَا؟
     answer: هَذَا كِتَاب
     image: book
+
+  - type: question_reveal
+    question: مَا هَذَا؟
+    answer: هَذَا بَيْت
+    image: house
+
+  - type: introduce
+    arabic: طَوِيل
+    image: tall

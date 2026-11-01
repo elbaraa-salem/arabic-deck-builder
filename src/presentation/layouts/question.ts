@@ -3,6 +3,7 @@ import type { Presentation, PowerPointSlide } from "../pptx.ts";
 
 import { resolveImagePath } from "../../assets/asset-resolver.ts";
 import { theme } from "../theme.ts";
+import { fitImageContain } from "../image.ts";
 
 export function renderQuestionSlide(
   presentation: Presentation,
@@ -31,13 +32,14 @@ export function renderQuestionSlide(
     margin: 0,
   });
 
-  slide.addImage({
-    path: imagePath,
-    x: 3.1,
-    y: 1.9,
-    w: 7.1,
-    h: 3.8,
-  });
+  slide.addImage(
+    fitImageContain(imagePath, {
+      x: 3.1,
+      y: 1.9,
+      w: 7.1,
+      h: 3.8,
+    }),
+  );
 
   return slide;
 }

@@ -1,5 +1,5 @@
 {
-  "compilerOptions":{
+  "compilerOptions": {
     "target": "ESNext",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
@@ -8,13 +8,11 @@
     "noEmit": true,
 
     "allowImportingTsExtensions": true,
-    "erasableSyntaxOnly": true, 
+    "erasableSyntaxOnly": true,
     "verbatimModuleSyntax": true,
 
     "types": ["node"]
   },
 
-  "include": [
-    "src/**/*.ts"
-  ]
+  "include": ["src/**/*.ts"]
 }

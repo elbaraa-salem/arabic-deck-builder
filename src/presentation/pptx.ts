@@ -29,6 +29,14 @@ type PowerPointSlide = {
     y: number;
     w: number;
     h: number;
+
+    sizing?: {
+      type: "contain" | "cover" | "crop";
+      w: number;
+      h: number;
+      x?: number;
+      y?: number;
+    };
   }): void;
 };
 
