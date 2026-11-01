@@ -11,6 +11,7 @@ export function planSlides(lesson: Lesson): SlideSpec[] {
           type: "introduce",
           arabic: activity.arabic,
           russian: activity.russian,
+          image: activity.image,
         });
         break;
 

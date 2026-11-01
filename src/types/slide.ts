@@ -1,7 +1,8 @@
 export type IntroduceSlide = {
   type: "introduce";
   arabic: string;
-  russian: string;
+  russian?: string;
+  image: string;
 };
 
 export type QuestionSlide = {

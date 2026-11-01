@@ -3,7 +3,8 @@ import { z } from "zod";
 const introduceActivitySchema = z.object({
   type: z.literal("introduce"),
   arabic: z.string().min(1),
-  russian: z.string().min(1),
+  russian: z.string().min(1).optional(),
+  image: z.string().min(1),
 });
 
 const questionRevealActivitySchema = z.object({

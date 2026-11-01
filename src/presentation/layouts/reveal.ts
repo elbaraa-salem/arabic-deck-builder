@@ -1,11 +1,7 @@
-import type {
-  IntroduceSlide,
-  QuestionSlide,
-  RevealSlide,
-} from "../../types/slide.ts";
-
+import type { RevealSlide } from "../../types/slide.ts";
 import type { Presentation, PowerPointSlide } from "../pptx.ts";
 
+import { resolveImagePath } from "../../assets/asset-resolver.ts";
 import { theme } from "../theme.ts";
 
 export function renderRevealSlide(
@@ -18,13 +14,15 @@ export function renderRevealSlide(
     color: theme.colors.background,
   };
 
+  const imagePath = resolveImagePath(spec.image);
+
   slide.addText(spec.question, {
-    x: 2,
-    y: 0.8,
-    w: 9.33,
-    h: 1,
+    x: 1.5,
+    y: 0.5,
+    w: 10.33,
+    h: 0.8,
     fontFace: theme.fonts.arabic,
-    fontSize: 36,
+    fontSize: 28,
     color: theme.colors.arabic,
     align: "center",
     valign: "middle",
@@ -32,26 +30,21 @@ export function renderRevealSlide(
     margin: 0,
   });
 
-  slide.addText(`[ ${spec.image} ]`, {
-    x: 4.2,
-    y: 2.1,
-    w: 4.9,
-    h: 2,
-    fontFace: theme.fonts.russian,
-    fontSize: 24,
-    color: theme.colors.russian,
-    align: "center",
-    valign: "middle",
-    margin: 0,
+  slide.addImage({
+    path: imagePath,
+    x: 3.3,
+    y: 1.45,
+    w: 6.7,
+    h: 3.4,
   });
 
   slide.addText(spec.answer, {
-    x: 2,
-    y: 4.7,
-    w: 9.33,
-    h: 1,
+    x: 1.5,
+    y: 5.2,
+    w: 10.33,
+    h: 0.8,
     fontFace: theme.fonts.arabic,
-    fontSize: 36,
+    fontSize: 30,
     color: theme.colors.accent,
     bold: true,
     align: "center",

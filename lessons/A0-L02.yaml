@@ -5,12 +5,13 @@ goal: يشير الطالب إلى الأشياء والأشخاص ويسأل و
 
 activities:
   - type: introduce
-    arabic: هَذَا
-    russian: это / этот
+    arabic: كِتَاب
+    russian: книга
+    image: book
 
   - type: introduce
-    arabic: هَذِهِ
-    russian: это / эта
+    arabic: بَيْت
+    image: house
 
   - type: question_reveal
     question: مَا هَذَا؟

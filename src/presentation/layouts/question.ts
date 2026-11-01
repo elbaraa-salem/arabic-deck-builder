@@ -1,11 +1,7 @@
-import type {
-  IntroduceSlide,
-  QuestionSlide,
-  RevealSlide,
-} from "../../types/slide.ts";
-
+import type { QuestionSlide } from "../../types/slide.ts";
 import type { Presentation, PowerPointSlide } from "../pptx.ts";
 
+import { resolveImagePath } from "../../assets/asset-resolver.ts";
 import { theme } from "../theme.ts";
 
 export function renderQuestionSlide(
@@ -18,13 +14,15 @@ export function renderQuestionSlide(
     color: theme.colors.background,
   };
 
+  const imagePath = resolveImagePath(spec.image);
+
   slide.addText(spec.question, {
-    x: 2,
-    y: 1,
-    w: 9.33,
-    h: 1,
+    x: 1.5,
+    y: 0.8,
+    w: 10.33,
+    h: 0.9,
     fontFace: theme.fonts.arabic,
-    fontSize: 38,
+    fontSize: 34,
     color: theme.colors.arabic,
     bold: true,
     align: "center",
@@ -33,17 +31,12 @@ export function renderQuestionSlide(
     margin: 0,
   });
 
-  slide.addText(`[ ${spec.image} ]`, {
-    x: 4.2,
-    y: 2.7,
-    w: 4.9,
-    h: 2,
-    fontFace: theme.fonts.russian,
-    fontSize: 24,
-    color: theme.colors.russian,
-    align: "center",
-    valign: "middle",
-    margin: 0,
+  slide.addImage({
+    path: imagePath,
+    x: 3.1,
+    y: 1.9,
+    w: 7.1,
+    h: 3.8,
   });
 
   return slide;

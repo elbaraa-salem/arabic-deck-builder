@@ -22,6 +22,14 @@ type PowerPointSlide = {
       margin?: number | [number, number, number, number];
     },
   ): void;
+
+  addImage(options: {
+    path: string;
+    x: number;
+    y: number;
+    w: number;
+    h: number;
+  }): void;
 };
 
 export type Presentation = {
