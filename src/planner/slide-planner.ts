@@ -1,6 +1,8 @@
 import type { Lesson } from "../schema/lesson.schema.ts";
+
 import type { DialogueSlideLine, SlideSpec } from "../types/slide.ts";
-import { getSupportStages } from "./support.ts";
+
+import { addSupportSequence } from "./support.ts";
 
 export function planSlides(lesson: Lesson): SlideSpec[] {
   const slides: SlideSpec[] = [];
@@ -48,23 +50,28 @@ export function planSlides(lesson: Lesson): SlideSpec[] {
 
             slides.push({
               type: "dialogue",
+
               speakers: {
                 A: activity.speakers.A,
                 B: activity.speakers.B,
               },
+
               image: activity.image,
+
               lines: [...visibleLines],
             });
           }
         }
+
         break;
       }
 
       case "recall": {
-        const supportStages = getSupportStages(activity.support);
+        addSupportSequence(
+          slides,
+          activity.support,
 
-        for (const support of supportStages) {
-          slides.push({
+          (support) => ({
             type: "recall",
 
             question: activity.prompt.question,
@@ -76,31 +83,32 @@ export function planSlides(lesson: Lesson): SlideSpec[] {
             answer: activity.answer,
 
             showAnswer: false,
-          });
-        }
+          }),
 
-        slides.push({
-          type: "recall",
+          () => ({
+            type: "recall",
 
-          question: activity.prompt.question,
+            question: activity.prompt.question,
 
-          image: activity.prompt.image,
+            image: activity.prompt.image,
 
-          support: {},
+            support: {},
 
-          answer: activity.answer,
+            answer: activity.answer,
 
-          showAnswer: true,
-        });
+            showAnswer: true,
+          }),
+        );
 
         break;
       }
 
       case "discriminate": {
-        const supportStages = getSupportStages(activity.support);
+        addSupportSequence(
+          slides,
+          activity.support,
 
-        for (const support of supportStages) {
-          slides.push({
+          (support) => ({
             type: "discriminate",
 
             question: activity.prompt.question,
@@ -114,81 +122,81 @@ export function planSlides(lesson: Lesson): SlideSpec[] {
             support,
 
             showAnswer: false,
-          });
-        }
+          }),
 
-        slides.push({
-          type: "discriminate",
+          () => ({
+            type: "discriminate",
 
-          question: activity.prompt.question,
+            question: activity.prompt.question,
 
-          image: activity.prompt.image,
+            image: activity.prompt.image,
 
-          choices: [...activity.choices],
+            choices: [...activity.choices],
 
-          answer: activity.answer,
+            answer: activity.answer,
 
-          support: {},
+            support: {},
 
-          showAnswer: true,
-        });
+            showAnswer: true,
+          }),
+        );
 
         break;
       }
 
       case "transform": {
-        const supportStages = getSupportStages(activity.support);
+        const cue = {
+          text: activity.cue.text,
 
-        for (const support of supportStages) {
-          slides.push({
+          image: activity.cue.image,
+        };
+
+        addSupportSequence(
+          slides,
+          activity.support,
+
+          (support) => ({
             type: "transform",
 
             instruction: activity.instruction,
 
             model: activity.model,
 
-            cue: {
-              text: activity.cue.text,
-
-              image: activity.cue.image,
-            },
+            cue,
 
             answer: activity.answer,
 
             support,
 
             showAnswer: false,
-          });
-        }
+          }),
 
-        slides.push({
-          type: "transform",
+          () => ({
+            type: "transform",
 
-          instruction: activity.instruction,
+            instruction: activity.instruction,
 
-          model: activity.model,
+            model: activity.model,
 
-          cue: {
-            text: activity.cue.text,
+            cue,
 
-            image: activity.cue.image,
-          },
+            answer: activity.answer,
 
-          answer: activity.answer,
+            support: {},
 
-          support: {},
-
-          showAnswer: true,
-        });
+            showAnswer: true,
+          }),
+        );
 
         break;
       }
 
       case "personalize": {
-        const supportStages = getSupportStages(activity.support);
+        addSupportSequence(
+          slides,
+          activity.support,
 
-        for (const support of supportStages) {
-          slides.push({
+          (support) => ({
             type: "personalize",
 
             model: activity.model,
@@ -198,17 +206,18 @@ export function planSlides(lesson: Lesson): SlideSpec[] {
             image: activity.prompt.image,
 
             support,
-          });
-        }
+          }),
+        );
 
         break;
       }
 
       case "interpret": {
-        const supportStages = getSupportStages(activity.support);
+        addSupportSequence(
+          slides,
+          activity.support,
 
-        for (const support of supportStages) {
-          slides.push({
+          (support) => ({
             type: "interpret",
 
             passage: activity.passage,
@@ -224,35 +233,42 @@ export function planSlides(lesson: Lesson): SlideSpec[] {
             support,
 
             showAnswer: false,
-          });
-        }
+          }),
 
-        slides.push({
-          type: "interpret",
+          () => ({
+            type: "interpret",
 
-          passage: activity.passage,
+            passage: activity.passage,
 
-          question: activity.question,
+            question: activity.question,
 
-          choices: [...activity.choices],
+            choices: [...activity.choices],
 
-          answer: activity.answer,
+            answer: activity.answer,
 
-          image: activity.image,
+            image: activity.image,
 
-          support: {},
+            support: {},
 
-          showAnswer: true,
-        });
+            showAnswer: true,
+          }),
+        );
 
         break;
       }
 
       case "information_gap": {
-        const supportStages = getSupportStages(activity.support);
+        const facts = activity.facts.map((fact) => ({
+          label: fact.label,
+          value: fact.value,
+          answer: fact.answer,
+        }));
 
-        for (const support of supportStages) {
-          slides.push({
+        addSupportSequence(
+          slides,
+          activity.support,
+
+          (support) => ({
             type: "information_gap",
 
             instruction: activity.instruction,
@@ -261,46 +277,39 @@ export function planSlides(lesson: Lesson): SlideSpec[] {
 
             image: activity.image,
 
-            facts: activity.facts.map((fact) => ({
-              label: fact.label,
-              value: fact.value,
-              answer: fact.answer,
-            })),
+            facts,
 
             support,
 
             showAnswers: false,
-          });
-        }
+          }),
 
-        slides.push({
-          type: "information_gap",
+          () => ({
+            type: "information_gap",
 
-          instruction: activity.instruction,
+            instruction: activity.instruction,
 
-          subject: activity.subject,
+            subject: activity.subject,
 
-          image: activity.image,
+            image: activity.image,
 
-          facts: activity.facts.map((fact) => ({
-            label: fact.label,
-            value: fact.value,
-            answer: fact.answer,
-          })),
+            facts,
 
-          support: {},
+            support: {},
 
-          showAnswers: true,
-        });
+            showAnswers: true,
+          }),
+        );
 
         break;
       }
 
       case "role_play": {
-        const supportStages = getSupportStages(activity.support);
+        addSupportSequence(
+          slides,
+          activity.support,
 
-        for (const support of supportStages) {
-          slides.push({
+          (support) => ({
             type: "role_play",
 
             instruction: activity.instruction,
@@ -318,25 +327,28 @@ export function planSlides(lesson: Lesson): SlideSpec[] {
             image: activity.image,
 
             support,
-          });
-        }
+          }),
+        );
 
         break;
       }
 
       case "noticing": {
-        const supportStages = getSupportStages(activity.support);
+        const items = activity.items.map((item) => ({
+          text: item.text,
+          image: item.image,
+        }));
 
-        for (const support of supportStages) {
-          slides.push({
+        addSupportSequence(
+          slides,
+          activity.support,
+
+          (support) => ({
             type: "noticing",
 
             instruction: activity.instruction,
 
-            items: activity.items.map((item) => ({
-              text: item.text,
-              image: item.image,
-            })),
+            items,
 
             question: activity.question,
 
@@ -345,36 +357,34 @@ export function planSlides(lesson: Lesson): SlideSpec[] {
             support,
 
             showInsight: false,
-          });
-        }
+          }),
 
-        slides.push({
-          type: "noticing",
+          () => ({
+            type: "noticing",
 
-          instruction: activity.instruction,
+            instruction: activity.instruction,
 
-          items: activity.items.map((item) => ({
-            text: item.text,
-            image: item.image,
-          })),
+            items,
 
-          question: activity.question,
+            question: activity.question,
 
-          insight: activity.insight,
+            insight: activity.insight,
 
-          support: {},
+            support: {},
 
-          showInsight: true,
-        });
+            showInsight: true,
+          }),
+        );
 
         break;
       }
 
       case "error_correction": {
-        const supportStages = getSupportStages(activity.support);
+        addSupportSequence(
+          slides,
+          activity.support,
 
-        for (const support of supportStages) {
-          slides.push({
+          (support) => ({
             type: "error_correction",
 
             instruction: activity.instruction,
@@ -390,26 +400,26 @@ export function planSlides(lesson: Lesson): SlideSpec[] {
             support,
 
             showCorrection: false,
-          });
-        }
+          }),
 
-        slides.push({
-          type: "error_correction",
+          () => ({
+            type: "error_correction",
 
-          instruction: activity.instruction,
+            instruction: activity.instruction,
 
-          incorrect: activity.incorrect,
+            incorrect: activity.incorrect,
 
-          correction: activity.correction,
+            correction: activity.correction,
 
-          explanation: activity.explanation,
+            explanation: activity.explanation,
 
-          image: activity.image,
+            image: activity.image,
 
-          support: {},
+            support: {},
 
-          showCorrection: true,
-        });
+            showCorrection: true,
+          }),
+        );
 
         break;
       }
@@ -430,5 +440,6 @@ export function planSlides(lesson: Lesson): SlideSpec[] {
       }
     }
   }
+
   return slides;
 }
