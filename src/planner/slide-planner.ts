@@ -9,6 +9,20 @@ export function planSlides(lesson: Lesson): SlideSpec[] {
 
   for (const activity of lesson.activities) {
     switch (activity.type) {
+      case "lesson_cover": {
+        slides.push({
+          type: "lesson_cover",
+
+          title: activity.title,
+
+          subtitle: activity.subtitle,
+
+          translation: activity.translation,
+        });
+
+        break;
+      }
+
       case "introduce": {
         slides.push({
           type: "introduce",
@@ -434,6 +448,34 @@ export function planSlides(lesson: Lesson): SlideSpec[] {
             text: item.text,
             prompt: item.prompt,
           })),
+        });
+
+        break;
+      }
+
+      case "section_break": {
+        slides.push({
+          type: "section_break",
+
+          title: activity.title,
+
+          subtitle: activity.subtitle,
+
+          translation: activity.translation,
+        });
+
+        break;
+      }
+
+      case "lesson_end": {
+        slides.push({
+          type: "lesson_end",
+
+          title: activity.title,
+
+          subtitle: activity.subtitle,
+
+          translation: activity.translation,
         });
 
         break;

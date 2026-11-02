@@ -169,6 +169,36 @@ export type SelfCheckSlide = {
   items: SelfCheckItem[];
 };
 
+export type LessonCoverSlide = {
+  type: "lesson_cover";
+
+  title: string;
+
+  subtitle?: string;
+
+  translation?: string;
+};
+
+export type SectionBreakSlide = {
+  type: "section_break";
+
+  title: string;
+
+  subtitle?: string;
+
+  translation?: string;
+};
+
+export type LessonEndSlide = {
+  type: "lesson_end";
+
+  title: string;
+
+  subtitle?: string;
+
+  translation?: string;
+};
+
 export type SlideSpec =
   | IntroduceSlide
   | QuestionSlide
@@ -183,4 +213,7 @@ export type SlideSpec =
   | RolePlaySlide
   | NoticingSlide
   | ErrorCorrectionSlide
-  | SelfCheckSlide;
+  | SelfCheckSlide
+  | LessonCoverSlide
+  | SectionBreakSlide
+  | LessonEndSlide;

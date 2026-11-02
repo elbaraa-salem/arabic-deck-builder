@@ -5,6 +5,14 @@ goal: يشير الطالب إلى الأشياء والأشخاص ويسأل و
 translation_language: ru
 
 activities:
+  - type: lesson_cover
+
+    title: الأُسْرَة
+
+    subtitle: الدَّرْسُ الخَامِس
+
+    translation: Семья
+
   - type: introduce
     arabic: كِتَاب
     translation: книга
@@ -41,6 +49,10 @@ activities:
 
         - {}
 
+  - type: section_break
+
+    title: التَّدْرِيب
+
   - type: recall
 
     prompt:
@@ -75,6 +87,12 @@ activities:
         - translation: Что правильно?
 
         - {}
+
+  - type: section_break
+
+    title: الحِوَار
+
+    translation: Диалог
 
   - type: transform
 
@@ -282,3 +300,11 @@ activities:
       - text: أَسْأَلَ شَخْصًا عَنْ بَلَدِهِ
 
       - text: أَسْتَعْمِلَ هَذَا وَهَذِهِ
+
+  - type: lesson_end
+
+    title: أَحْسَنْتَ
+
+    subtitle: إِلَى اللِّقَاءِ
+
+    translation: До встречи!

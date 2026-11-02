@@ -1,5 +1,35 @@
 import { z } from "zod";
 
+const lessonCoverActivitySchema = z.object({
+  type: z.literal("lesson_cover"),
+
+  title: z.string().min(1),
+
+  subtitle: z.string().min(1).optional(),
+
+  translation: z.string().min(1).optional(),
+});
+
+const sectionBreakActivitySchema = z.object({
+  type: z.literal("section_break"),
+
+  title: z.string().min(1),
+
+  subtitle: z.string().min(1).optional(),
+
+  translation: z.string().min(1).optional(),
+});
+
+const lessonEndActivitySchema = z.object({
+  type: z.literal("lesson_end"),
+
+  title: z.string().min(1),
+
+  subtitle: z.string().min(1).optional(),
+
+  translation: z.string().min(1).optional(),
+});
+
 const introduceActivitySchema = z.object({
   type: z.literal("introduce"),
   arabic: z.string().min(1),
@@ -250,6 +280,7 @@ const selfCheckActivitySchema = z.object({
 });
 
 const activitySchema = z.discriminatedUnion("type", [
+  lessonCoverActivitySchema,
   introduceActivitySchema,
   questionRevealActivitySchema,
   dialogueBuildActivitySchema,
@@ -263,6 +294,8 @@ const activitySchema = z.discriminatedUnion("type", [
   noticingActivitySchema,
   errorCorrectionActivitySchema,
   selfCheckActivitySchema,
+  sectionBreakActivitySchema,
+  lessonEndActivitySchema,
 ]);
 
 export const lessonSchema = z.object({

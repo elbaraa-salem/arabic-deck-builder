@@ -11,6 +11,8 @@ import { renderInformationGapSlide } from "./layouts/information-gap.ts";
 import { renderInterpretSlide } from "./layouts/interpret.ts";
 
 import { renderIntroduceSlide } from "./layouts/introduce.ts";
+import { renderLessonCoverSlide } from "./layouts/lesson-cover.ts";
+import { renderLessonEndSlide } from "./layouts/lesson-end.ts";
 
 import { renderNoticingSlide } from "./layouts/noticing.ts";
 
@@ -23,6 +25,7 @@ import { renderRecallSlide } from "./layouts/recall.ts";
 import { renderRevealSlide } from "./layouts/reveal.ts";
 
 import { renderRolePlaySlide } from "./layouts/role-play.ts";
+import { renderSectionBreakSlide } from "./layouts/section-break.ts";
 
 import { renderSelfCheckSlide } from "./layouts/self-check.ts";
 
@@ -39,6 +42,8 @@ export function renderSlide(
   slide: SlideSpec,
 ): PowerPointSlide {
   switch (slide.type) {
+    case "lesson_cover":
+      return renderLessonCoverSlide(presentation, slide);
     case "introduce":
       return renderIntroduceSlide(presentation, slide);
 
@@ -80,6 +85,12 @@ export function renderSlide(
 
     case "self_check":
       return renderSelfCheckSlide(presentation, slide);
+
+    case "section_break":
+      return renderSectionBreakSlide(presentation, slide);
+
+    case "lesson_end":
+      return renderLessonEndSlide(presentation, slide);
 
     default:
       return assertNever(slide);
