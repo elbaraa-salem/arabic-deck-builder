@@ -99,7 +99,6 @@ export function renderRolePlaySlide(
     h: 0.55,
 
     fontFace: theme.fonts.arabic,
-
     fontSize: 23,
 
     color: theme.colors.arabic,
@@ -138,7 +137,6 @@ export function renderRolePlaySlide(
     h: 0.55,
 
     fontFace: theme.fonts.arabic,
-
     fontSize: 23,
 
     color: theme.colors.arabic,
@@ -167,6 +165,7 @@ export function renderRolePlaySlide(
 
     align: "center",
     rtlMode: true,
+
     margin: 0,
   });
 
@@ -182,7 +181,7 @@ export function renderRolePlaySlide(
     color: theme.colors.choice,
 
     align: "right",
-    valign: "middle",
+    valign: "top",
     rtlMode: true,
 
     margin: 0,

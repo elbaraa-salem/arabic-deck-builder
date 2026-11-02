@@ -8,6 +8,8 @@ import type { Presentation, PowerPointSlide } from "../pptx.ts";
 
 import { theme } from "../theme.ts";
 
+const choiceLabels = ["أ)", "ب)", "ج)", "د)"];
+
 export function renderInterpretSlide(
   presentation: Presentation,
   spec: InterpretSlide,
@@ -128,11 +130,15 @@ export function renderInterpretSlide(
   for (let index = 0; index < spec.choices.length; index++) {
     const choice = spec.choices[index];
 
+    const label = choiceLabels[index];
+
+    const displayedChoice = `${label} ${choice}`;
+
     const isCorrect = choice === spec.answer;
 
     const shouldHighlight = spec.showAnswer && isCorrect;
 
-    slide.addText(choice, {
+    slide.addText(displayedChoice, {
       x: 3,
       y: choicesStartY + index * rowHeight,
 
