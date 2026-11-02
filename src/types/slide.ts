@@ -57,10 +57,24 @@ export type DiscriminateSlide = {
   showAnswer: boolean;
 };
 
+export type TransformSlide = {
+  type: "transform";
+  instruction: string;
+  model: string;
+  cue: {
+    text: string;
+    image?: string;
+  };
+  answer: string;
+  support: SupportStage;
+  showAnswer: boolean;
+};
+
 export type SlideSpec =
   | IntroduceSlide
   | QuestionSlide
   | RevealSlide
   | DialogueSlide
   | RecallSlide
-  | DiscriminateSlide;
+  | DiscriminateSlide
+  | TransformSlide;

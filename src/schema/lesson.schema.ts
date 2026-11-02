@@ -86,12 +86,30 @@ const discriminateActivitySchema = z
     },
   );
 
+const transformActivitySchema = z.object({
+  type: z.literal("transform"),
+
+  instruction: z.string().min(1),
+
+  model: z.string().min(1),
+
+  cue: z.object({
+    text: z.string().min(1),
+    image: z.string().min(1).optional(),
+  }),
+
+  answer: z.string().min(1),
+
+  support: supportPlanSchema.optional(),
+});
+
 const activitySchema = z.discriminatedUnion("type", [
   introduceActivitySchema,
   questionRevealActivitySchema,
   dialogueBuildActivitySchema,
   recallActivitySchema,
   discriminateActivitySchema,
+  transformActivitySchema,
 ]);
 
 export const lessonSchema = z.object({

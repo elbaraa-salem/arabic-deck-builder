@@ -74,3 +74,23 @@ activities:
         - translation: Что правильно?
 
         - {}
+
+  - type: transform
+
+    instruction: غَيِّرِ الجُمْلَةَ
+
+    model: أَنَا مِنْ مِصْر
+
+    cue:
+      text: رُوسْيَا
+
+    answer: أَنَا مِنْ رُوسْيَا
+
+    support:
+      stages:
+        - translation: Я из России
+          hint: أَنَا مِنْ ...
+
+        - hint: أَنَا مِنْ ...
+
+        - {}

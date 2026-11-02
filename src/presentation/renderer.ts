@@ -6,6 +6,7 @@ import { renderIntroduceSlide } from "./layouts/introduce.ts";
 import { renderQuestionSlide } from "./layouts/question.ts";
 import { renderRecallSlide } from "./layouts/recall.ts";
 import { renderRevealSlide } from "./layouts/reveal.ts";
+import { renderTransformSlide } from "./layouts/transform.ts";
 import type { PowerPointSlide, Presentation } from "./pptx.ts";
 
 export function renderSlide(
@@ -25,5 +26,7 @@ export function renderSlide(
       return renderRecallSlide(presentation, slide);
     case "discriminate":
       return renderDiscriminateSlide(presentation, slide);
+    case "transform":
+      return renderTransformSlide(presentation, slide);
   }
 }

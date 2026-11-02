@@ -135,6 +135,54 @@ export function planSlides(lesson: Lesson): SlideSpec[] {
 
         break;
       }
+
+      case "transform": {
+        const supportStages = getSupportStages(activity.support);
+
+        for (const support of supportStages) {
+          slides.push({
+            type: "transform",
+
+            instruction: activity.instruction,
+
+            model: activity.model,
+
+            cue: {
+              text: activity.cue.text,
+
+              image: activity.cue.image,
+            },
+
+            answer: activity.answer,
+
+            support,
+
+            showAnswer: false,
+          });
+        }
+
+        slides.push({
+          type: "transform",
+
+          instruction: activity.instruction,
+
+          model: activity.model,
+
+          cue: {
+            text: activity.cue.text,
+
+            image: activity.cue.image,
+          },
+
+          answer: activity.answer,
+
+          support: {},
+
+          showAnswer: true,
+        });
+
+        break;
+      }
     }
   }
   return slides;
