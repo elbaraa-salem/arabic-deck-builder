@@ -986,9 +986,7 @@ Completed:
 
 ### `v0.3.0` — Teaching Activities
 
-Current development milestone.
-
-Implemented:
+Completed:
 
 - thirteen core teaching activities;
 - progressive learner-support system;
@@ -1005,28 +1003,47 @@ Implemented:
 - lesson-end slides;
 - shared progressive activity planning.
 
-**Status: release candidate**
+**Status: completed**
 
 ---
 
 ### `v0.4.0` — Presentation Design System
 
-Planned:
+Completed:
 
-- reusable decorative elements;
-- consistent lesson identity;
+- reusable Arabic decorative elements;
+- consistent visual identity across lessons;
+- full, content, and clean decoration variants;
 - shared slide decorations;
-- typography scale;
-- spacing rules;
+- centralized typography system;
+- centralized shared layout geometry;
 - stronger visual hierarchy;
-- reusable cover and section variants;
-- improved layout consistency.
+- reusable lesson cover, section break, and lesson end designs;
+- improved visual consistency across teaching layouts.
+
+**Status: completed**
 
 ---
 
-### `v0.5.0` — Educational SVG Visuals
+### `v0.5.0` — Production Tools
 
-Planned deterministic graphics for cases where generated or photographic images are not ideal.
+Planned:
+
+- command-line lesson selection;
+- generation of a specific lesson file;
+- batch lesson generation;
+- lesson validation reports;
+- missing-asset checks before generation;
+- clearer generation errors;
+- improved production workflow.
+
+---
+
+### `v0.6.0` — Educational Visuals
+
+Planned:
+
+Deterministic educational graphics for cases where photographic or generated images are not ideal.
 
 Possible examples:
 
@@ -1039,19 +1056,68 @@ Possible examples:
 
 ---
 
+### `v0.7.0` — Source Ingestion
+
+Planned:
+
+- PDF lesson-source ingestion;
+- scanned page and image processing;
+- extraction of vocabulary, structures, grammar, dialogues, and exercises;
+- structured representation of source material;
+- preparation of extracted material for lesson design.
+
+---
+
+### `v0.8.0` — Curriculum Model
+
+Planned:
+
+- tracking previously introduced vocabulary;
+- tracking structures and grammar across lessons;
+- distinguishing new and previously learned language;
+- cumulative review planning;
+- course-level progression data.
+
+---
+
+### `v0.9.0` — AI-Assisted Lesson Design
+
+Planned:
+
+- transform extracted source material into Arabic Deck Builder lesson structures;
+- improve existing lesson material instead of reproducing it directly;
+- select appropriate teaching activities;
+- propose progressive support stages;
+- create communicative practice;
+- generate valid lesson YAML for teacher review.
+
+---
+
+### `v1.0.0` — Stable Curriculum Builder
+
+Planned:
+
+- stable lesson specification;
+- documented production workflow;
+- automated validation;
+- curriculum-level generation workflow;
+- reliable multi-lesson production;
+- reusable curriculum packages;
+- production-ready documentation and examples.
+
+---
+
 ### Later Development
 
 Possible future work includes:
 
 - automated tests;
-- command-line lesson selection and generation;
-- lesson validation reports;
-- reusable curriculum packages;
 - presentation quality checks;
 - additional learner-response modes;
 - additional support types;
 - local image generation where useful;
-- support for larger curriculum structures.
+- richer curriculum analytics;
+- additional educational visual systems.
 
 ---
 
