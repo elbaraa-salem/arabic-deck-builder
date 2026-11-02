@@ -34,31 +34,32 @@ export function planSlides(lesson: Lesson): SlideSpec[] {
         break;
       }
 
-      case "dialogue_build": {
-        const visibleLines: DialogueSlideLine[] = [];
+      case "dialogue_build":
+        {
+          for (const segment of activity.segments) {
+            const visibleLines: DialogueSlideLine[] = [];
 
-        for (const line of activity.lines) {
-          visibleLines.push({
-            speaker: line.speaker,
-            arabic: line.arabic,
-            russian: line.russian,
-          });
+            for (const line of segment.lines) {
+              visibleLines.push({
+                speaker: line.speaker,
+                arabic: line.arabic,
+                russian: line.russian,
+              });
 
-          slides.push({
-            type: "dialogue",
-            speakers: {
-              A: activity.speakers.A,
-              B: activity.speakers.B,
-            },
-            image: activity.image,
-            lines: [...visibleLines],
-          });
+              slides.push({
+                type: "dialogue",
+                speakers: {
+                  A: activity.speakers.A,
+                  B: activity.speakers.B,
+                },
+                image: activity.image,
+                lines: [...visibleLines],
+              });
+            }
+          }
         }
-
         break;
-      }
     }
   }
-
   return slides;
 }

@@ -20,6 +20,10 @@ const dialogueLineSchema = z.object({
   russian: z.string().min(1).optional(),
 });
 
+const dialogueSegmentSchema = z.object({
+  lines: z.array(dialogueLineSchema).min(1).max(6),
+});
+
 const dialogueBuildActivitySchema = z.object({
   type: z.literal("dialogue_build"),
 
@@ -30,7 +34,7 @@ const dialogueBuildActivitySchema = z.object({
 
   image: z.string().min(1).optional(),
 
-  lines: z.array(dialogueLineSchema).min(2).max(6),
+  segments: z.array(dialogueSegmentSchema).min(1),
 });
 
 const activitySchema = z.discriminatedUnion("type", [

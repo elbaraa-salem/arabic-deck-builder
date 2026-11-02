@@ -24,54 +24,49 @@ activities:
     image: house
 
   - type: dialogue_build
+
     speakers:
       A: محمد
       B: أحمد
 
     image: greeting
 
-    lines:
-      - speaker: A
-        arabic: السَّلامُ عَلَيْكُم
-        russian: Здравствуйте
+    segments:
+      - lines:
+          - speaker: A
+            arabic: السَّلامُ عَلَيْكُم
+            russian: Здравствуйте
 
-      - speaker: B
-        arabic: وَعَلَيْكُمُ السَّلام
+          - speaker: B
+            arabic: وَعَلَيْكُمُ السَّلام
 
-      - speaker: A
-        arabic: مَا اسْمُكَ؟
+          - speaker: A
+            arabic: مَا اسْمُكَ؟
 
-      - speaker: B
-        arabic: اِسْمِي أَحْمَد
+          - speaker: B
+            arabic: اِسْمِي أَحْمَد
 
-      - speaker: B
-        arabic: وَمَا اِسمُكَ؟
+          - speaker: B
+            arabic: وَمَا اسْمُكَ؟
 
-      - speaker: A
-        arabic: اِسمِي مُحمدَّ
+          - speaker: A
+            arabic: اِسْمِي مُحَمَّد
 
-  - type: dialogue_build
-    speakers:
-      A: محمد
-      B: أحمد
+      - lines:
+          - speaker: A
+            arabic: مِنْ أَيْنَ أَنْتَ؟
 
-    image: greeting
+          - speaker: B
+            arabic: أَنَا مِنْ مِصْر
 
-    lines:
-      - speaker: A
-        arabic: من أين أنت؟
+          - speaker: B
+            arabic: وَأَنْتَ؟
 
-      - speaker: B
-        arabic: أنا من مصر
+          - speaker: A
+            arabic: أَنَا مِنْ رُوسْيَا
 
-      - speaker: B
-        arabic: وأنت؟
+          - speaker: B
+            arabic: أَهْلًا وَسَهْلًا
 
-      - speaker: A
-        arabic: أنا من رُوسيا
-
-      - speaker: B
-        arabic: أَهلا وسَهلا
-
-      - speaker: A
-        arabic: أَهلا وسَهلا
+          - speaker: A
+            arabic: أَهْلًا بِكَ
