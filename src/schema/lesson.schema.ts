@@ -271,6 +271,8 @@ export const lessonSchema = z.object({
   title: z.string().min(1),
   goal: z.string().min(1),
 
+  translation_language: z.string().min(2).max(10).optional(),
+
   activities: z.array(activitySchema).min(1),
 });
 
