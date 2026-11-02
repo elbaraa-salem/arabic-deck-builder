@@ -4,14 +4,14 @@ title: هَذَا وهَذِهِ
 goal: يشير الطالب إلى الأشياء والأشخاص ويسأل ويجيب باستخدام ما ومن وهذا وهذه
 
 activities:
-  # - type: introduce
-  #   arabic: كِتَاب
-  #   translation: книга
-  #   image: book
+  - type: introduce
+    arabic: كِتَاب
+    translation: книга
+    image: book
 
-  # - type: introduce
-  #   arabic: بَيْت
-  #   image: house
+  - type: introduce
+    arabic: بَيْت
+    image: house
 
   # - type: question_reveal
   #   question: مَا هَذَا؟
@@ -23,88 +23,36 @@ activities:
   #   answer: هَذَا بَيْت
   #   image: house
 
-  - type: dialogue_build
+  - type: recall
 
-    speakers:
-      A: محمد
-      B: أحمد
+    prompt:
+      question: مَا هَذَا؟
+      image: book
 
-    image: greeting
+    answer: كِتَاب
 
-    segments:
-      - lines:
-          - speaker: A
-            arabic: السَّلامُ عَلَيْكُم
-            translation: Здравствуйте
+    support:
+      stages:
+        - translation: книга
+          hint: ك...
 
-          - speaker: B
-            arabic: وَعَلَيْكُمُ السَّلام
+        - hint: ك...
 
-          - speaker: A
-            arabic: اِسْمِي مُحَمَّدٌ
+        - {}
 
-          - speaker: B
-            arabic: اِسْمِي أَحْمَد
+  - type: recall
 
-          - speaker: A
-            arabic: أَهْلًا
+    prompt:
+      question: مَا هَذَا؟
+      image: house
 
-          - speaker: B
-            arabic: أَهْلًا وَسَهْلًا
+    answer: بَيْت
 
-      - lines:
-          # - speaker: A
-          #   arabic: السَّلامُ عَلَيْكُم
+    support:
+      stages:
+        - translation: house
+          hint: بَ...
 
-          # - speaker: B
-          #   arabic: وَعَلَيْكُمُ السَّلام
+        - hint: بَ...
 
-          - speaker: A
-            arabic: مَرحَبًا
-
-          - speaker: B
-            arabic: مَرحَبًا
-
-          - speaker: A
-            arabic: اِسْمِي مُحَمَّدٌ
-
-          - speaker: B
-            arabic: اِسْمِي أَحْمَد
-
-          - speaker: A
-            arabic: أَهْلًا
-
-          - speaker: B
-            arabic: أَهْلًا وَسَهْلًا
-
-      - lines:
-          - speaker: A
-            arabic: السَّلامُ عَلَيْكُم
-
-          - speaker: B
-            arabic: وَعَلَيْكُمُ السَّلام
-
-          - speaker: A
-            arabic: مَرحَبًا
-
-          - speaker: B
-            arabic: مَرحَبًا
-
-          - speaker: A
-            arabic: اِسْمِي مُحَمَّدٌ
-
-          - speaker: B
-            arabic: اِسْمِي أَحْمَد
-
-      - lines:
-          - speaker: A
-            arabic: أَهْلًا
-
-          - speaker: B
-            arabic: أَهْلًا وَسَهْلًا
-
-          - speaker: A
-            arabic: أَنَا مِن مِصْر
-
-          - speaker: B
-            arabic: أَنا مِن رُوسْيَا
+        - {}

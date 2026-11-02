@@ -1,0 +1,91 @@
+id: A0-L01
+level: A0
+title: التَّحِيَّةُ والتعارف
+goal: يُعَرِّف الطالب بنفسه و يتعرف على شخص ما
+
+activities:
+  - type: dialogue_build
+
+    speakers:
+      A: محمد
+      B: أحمد
+
+    image: greeting
+
+    segments:
+      - lines:
+          - speaker: A
+            arabic: السَّلامُ عَلَيْكُم
+            translation: Здравствуйте
+
+          - speaker: B
+            arabic: وَعَلَيْكُمُ السَّلام
+
+          - speaker: A
+            arabic: اِسْمِي مُحَمَّدٌ
+
+          - speaker: B
+            arabic: اِسْمِي أَحْمَد
+
+          - speaker: A
+            arabic: أَهْلًا
+
+          - speaker: B
+            arabic: أَهْلًا وَسَهْلًا
+
+      - lines:
+          # - speaker: A
+          #   arabic: السَّلامُ عَلَيْكُم
+
+          # - speaker: B
+          #   arabic: وَعَلَيْكُمُ السَّلام
+
+          - speaker: A
+            arabic: مَرحَبًا
+
+          - speaker: B
+            arabic: مَرحَبًا
+
+          - speaker: A
+            arabic: اِسْمِي مُحَمَّدٌ
+
+          - speaker: B
+            arabic: اِسْمِي أَحْمَد
+
+          - speaker: A
+            arabic: أَهْلًا
+
+          - speaker: B
+            arabic: أَهْلًا وَسَهْلًا
+
+      - lines:
+          - speaker: A
+            arabic: السَّلامُ عَلَيْكُم
+
+          - speaker: B
+            arabic: وَعَلَيْكُمُ السَّلام
+
+          - speaker: A
+            arabic: مَرحَبًا
+
+          - speaker: B
+            arabic: مَرحَبًا
+
+          - speaker: A
+            arabic: اِسْمِي مُحَمَّدٌ
+
+          - speaker: B
+            arabic: اِسْمِي أَحْمَد
+
+      - lines:
+          - speaker: A
+            arabic: أَهْلًا
+
+          - speaker: B
+            arabic: أَهْلًا وَسَهْلًا
+
+          - speaker: A
+            arabic: أَنَا مِن مِصْر
+
+          - speaker: B
+            arabic: أَنا مِن رُوسْيَا

@@ -3,6 +3,7 @@ import { renderDialogueSlide } from "./layouts/dialogue.ts";
 
 import { renderIntroduceSlide } from "./layouts/introduce.ts";
 import { renderQuestionSlide } from "./layouts/question.ts";
+import { renderRecallSlide } from "./layouts/recall.ts";
 import { renderRevealSlide } from "./layouts/reveal.ts";
 import type { PowerPointSlide, Presentation } from "./pptx.ts";
 
@@ -19,5 +20,7 @@ export function renderSlide(
       return renderRevealSlide(presentation, slide);
     case "dialogue":
       return renderDialogueSlide(presentation, slide);
+    case "recall":
+      return renderRecallSlide(presentation, slide);
   }
 }

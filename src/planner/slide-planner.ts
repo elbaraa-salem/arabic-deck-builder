@@ -1,5 +1,6 @@
 import type { Lesson } from "../schema/lesson.schema.ts";
 import type { DialogueSlideLine, SlideSpec } from "../types/slide.ts";
+import { getSupportStages } from "./support.ts";
 
 export function planSlides(lesson: Lesson): SlideSpec[] {
   const slides: SlideSpec[] = [];
@@ -34,31 +35,66 @@ export function planSlides(lesson: Lesson): SlideSpec[] {
         break;
       }
 
-      case "dialogue_build":
-        {
-          for (const segment of activity.segments) {
-            const visibleLines: DialogueSlideLine[] = [];
+      case "dialogue_build": {
+        for (const segment of activity.segments) {
+          const visibleLines: DialogueSlideLine[] = [];
 
-            for (const line of segment.lines) {
-              visibleLines.push({
-                speaker: line.speaker,
-                arabic: line.arabic,
-                translation: line.translation,
-              });
+          for (const line of segment.lines) {
+            visibleLines.push({
+              speaker: line.speaker,
+              arabic: line.arabic,
+              translation: line.translation,
+            });
 
-              slides.push({
-                type: "dialogue",
-                speakers: {
-                  A: activity.speakers.A,
-                  B: activity.speakers.B,
-                },
-                image: activity.image,
-                lines: [...visibleLines],
-              });
-            }
+            slides.push({
+              type: "dialogue",
+              speakers: {
+                A: activity.speakers.A,
+                B: activity.speakers.B,
+              },
+              image: activity.image,
+              lines: [...visibleLines],
+            });
           }
         }
         break;
+      }
+
+      case "recall": {
+        const supportStages = getSupportStages(activity.support);
+
+        for (const support of supportStages) {
+          slides.push({
+            type: "recall",
+
+            question: activity.prompt.question,
+
+            image: activity.prompt.image,
+
+            support,
+
+            answer: activity.answer,
+
+            showAnswer: false,
+          });
+        }
+
+        slides.push({
+          type: "recall",
+
+          question: activity.prompt.question,
+
+          image: activity.prompt.image,
+
+          support: {},
+
+          answer: activity.answer,
+
+          showAnswer: true,
+        });
+
+        break;
+      }
     }
   }
   return slides;

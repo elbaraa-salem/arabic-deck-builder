@@ -37,10 +37,34 @@ const dialogueBuildActivitySchema = z.object({
   segments: z.array(dialogueSegmentSchema).min(1),
 });
 
+const supportStageSchema = z.object({
+  translation: z.string().min(1).optional(),
+  hint: z.string().min(1).optional(),
+});
+
+const suppportPlanSchema = z.object({
+  stages: z.array(supportStageSchema).min(1),
+});
+
+const recallActivitySchema = z.object({
+  type: z.literal("recall"),
+
+  prompt: z.object({
+    question: z.string().min(1),
+    image: z.string().min(1).optional(),
+  }),
+
+  answer: z.string().min(1),
+
+  support: suppportPlanSchema.optional(),
+});
+
+
 const activitySchema = z.discriminatedUnion("type", [
   introduceActivitySchema,
   questionRevealActivitySchema,
   dialogueBuildActivitySchema,
+  recallActivitySchema,
 ]);
 
 export const lessonSchema = z.object({

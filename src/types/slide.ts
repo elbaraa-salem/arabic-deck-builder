@@ -1,3 +1,5 @@
+import type { SupportStage } from "./support.ts";
+
 export type IntroduceSlide = {
   type: "introduce";
   arabic: string;
@@ -36,8 +38,18 @@ export type DialogueSlide = {
   lines: DialogueSlideLine[];
 };
 
+export type RecallSlide = {
+  type: "recall";
+  question: string;
+  image?: string;
+  support: SupportStage;
+  answer: string;
+  showAnswer: boolean;
+}
+
 export type SlideSpec =
   | IntroduceSlide
   | QuestionSlide
   | RevealSlide
-  | DialogueSlide;
+  | DialogueSlide
+  | RecallSlide;
