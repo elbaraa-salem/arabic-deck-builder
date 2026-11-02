@@ -7,6 +7,7 @@ import { fitImageContain } from "../image.ts";
 import type { Presentation, PowerPointSlide } from "../pptx.ts";
 
 import { theme } from "../theme.ts";
+import { addCleanDecorations } from "../decorations.ts";
 
 export function renderInformationGapSlide(
   presentation: Presentation,
@@ -17,6 +18,8 @@ export function renderInformationGapSlide(
   slide.background = {
     color: theme.colors.background,
   };
+
+  addCleanDecorations(slide);
 
   slide.addText(spec.instruction, {
     x: 1.5,

@@ -7,6 +7,7 @@ import { fitImageContain } from "../image.ts";
 import type { Presentation, PowerPointSlide } from "../pptx.ts";
 
 import { theme } from "../theme.ts";
+import { addContentDecorations } from "../decorations.ts";
 
 const choiceLabels = ["أ)", "ب)", "ج)", "د)"];
 
@@ -19,6 +20,8 @@ export function renderDiscriminateSlide(
   slide.background = {
     color: theme.colors.background,
   };
+
+  addContentDecorations(slide);
 
   slide.addText(spec.question, {
     x: 1.5,

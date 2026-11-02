@@ -7,6 +7,7 @@ import { fitImageContain } from "../image.ts";
 import type { Presentation, PowerPointSlide } from "../pptx.ts";
 
 import { theme } from "../theme.ts";
+import { addContentDecorations } from "../decorations.ts";
 
 export function renderPersonalizeSlide(
   presentation: Presentation,
@@ -17,6 +18,8 @@ export function renderPersonalizeSlide(
   slide.background = {
     color: theme.colors.background,
   };
+
+  addContentDecorations(slide);
 
   let questionY = 1.2;
 

@@ -4,6 +4,7 @@ import type { Presentation, PowerPointSlide } from "../pptx.ts";
 import { resolveImagePath } from "../../assets/asset-resolver.ts";
 import { theme } from "../theme.ts";
 import { fitImageContain } from "../image.ts";
+import { addContentDecorations } from "../decorations.ts";
 
 export function renderRevealSlide(
   presentation: Presentation,
@@ -14,6 +15,8 @@ export function renderRevealSlide(
   slide.background = {
     color: theme.colors.background,
   };
+
+  addContentDecorations(slide);
 
   const imagePath = resolveImagePath(spec.image);
 

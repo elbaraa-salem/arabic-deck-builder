@@ -7,6 +7,7 @@ import { fitImageContain } from "../image.ts";
 import type { Presentation, PowerPointSlide } from "../pptx.ts";
 
 import { theme } from "../theme.ts";
+import { addContentDecorations } from "../decorations.ts";
 
 export function renderNoticingSlide(
   presentation: Presentation,
@@ -17,6 +18,8 @@ export function renderNoticingSlide(
   slide.background = {
     color: theme.colors.background,
   };
+
+  addContentDecorations(slide);
 
   slide.addText(spec.instruction, {
     x: 1.5,

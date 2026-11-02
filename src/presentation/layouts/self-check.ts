@@ -1,4 +1,5 @@
 import type { SelfCheckSlide } from "../../types/slide.ts";
+import { addContentDecorations } from "../decorations.ts";
 
 import type { Presentation, PowerPointSlide } from "../pptx.ts";
 
@@ -13,6 +14,8 @@ export function renderSelfCheckSlide(
   slide.background = {
     color: theme.colors.background,
   };
+
+  addContentDecorations(slide);
 
   slide.addText(spec.title, {
     x: 1.5,

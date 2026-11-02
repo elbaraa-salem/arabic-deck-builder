@@ -1,5 +1,7 @@
 import type { LessonEndSlide } from "../../types/slide.ts";
 
+import { addFullDecorations } from "../decorations.ts";
+
 import type { Presentation, PowerPointSlide } from "../pptx.ts";
 
 import { theme } from "../theme.ts";
@@ -13,6 +15,10 @@ export function renderLessonEndSlide(
   slide.background = {
     color: theme.colors.background,
   };
+
+  addFullDecorations(slide, {
+    dividerY: 4.15,
+  });
 
   slide.addText(spec.title, {
     x: 1.5,

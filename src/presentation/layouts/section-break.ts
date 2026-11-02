@@ -1,4 +1,5 @@
 import type { SectionBreakSlide } from "../../types/slide.ts";
+import { addFullDecorations } from "../decorations.ts";
 
 import type { Presentation, PowerPointSlide } from "../pptx.ts";
 
@@ -13,6 +14,10 @@ export function renderSectionBreakSlide(
   slide.background = {
     color: theme.colors.background,
   };
+
+  addFullDecorations(slide, {
+    dividerY: 4.15,
+  });
 
   slide.addText(spec.title, {
     x: 1.5,
@@ -61,7 +66,7 @@ export function renderSectionBreakSlide(
   if (spec.translation) {
     slide.addText(spec.translation, {
       x: 2,
-      y: 4.45,
+      y: 4.7,
       w: 9.3,
       h: 0.45,
 
