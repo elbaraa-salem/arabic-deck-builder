@@ -94,3 +94,43 @@ activities:
         - hint: أَنَا مِنْ ...
 
         - {}
+
+  - type: personalize
+
+    model: أَحْمَد مِنْ مِصْر
+
+    prompt:
+      question: وَأَنْتَ؟ مِنْ أَيْنَ أَنْتَ؟
+
+    support:
+      stages:
+        - translation: А ты? Откуда ты?
+          hint: أَنَا مِنْ ...
+
+        - hint: أَنَا مِنْ ...
+
+        - {}
+
+  - type: personalize
+
+    model: اِسْمِي أَحْمَد
+
+    prompt:
+      question: مَا اسْمُكَ؟
+
+    support:
+      stages:
+        - hint: اِسْمِي ...
+
+        - {}
+
+  - type: personalize
+
+    prompt:
+      question: مَاذَا تُحِبُّ أَنْ تَفْعَلَ فِي وَقْتِ الفَرَاغِ؟
+
+    support:
+      stages:
+        - hint: أُحِبُّ أَنْ ...
+
+        - {}

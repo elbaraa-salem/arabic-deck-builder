@@ -3,6 +3,7 @@ import { renderDialogueSlide } from "./layouts/dialogue.ts";
 import { renderDiscriminateSlide } from "./layouts/discriminate.ts";
 
 import { renderIntroduceSlide } from "./layouts/introduce.ts";
+import { renderPersonalizeSlide } from "./layouts/personalize.ts";
 import { renderQuestionSlide } from "./layouts/question.ts";
 import { renderRecallSlide } from "./layouts/recall.ts";
 import { renderRevealSlide } from "./layouts/reveal.ts";
@@ -28,5 +29,7 @@ export function renderSlide(
       return renderDiscriminateSlide(presentation, slide);
     case "transform":
       return renderTransformSlide(presentation, slide);
+    case "personalize":
+      return renderPersonalizeSlide(presentation, slide);
   }
 }

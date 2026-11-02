@@ -183,6 +183,26 @@ export function planSlides(lesson: Lesson): SlideSpec[] {
 
         break;
       }
+
+      case "personalize": {
+        const supportStages = getSupportStages(activity.support);
+
+        for (const support of supportStages) {
+          slides.push({
+            type: "personalize",
+
+            model: activity.model,
+
+            question: activity.prompt.question,
+
+            image: activity.prompt.image,
+
+            support,
+          });
+        }
+
+        break;
+      }
     }
   }
   return slides;

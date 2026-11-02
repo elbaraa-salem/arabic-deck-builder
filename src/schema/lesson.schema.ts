@@ -103,6 +103,19 @@ const transformActivitySchema = z.object({
   support: supportPlanSchema.optional(),
 });
 
+const personalizeActivitySchema = z.object({
+  type: z.literal("personalize"),
+
+  model: z.string().min(1).optional(),
+
+  prompt: z.object({
+    question: z.string().min(1),
+    image: z.string().min(1).optional(),
+  }),
+
+  support: supportPlanSchema.optional(),
+});
+
 const activitySchema = z.discriminatedUnion("type", [
   introduceActivitySchema,
   questionRevealActivitySchema,
@@ -110,6 +123,7 @@ const activitySchema = z.discriminatedUnion("type", [
   recallActivitySchema,
   discriminateActivitySchema,
   transformActivitySchema,
+  personalizeActivitySchema,
 ]);
 
 export const lessonSchema = z.object({

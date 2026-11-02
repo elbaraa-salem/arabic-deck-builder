@@ -70,6 +70,14 @@ export type TransformSlide = {
   showAnswer: boolean;
 };
 
+export type PersonalizeSlide = {
+  type: "personalize";
+  model?: string;
+  question: string;
+  image?: string;
+  support: SupportStage;
+};
+
 export type SlideSpec =
   | IntroduceSlide
   | QuestionSlide
@@ -77,4 +85,5 @@ export type SlideSpec =
   | DialogueSlide
   | RecallSlide
   | DiscriminateSlide
-  | TransformSlide;
+  | TransformSlide
+  | PersonalizeSlide;
