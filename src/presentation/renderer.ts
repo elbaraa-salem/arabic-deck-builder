@@ -1,6 +1,7 @@
 import type { SlideSpec } from "../types/slide.ts";
 import { renderDialogueSlide } from "./layouts/dialogue.ts";
 import { renderDiscriminateSlide } from "./layouts/discriminate.ts";
+import { renderInterpretSlide } from "./layouts/interpret.ts";
 
 import { renderIntroduceSlide } from "./layouts/introduce.ts";
 import { renderPersonalizeSlide } from "./layouts/personalize.ts";
@@ -31,5 +32,7 @@ export function renderSlide(
       return renderTransformSlide(presentation, slide);
     case "personalize":
       return renderPersonalizeSlide(presentation, slide);
+    case "interpret":
+      return renderInterpretSlide(presentation, slide);
   }
 }

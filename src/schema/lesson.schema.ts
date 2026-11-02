@@ -116,6 +116,34 @@ const personalizeActivitySchema = z.object({
   support: supportPlanSchema.optional(),
 });
 
+const interpretActivitySchema = z
+  .object({
+    type: z.literal("interpret"),
+
+    passage: z.string().min(1),
+
+    question: z.string().min(1),
+
+    choices: z.array(z.string().min(1)).min(2).max(4),
+
+    answer: z.string().min(1),
+
+    image: z.string().min(1).optional(),
+
+    support: supportPlanSchema.optional(),
+  })
+  .refine((activity) => activity.choices.includes(activity.answer), {
+    message: "answer must be one of the choices",
+    path: ["answer"],
+  })
+  .refine(
+    (activity) => new Set(activity.choices).size === activity.choices.length,
+    {
+      message: "choices must be unique",
+      path: ["choices"],
+    },
+  );
+
 const activitySchema = z.discriminatedUnion("type", [
   introduceActivitySchema,
   questionRevealActivitySchema,
@@ -124,6 +152,7 @@ const activitySchema = z.discriminatedUnion("type", [
   discriminateActivitySchema,
   transformActivitySchema,
   personalizeActivitySchema,
+  interpretActivitySchema,
 ]);
 
 export const lessonSchema = z.object({

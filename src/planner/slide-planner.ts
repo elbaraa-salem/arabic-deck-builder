@@ -203,6 +203,50 @@ export function planSlides(lesson: Lesson): SlideSpec[] {
 
         break;
       }
+
+      case "interpret": {
+        const supportStages = getSupportStages(activity.support);
+
+        for (const support of supportStages) {
+          slides.push({
+            type: "interpret",
+
+            passage: activity.passage,
+
+            question: activity.question,
+
+            choices: [...activity.choices],
+
+            answer: activity.answer,
+
+            image: activity.image,
+
+            support,
+
+            showAnswer: false,
+          });
+        }
+
+        slides.push({
+          type: "interpret",
+
+          passage: activity.passage,
+
+          question: activity.question,
+
+          choices: [...activity.choices],
+
+          answer: activity.answer,
+
+          image: activity.image,
+
+          support: {},
+
+          showAnswer: true,
+        });
+
+        break;
+      }
     }
   }
   return slides;

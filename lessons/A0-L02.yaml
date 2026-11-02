@@ -134,3 +134,35 @@ activities:
         - hint: أُحِبُّ أَنْ ...
 
         - {}
+
+  - type: interpret
+
+    passage: أَحْمَد مِنْ مِصْر. هُوَ طَبِيب.
+
+    question: مِنْ أَيْنَ أَحْمَد؟
+
+    choices:
+      - مِصْر
+      - رُوسْيَا
+      - فَرَنْسَا
+
+    answer: مِصْر
+
+    support:
+      stages:
+        - translation: Откуда Ахмед?
+
+        - {}
+
+  - type: interpret
+
+    passage: أَحْمَد مِنْ مِصْر. هُوَ طَبِيب.
+
+    question: مَا عَمَلُ أَحْمَد؟
+
+    choices:
+      - طَبِيب
+      - مُدَرِّس
+      - مُهَنْدِس
+
+    answer: طَبِيب

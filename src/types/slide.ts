@@ -78,6 +78,17 @@ export type PersonalizeSlide = {
   support: SupportStage;
 };
 
+export type InterpretSlide = {
+  type: "interpret";
+  passage: string;
+  question: string;
+  choices: string[];
+  answer: string;
+  image?: string;
+  support: SupportStage;
+  showAnswer: boolean;
+};
+
 export type SlideSpec =
   | IntroduceSlide
   | QuestionSlide
@@ -86,4 +97,5 @@ export type SlideSpec =
   | RecallSlide
   | DiscriminateSlide
   | TransformSlide
-  | PersonalizeSlide;
+  | PersonalizeSlide
+  | InterpretSlide;
