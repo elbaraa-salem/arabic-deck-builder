@@ -1,5 +1,6 @@
 import type { SlideSpec } from "../types/slide.ts";
 import { renderDialogueSlide } from "./layouts/dialogue.ts";
+import { renderDiscriminateSlide } from "./layouts/discriminate.ts";
 
 import { renderIntroduceSlide } from "./layouts/introduce.ts";
 import { renderQuestionSlide } from "./layouts/question.ts";
@@ -22,5 +23,7 @@ export function renderSlide(
       return renderDialogueSlide(presentation, slide);
     case "recall":
       return renderRecallSlide(presentation, slide);
+    case "discriminate":
+      return renderDiscriminateSlide(presentation, slide);
   }
 }

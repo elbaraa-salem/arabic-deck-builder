@@ -45,11 +45,22 @@ export type RecallSlide = {
   support: SupportStage;
   answer: string;
   showAnswer: boolean;
-}
+};
+
+export type DiscriminateSlide = {
+  type: "discriminate";
+  question: string;
+  image?: string;
+  choices: string[];
+  answer: string;
+  support: SupportStage;
+  showAnswer: boolean;
+};
 
 export type SlideSpec =
   | IntroduceSlide
   | QuestionSlide
   | RevealSlide
   | DialogueSlide
-  | RecallSlide;
+  | RecallSlide
+  | DiscriminateSlide;

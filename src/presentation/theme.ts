@@ -8,6 +8,7 @@ export const theme = {
     background: "F7F3E9",
     arabic: "184F4C",
     translation: "4D5B59",
+    choice: "4D5B59",
     accent: "9B6A3D",
   },
 

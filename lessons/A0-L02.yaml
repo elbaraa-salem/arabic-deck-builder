@@ -56,3 +56,21 @@ activities:
         - hint: بَ...
 
         - {}
+
+  - type: discriminate
+
+    prompt:
+      question: هَذَا أَمْ هَذِهِ؟
+      image: book
+
+    choices:
+      - هَذَا
+      - هَذِهِ
+
+    answer: هَذَا
+
+    support:
+      stages:
+        - translation: Что правильно?
+
+        - {}

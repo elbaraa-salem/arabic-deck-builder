@@ -42,7 +42,7 @@ const supportStageSchema = z.object({
   hint: z.string().min(1).optional(),
 });
 
-const suppportPlanSchema = z.object({
+const supportPlanSchema = z.object({
   stages: z.array(supportStageSchema).min(1),
 });
 
@@ -56,15 +56,42 @@ const recallActivitySchema = z.object({
 
   answer: z.string().min(1),
 
-  support: suppportPlanSchema.optional(),
+  support: supportPlanSchema.optional(),
 });
 
+const discriminateActivitySchema = z
+  .object({
+    type: z.literal("discriminate"),
+
+    prompt: z.object({
+      question: z.string().min(1),
+      image: z.string().min(1).optional(),
+    }),
+
+    choices: z.array(z.string().min(1)).min(2).max(4),
+
+    answer: z.string().min(1),
+
+    support: supportPlanSchema.optional(),
+  })
+  .refine((activity) => activity.choices.includes(activity.answer), {
+    message: "answer must be one of the choices",
+    path: ["answer"],
+  })
+  .refine(
+    (activity) => new Set(activity.choices).size === activity.choices.length,
+    {
+      message: "choices must be unique",
+      path: ["choices"],
+    },
+  );
 
 const activitySchema = z.discriminatedUnion("type", [
   introduceActivitySchema,
   questionRevealActivitySchema,
   dialogueBuildActivitySchema,
   recallActivitySchema,
+  discriminateActivitySchema,
 ]);
 
 export const lessonSchema = z.object({

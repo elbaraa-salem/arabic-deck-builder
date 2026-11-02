@@ -95,6 +95,46 @@ export function planSlides(lesson: Lesson): SlideSpec[] {
 
         break;
       }
+
+      case "discriminate": {
+        const supportStages = getSupportStages(activity.support);
+
+        for (const support of supportStages) {
+          slides.push({
+            type: "discriminate",
+
+            question: activity.prompt.question,
+
+            image: activity.prompt.image,
+
+            choices: [...activity.choices],
+
+            answer: activity.answer,
+
+            support,
+
+            showAnswer: false,
+          });
+        }
+
+        slides.push({
+          type: "discriminate",
+
+          question: activity.prompt.question,
+
+          image: activity.prompt.image,
+
+          choices: [...activity.choices],
+
+          answer: activity.answer,
+
+          support: {},
+
+          showAnswer: true,
+        });
+
+        break;
+      }
     }
   }
   return slides;
