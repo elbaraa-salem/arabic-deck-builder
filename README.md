@@ -2,52 +2,60 @@
 
 A local, structured PowerPoint generation system for teaching Arabic as a foreign language.
 
-Arabic Deck Builder transforms teacher-authored lesson specifications into validated, structured PowerPoint presentations. The project is designed around two complementary goals:
+Arabic Deck Builder transforms teacher-authored lesson specifications into validated, structured PowerPoint presentations. The project combines software engineering with instructional design, allowing a teacher to describe the learning experience while the system handles repetitive presentation production.
 
-1. applying software engineering principles to educational content generation;
-2. supporting a pedagogically controlled workflow for teaching Arabic to non-native speakers, especially beginner learners.
-
-The project does **not** use AI to invent lesson content. The teacher remains responsible for learning objectives, vocabulary, questions, sequencing, and instructional decisions. The software converts this structured lesson design into presentation-ready slide specifications and PowerPoint files.
+The project is currently focused on Arabic instruction for non-native speakers, especially beginner learners, but its lesson model is designed to remain independent of a specific learner language. Translation support can therefore be Russian, English, or another language.
 
 ---
 
 ## Why I Built This Project
 
-While teaching Arabic to foreign learners, I found that preparing high-quality lessons required repeatedly performing the same technical work:
+While teaching Arabic to foreign learners, I found that preparing high-quality lessons repeatedly required the same technical work:
 
-- creating slides;
+- creating and formatting slides;
 - maintaining visual consistency;
 - duplicating question and answer states;
-- organizing lesson progression;
-- placing Arabic and translation support correctly;
-- recreating similar activity structures across lessons.
+- progressively revealing content;
+- placing Arabic and learner-language support correctly;
+- creating repeated activity structures;
+- adapting images to different slide layouts;
+- building dialogues step by step;
+- reducing learner support across repeated attempts.
 
-The difficult part should be **teaching design**, not repetitive slide construction.
+The difficult part should be **instructional design**, not repetitive slide construction.
 
-This project explores how software engineering can separate these two concerns:
+The project therefore separates two responsibilities:
 
 > The teacher designs the learning experience.  
 > The system handles deterministic presentation generation.
 
-This distinction is especially important in language education, where the order in which information appears can be part of the pedagogy itself.
+This distinction is especially important in language education because the order in which information appears can itself be part of the pedagogy.
 
-For example, a learner may first see a question:
-
-**مَا هَذَا؟**
-
-and only after attempting an answer should the system reveal:
+For example, instead of immediately showing:
 
 **هَذَا كِتَاب**
 
-Instead of manually creating and maintaining both slides, the teacher can describe one instructional activity and allow the program to generate the required presentation states.
+the system can first show:
+
+**مَا هَذَا؟**
+
+allow the learner to attempt an answer, and only then reveal the correct response.
+
+A single instructional activity can therefore generate multiple presentation states automatically.
 
 ---
 
 ## Current Status
 
-**Current release: `v0.1.0`**
+**Current stable release: `v0.2.0`**
 
-The first milestone implements the complete core pipeline:
+**Current development milestone: `v0.3.0 — Teaching Activities`**
+
+The core generation pipeline and image asset system are complete.
+
+The current development version adds a larger pedagogical activity system, progressive learner support, long-dialogue segmentation, and structural lesson slides.
+
+The main pipeline is:
 
 ```text
 Lesson YAML
@@ -64,93 +72,562 @@ SlideSpec[]
     ↓
 Presentation Renderer
     ↓
+Layout Renderer
+    ↓
 PowerPoint (.pptx)
 ```
 
-The current version supports a small initial activity model while the architecture is being developed incrementally.
+The teacher writes a structured lesson once. The planner decides how many presentation states are needed, and the renderer converts those states into PowerPoint slides.
 
-### Implemented
+---
+
+## Implemented Features
+
+### Lesson authoring
 
 - human-readable lesson files using YAML;
-- runtime lesson validation using Zod;
-- TypeScript-based lesson and slide models;
-- deterministic activity-to-slide planning;
-- multiple generated slide states from one learning activity;
+- lesson metadata including level, title, goal, and translation language;
+- runtime validation using Zod;
+- TypeScript domain models;
+- reusable activity schemas;
+- deterministic activity-to-slide planning.
+
+### Presentation generation
+
 - PowerPoint generation using PptxGenJS;
-- separate presentation theme configuration;
-- separate slide layout renderers;
-- Arabic right-to-left text support;
-- Russian learner-support text;
-- modular project architecture;
-- local generation without requiring a cloud API.
+- Arabic right-to-left rendering;
+- centralized typography and color theme;
+- independent layout renderers;
+- structural lesson slides;
+- progressive reveal states;
+- reusable presentation pipeline.
 
-### Current activity types
+### Image system
 
-- `introduce`
-- `question_reveal`
+- logical image asset names;
+- asset path resolution;
+- missing-image errors;
+- automatic image dimension inspection;
+- aspect-ratio preservation;
+- contain-style image fitting;
+- portrait, balanced, and landscape classification;
+- adaptive image placement.
 
-A `question_reveal` activity is automatically expanded into two presentation states:
+### Translation support
 
-```text
-question_reveal
-      ↓
- ┌──────────┐
- │ question │
- └──────────┘
-      +
- ┌──────────┐
- │  reveal  │
- └──────────┘
+Translation is not tied to Russian.
+
+A lesson can declare:
+
+```yaml
+translation_language: ru
+```
+
+or:
+
+```yaml
+translation_language: en
+```
+
+Activity fields use the generic name:
+
+```yaml
+translation:
+```
+
+instead of language-specific property names.
+
+---
+
+## Teaching Activity System
+
+The project currently supports thirteen core instructional activity types.
+
+### 1. `introduce`
+
+Introduces new language using Arabic, optional translation support, and an image.
+
+```yaml
+- type: introduce
+  arabic: كِتَاب
+  translation: книга
+  image: book
 ```
 
 ---
 
-## Example Lesson
+### 2. `question_reveal`
 
-A lesson is written as structured YAML:
+Allows the learner to attempt an answer before seeing it.
 
 ```yaml
-id: A0-L02
-level: A0
-title: هَذَا وهَذِهِ
-goal: يشير الطالب إلى الأشياء والأشخاص ويسأل ويجيب باستخدام ما ومن وهذا وهذه
+- type: question_reveal
+  question: مَا هَذَا؟
+  answer: هَذَا كِتَاب
+  image: book
+```
 
-activities:
-  - type: introduce
-    arabic: هَذَا
-    russian: это / этот
+The planner expands one activity into:
 
-  - type: introduce
-    arabic: هَذِهِ
-    russian: это / эта
+```text
+question
+   ↓
+learner attempt
+   ↓
+reveal
+```
 
-  - type: question_reveal
+---
+
+### 3. `dialogue_build`
+
+Builds a dialogue progressively instead of displaying the full conversation immediately.
+
+It supports:
+
+- named speakers;
+- optional contextual images;
+- translation support;
+- segmented long dialogues;
+- incremental line-by-line construction.
+
+Example:
+
+```yaml
+- type: dialogue_build
+
+  speakers:
+    A: محمد
+    B: أحمد
+
+  image: greeting
+
+  segments:
+    - lines:
+        - speaker: A
+          arabic: السَّلامُ عَلَيْكُم
+          translation: Здравствуйте
+
+        - speaker: B
+          arabic: وَعَلَيْكُمُ السَّلام
+
+        - speaker: A
+          arabic: مَا اسْمُكَ؟
+
+        - speaker: B
+          arabic: اِسْمِي أَحْمَد
+```
+
+Each additional line creates a new dialogue state.
+
+---
+
+### 4. `recall`
+
+Asks the learner to retrieve known language from memory.
+
+```yaml
+- type: recall
+
+  prompt:
     question: مَا هَذَا؟
-    answer: هَذَا كِتَاب
     image: book
+
+  answer: كِتَاب
+
+  support:
+    stages:
+      - translation: книга
+        hint: ك...
+
+      - hint: ك...
+
+      - {}
 ```
 
-The program validates the lesson before any presentation is generated.
+This may generate:
 
-If a field has the wrong type, such as:
+```text
+translation + hint
+        ↓
+hint only
+        ↓
+no support
+        ↓
+answer reveal
+```
+
+---
+
+### 5. `discriminate`
+
+Requires the learner to distinguish between alternatives.
+
+Example uses include:
+
+- هَذَا / هَذِهِ
+- مَنْ / مَا
+- masculine / feminine
+- correct / incorrect forms
 
 ```yaml
-id: 55
+- type: discriminate
+
+  prompt:
+    question: هَذَا أَمْ هَذِهِ؟
+    image: book
+
+  choices:
+    - هَذَا
+    - هَذِهِ
+
+  answer: هَذَا
 ```
 
-instead of:
+Choices are displayed consistently using Arabic option labels such as:
+
+```text
+أ)
+ب)
+ج)
+د)
+```
+
+---
+
+### 6. `transform`
+
+Requires the learner to modify a known language pattern.
 
 ```yaml
-id: A0-L02
+- type: transform
+
+  instruction: غَيِّرِ الجُمْلَةَ
+
+  model: أَنَا مِنْ مِصْر
+
+  cue:
+    text: رُوسْيَا
+
+  answer: أَنَا مِنْ رُوسْيَا
 ```
 
-the validation layer rejects the lesson before it reaches the presentation system.
+The activity can also require structural changes, not only vocabulary replacement.
+
+For example:
+
+```text
+هَذَا كِتَاب
+↓
+سَيَّارَة
+↓
+هَذِهِ سَيَّارَة
+```
+
+---
+
+### 7. `personalize`
+
+Moves language from textbook examples to the learner's own life.
+
+```yaml
+- type: personalize
+
+  model: أَحْمَد مِنْ مِصْر
+
+  prompt:
+    question: وَأَنْتَ؟ مِنْ أَيْنَ أَنْتَ؟
+
+  support:
+    stages:
+      - hint: أَنَا مِنْ ...
+      - {}
+```
+
+Unlike recall or transformation activities, personalization does not require one predetermined correct answer.
+
+---
+
+### 8. `interpret`
+
+Tests comprehension before production.
+
+The learner first understands a short text and then answers a question about it.
+
+```yaml
+- type: interpret
+
+  passage: أَحْمَد مِنْ مِصْر. هُوَ طَبِيب.
+
+  question: مِنْ أَيْنَ أَحْمَد؟
+
+  choices:
+    - مِصْر
+    - رُوسْيَا
+    - فَرَنْسَا
+
+  answer: مِصْر
+```
+
+---
+
+### 9. `information_gap`
+
+Creates a real reason to ask a question.
+
+Some information is visible to the learner while other information is deliberately hidden.
+
+```yaml
+- type: information_gap
+
+  instruction: اِسْأَلْ عَنِ المَعْلُومَاتِ النَّاقِصَةِ
+
+  subject: أَحْمَد
+
+  facts:
+    - label: الاِسْم
+      value: أَحْمَد
+
+    - label: البَلَد
+      answer: مِصْر
+
+    - label: العَمَل
+      value: طَبِيب
+
+    - label: العُمْر
+      answer: ٢٨ سَنَة
+```
+
+The learner must ask for the missing information instead of asking a question only because the teacher requested repetition.
+
+---
+
+### 10. `role_play`
+
+Creates a communicative situation with roles and goals.
+
+```yaml
+- type: role_play
+
+  instruction: مَثِّلِ المَوْقِفَ
+
+  situation: تَعَرَّفْتَ عَلَى شَخْصٍ جَدِيدٍ
+
+  roles:
+    student: طَالِب مِنْ رُوسْيَا
+    partner: شَخْص عَرَبِيّ
+
+  goals:
+    - سَلِّمْ عَلَيْهِ
+    - اسْأَلْهُ عَنْ اسْمِهِ
+    - اسْأَلْهُ مِنْ أَيْنَ هُوَ
+    - قُلْ لَهُ اسْمَكَ وَبَلَدَكَ
+```
+
+The goal is successful communication rather than reproducing one fixed answer.
+
+---
+
+### 11. `noticing`
+
+Encourages the learner to notice a language pattern before or during explicit explanation.
+
+```yaml
+- type: noticing
+
+  instruction: اُنْظُرْ إِلَى الجُمْلَتَيْنِ
+
+  items:
+    - text: هَذَا كِتَاب
+      image: book
+
+    - text: هَذِهِ سَيَّارَة
+      image: car
+
+  question: مَاذَا تُلَاحِظُ؟
+
+  insight: نَسْتَعْمِلُ هَذَا مَعَ المُذَكَّرِ، وَهَذِهِ مَعَ المُؤَنَّثِ.
+```
+
+---
+
+### 12. `error_correction`
+
+Requires the learner to identify and correct an error.
+
+```yaml
+- type: error_correction
+
+  instruction: صَحِّحِ الجُمْلَةَ
+
+  incorrect: هَذَا سَيَّارَة
+
+  correction: هَذِهِ سَيَّارَة
+
+  explanation: سَيَّارَة كَلِمَة مُؤَنَّثَة، لِذَلِكَ نَسْتَعْمِلُ هَذِهِ.
+```
+
+---
+
+### 13. `self_check`
+
+Provides performance-oriented end-of-lesson assessment.
+
+```yaml
+- type: self_check
+
+  title: فِي نِهَايَةِ الدَّرْسِ أَسْتَطِيعُ أَنْ...
+
+  items:
+    - text: أَقُولَ اسْمِي
+      prompt: مَا اسْمُكَ؟
+
+    - text: أَقُولَ بَلَدِي
+      prompt: مِنْ أَيْنَ أَنْتَ؟
+
+    - text: أَسْأَلَ شَخْصًا عَنْ اسْمِهِ
+```
+
+The intention is not simply for the learner to claim understanding, but to demonstrate the target ability.
+
+---
+
+## Progressive Support System
+
+Learner support is modeled independently from activity type.
+
+A support plan contains ordered stages:
+
+```yaml
+support:
+  stages:
+    - translation: Я из России
+      hint: أَنَا مِنْ ...
+
+    - hint: أَنَا مِنْ ...
+
+    - {}
+```
+
+This represents:
+
+```text
+strong support
+      ↓
+reduced support
+      ↓
+independent attempt
+```
+
+The same system can be reused across multiple activity types.
+
+Current support mechanisms include:
+
+- translation;
+- textual hints.
+
+The model is intentionally extensible. Future support types may include:
+
+- sentence templates;
+- examples;
+- partial words;
+- first-letter cues;
+- visual choices;
+- additional contextual prompts.
+
+---
+
+## Lesson Structure Slides
+
+In addition to instructional activities, lessons can contain structural slides.
+
+### `lesson_cover`
+
+Used to open a lesson.
+
+```yaml
+- type: lesson_cover
+
+  title: الأُسْرَة
+
+  subtitle: الدَّرْسُ الخَامِس
+
+  translation: Семья
+```
+
+### `section_break`
+
+Used to visually separate lesson phases.
+
+```yaml
+- type: section_break
+  title: الحِوَار
+  translation: Диалог
+```
+
+### `lesson_end`
+
+Used to close a lesson.
+
+```yaml
+- type: lesson_end
+
+  title: أَحْسَنْتَ
+
+  subtitle: إِلَى اللِّقَاءِ
+
+  translation: До встречи!
+```
+
+These slides help turn the generated deck into a structured lesson rather than a sequence of unrelated exercises.
+
+---
+
+## Example Lesson Flow
+
+A complete lesson may now look like:
+
+```text
+Lesson Cover
+      ↓
+Introduce Vocabulary
+      ↓
+Question / Reveal
+      ↓
+Recall
+      ↓
+Section Break
+      ↓
+Discrimination
+      ↓
+Transformation
+      ↓
+Personalization
+      ↓
+Interpretation
+      ↓
+Information Gap
+      ↓
+Role Play
+      ↓
+Noticing
+      ↓
+Error Correction
+      ↓
+Self Check
+      ↓
+Lesson End
+```
+
+Not every lesson needs every activity.
+
+The teacher chooses activities according to the learning objective.
 
 ---
 
 ## Architecture
 
-The project follows a pipeline architecture in which each layer has one main responsibility.
+The project follows a layered transformation pipeline.
 
 ```mermaid
 flowchart TD
@@ -166,63 +643,77 @@ flowchart TD
 
 ### Parser
 
-Reads a lesson from disk and converts the YAML text into JavaScript data.
+Reads lesson YAML from disk and converts it into JavaScript data.
 
 ### Validation
 
-Zod validates external lesson data before it is trusted by the rest of the application.
-
-This creates a clear boundary:
+Zod validates external lesson data before the rest of the application can trust it.
 
 ```text
-External data
+External YAML
     ↓
-unknown
+unknown data
     ↓
-validation
+Zod validation
     ↓
 trusted Lesson
 ```
 
 ### Slide Planner
 
-The planner contains presentation-independent instructional logic.
+The planner contains instructional transformation logic.
 
 For example:
 
 ```text
-1 activity
-question_reveal
+recall activity
+    ↓
+support stage 1
+support stage 2
+independent attempt
+answer reveal
 ```
 
-becomes:
+The planner does not know about PowerPoint coordinates, font sizes, or colors.
+
+### Support Planning
+
+Progressive-support activities share reusable planning logic.
 
 ```text
-2 slide specifications
-question
-reveal
+SupportPlan
+    ↓
+SupportStage[]
+    ↓
+generated attempt slides
+    ↓
+optional reveal slide
 ```
 
-The planner does not know anything about PowerPoint coordinates, fonts, colors, or files.
+This avoids duplicating the same support-loop logic across different activity types.
 
 ### Presentation Renderer
 
-The renderer receives a `SlideSpec` and dispatches it to the appropriate layout renderer.
+The renderer dispatches each slide specification to its matching layout renderer.
 
 ```text
 SlideSpec
    ↓
 renderer
-   ├── introduce → introduce layout
-   ├── question  → question layout
-   └── reveal    → reveal layout
+   ├── recall → recall layout
+   ├── dialogue → dialogue layout
+   ├── role_play → role-play layout
+   ├── noticing → noticing layout
+   └── ...
 ```
+
+The dispatch is exhaustive, so adding a new slide type without a renderer can be caught during development.
 
 ### Layouts
 
-Each layout is responsible only for the visual representation of one slide type.
+Each layout handles visual presentation only.
 
-This separation allows instructional logic and visual design to evolve independently.
+Instructional logic remains in the planner, allowing teaching behavior and visual design to evolve independently.
 
 ---
 
@@ -231,9 +722,8 @@ This separation allows instructional logic and visual design to evolve independe
 ```text
 arabic-deck-builder/
 ├── assets/
-│   ├── fonts/
-│   ├── icons/
 │   └── images/
+│       └── .gitkeep
 │
 ├── lessons/
 │   └── A0-L02.yaml
@@ -243,27 +733,47 @@ arabic-deck-builder/
 ├── src/
 │   ├── index.ts
 │   │
+│   ├── assets/
+│   │   └── asset-resolver.ts
+│   │
 │   ├── parser/
 │   │   └── lesson.parser.ts
 │   │
 │   ├── planner/
-│   │   └── slide-planner.ts
+│   │   ├── slide-planner.ts
+│   │   └── support.ts
 │   │
 │   ├── presentation/
+│   │   ├── image.ts
 │   │   ├── pptx.ts
 │   │   ├── renderer.ts
 │   │   ├── render-presentation.ts
 │   │   ├── theme.ts
 │   │   └── layouts/
+│   │       ├── dialogue.ts
+│   │       ├── discriminate.ts
+│   │       ├── error-correction.ts
+│   │       ├── information-gap.ts
+│   │       ├── interpret.ts
 │   │       ├── introduce.ts
+│   │       ├── lesson-cover.ts
+│   │       ├── lesson-end.ts
+│   │       ├── noticing.ts
+│   │       ├── personalize.ts
 │   │       ├── question.ts
-│   │       └── reveal.ts
+│   │       ├── recall.ts
+│   │       ├── reveal.ts
+│   │       ├── role-play.ts
+│   │       ├── section-break.ts
+│   │       ├── self-check.ts
+│   │       └── transform.ts
 │   │
 │   ├── schema/
 │   │   └── lesson.schema.ts
 │   │
 │   └── types/
-│       └── slide.ts
+│       ├── slide.ts
+│       └── support.ts
 │
 ├── package.json
 └── tsconfig.json
@@ -275,15 +785,13 @@ arabic-deck-builder/
 
 ### TypeScript
 
-Used for the core application and domain models.
-
-TypeScript helps catch structural errors during development and works together with runtime validation to provide two layers of protection.
+Used for application code, domain models, and compile-time safety.
 
 ### Node.js
 
-Provides the local runtime and filesystem access required to read lessons and generate presentation files.
+Provides the local runtime and filesystem access.
 
-The project is currently developed and tested with:
+The project is currently developed with:
 
 ```text
 Node.js 26.12.0
@@ -291,19 +799,25 @@ Node.js 26.12.0
 
 ### YAML
 
-Used as the lesson-authoring format because it is readable and easy for a teacher to edit without writing application code.
+Used as the teacher-facing lesson specification format.
+
+It allows instructional content to remain readable without requiring the teacher to write application code.
 
 ### Zod
 
 Provides runtime validation for lesson files.
 
-Static TypeScript types alone cannot guarantee that an external YAML file contains valid data, so Zod acts as the trust boundary between external lesson content and application logic.
+TypeScript can validate application code statically, but external YAML data still requires runtime validation.
 
 ### PptxGenJS
 
-Used to generate PowerPoint presentations programmatically.
+Generates PowerPoint presentations programmatically.
 
-The presentation layer is isolated from the lesson-planning layer so that PowerPoint-specific implementation details do not enter the instructional data model.
+A local adapter isolates third-party PowerPoint types from the rest of the application.
+
+### image-size
+
+Used to inspect source image dimensions before calculating aspect-ratio-preserving placement.
 
 ---
 
@@ -311,138 +825,104 @@ The presentation layer is isolated from the lesson-planning layer so that PowerP
 
 ### Separation of concerns
 
-The project separates:
+The system separates:
 
 ```text
 lesson content
 instructional logic
+support logic
 presentation design
-file generation
+asset management
+PowerPoint generation
 ```
-
-rather than combining them into one large rendering function.
-
-### Single source of truth
-
-Shared visual properties such as fonts and colors are stored centrally in the presentation theme.
-
-Lesson structure is validated from one schema rather than duplicated across unrelated parts of the application.
 
 ### Deterministic generation
 
-The current system is deliberately deterministic.
+The system currently does not use an AI model to decide what should be taught.
 
-If the teacher defines:
+If the teacher defines an activity, the software applies known transformation rules.
 
-```yaml
-type: question_reveal
-```
+### Teacher control
 
-the program follows known rules for generating the resulting slides.
+The teacher remains responsible for:
 
-It does not ask an AI model to decide what the learner should study.
+- learning objectives;
+- vocabulary;
+- grammar targets;
+- productive and receptive language;
+- prompts;
+- correct answers;
+- activity sequence;
+- learner support;
+- communicative goals.
 
-### Small, composable functions
+### Progressive abstraction
 
-Functions are designed around specific responsibilities such as:
+Shared abstractions are introduced only after repeated patterns appear in real lesson development.
 
-```text
-loadLesson()
-planSlides()
-renderSlide()
-renderPresentation()
-```
+For example, progressive support was first implemented inside individual activities and later extracted into shared planning logic after the pattern became clear.
 
-This makes the system easier to test, maintain, and extend.
+### Third-party isolation
 
-### External-library isolation
+PowerPoint-specific implementation details are kept inside the presentation layer.
 
-PowerPoint-library integration is kept inside the presentation layer.
+### Exhaustive rendering
 
-This reduces coupling between domain logic and third-party implementation details.
+Slide rendering uses explicit type dispatch so missing layouts can be detected during development.
 
 ---
 
 ## Pedagogical Design
 
-The software architecture is influenced directly by language-teaching methodology.
-
-The system is being designed to support patterns such as:
+The architecture is driven by real teaching requirements.
 
 ### Attempt before reveal
 
-Learners should have an opportunity to retrieve an answer before seeing it.
-
 ```text
-Question
-   ↓
+Prompt
+  ↓
 Learner attempt
-   ↓
-Answer reveal
+  ↓
+Feedback / reveal
 ```
 
-### Progressive support reduction
+### Progressive support fading
 
-Future activity types will allow a lesson to gradually reduce translation or visual support as learner independence increases.
+```text
+translation + hint
+        ↓
+hint
+        ↓
+independent attempt
+```
 
-### Dialogue construction
+### Retrieval practice
 
-Instead of presenting a complete dialogue immediately, future lesson activities will be able to build conversations incrementally.
+Learners are required to retrieve previously learned language instead of continuously rereading it.
 
-### Recycling
+### Guided transformation
 
-Previously learned language can be reused in new contexts rather than introduced once and abandoned.
+Known language patterns can be reused with new vocabulary or grammatical changes.
 
-### Teacher-controlled content
+### Personalization
 
-The software does not replace instructional judgment.
+Learners move from textbook examples to language about themselves.
 
-The teacher determines:
+### Communicative need
 
-- learning objectives;
-- productive vocabulary;
-- receptive vocabulary;
-- activity order;
-- prompts;
-- answers;
-- repetition;
-- learner support.
+Information-gap and role-play activities create reasons to communicate rather than simply repeat sentences.
 
-The system is responsible for transforming these decisions into presentation states.
+### Noticing
 
----
+Learners can observe patterns before receiving explicit grammatical explanations.
 
-## Why This Is Both a Software and Educational Project
+### Formative assessment
 
-Arabic Deck Builder is not only an automation project.
+End-of-lesson self-check activities focus on what the learner can actually perform.
 
-It is an attempt to model an educational workflow as a software system.
+### Translation as temporary support
 
-From a software engineering perspective, the project explores:
-
-- typed domain modelling;
-- parsing and validation;
-- modular architecture;
-- deterministic transformation pipelines;
-- abstraction boundaries;
-- third-party library integration;
-- extensibility;
-- version control and semantic versioning.
-
-From an educational perspective, it explores:
-
-- controlled language progression;
-- retrieval before answer exposure;
-- scaffolding;
-- support fading;
-- vocabulary recycling;
-- visual learning materials;
-- separation between productive and receptive knowledge;
-- teacher-controlled instructional sequencing.
-
-The project therefore sits at the intersection of:
-
-**Software Engineering × Educational Technology × Arabic Language Teaching**
+Translation is treated as scaffolding rather than permanent content and can disappear as learner independence increases.
 
 ---
 
@@ -460,7 +940,7 @@ Check TypeScript:
 npm run typecheck
 ```
 
-Generate the current lesson presentation:
+Generate the current lesson:
 
 ```bash
 npm run dev
@@ -470,68 +950,108 @@ The generated presentation is written to the `output/` directory.
 
 ---
 
-## Development Roadmap
+## Release History and Roadmap
 
 ### `v0.1.0` — Core Pipeline
 
-- YAML lesson format
-- parsing
-- runtime validation
-- slide planning
-- PowerPoint generation
-- initial layouts
+Completed:
+
+- YAML lesson format;
+- parsing;
+- Zod validation;
+- slide planning;
+- PowerPoint generation;
+- initial layouts.
 
 **Status: completed**
 
-### `v0.2.0` — Asset System
+---
 
-Planned:
+### `v0.2.0` — Image Asset System
 
-- real lesson images;
-- logical asset names;
-- asset path resolution;
-- missing-asset validation;
-- image placement and scaling.
+Completed:
+
+- image asset resolution;
+- logical image names;
+- missing-asset errors;
+- source dimension inspection;
+- aspect-ratio preservation;
+- contain fitting;
+- image orientation classification;
+- adaptive image layouts.
+
+**Status: completed**
+
+---
 
 ### `v0.3.0` — Teaching Activities
 
-Planned activity models include:
+Current development milestone.
 
-- dialogue building;
-- support fading;
-- independent recall;
-- additional question patterns.
+Implemented:
+
+- thirteen core teaching activities;
+- progressive learner-support system;
+- generic translation support;
+- segmented dialogue building;
+- contextual dialogue images;
+- multiple-choice labeling;
+- information-gap activities;
+- role-play activities;
+- noticing and correction tasks;
+- formative self-checks;
+- lesson cover slides;
+- section-break slides;
+- lesson-end slides;
+- shared progressive activity planning.
+
+**Status: release candidate**
+
+---
 
 ### `v0.4.0` — Presentation Design System
 
 Planned:
 
-- reusable typography scales;
-- spacing system;
-- visual hierarchy;
-- richer reusable layouts;
-- improved consistency across lessons.
+- reusable decorative elements;
+- consistent lesson identity;
+- shared slide decorations;
+- typography scale;
+- spacing rules;
+- stronger visual hierarchy;
+- reusable cover and section variants;
+- improved layout consistency.
+
+---
 
 ### `v0.5.0` — Educational SVG Visuals
 
-Planned deterministic graphics for elements where generative images are unsuitable, including:
+Planned deterministic graphics for cases where generated or photographic images are not ideal.
+
+Possible examples:
 
 - clocks;
-- numbers;
 - quantities;
+- numbers;
 - directions;
-- diagrams.
+- diagrams;
+- simple educational illustrations.
+
+---
 
 ### Later Development
 
-Possible later additions include:
+Possible future work includes:
 
-- automated testing;
-- command-line lesson generation;
+- automated tests;
+- command-line lesson selection and generation;
+- lesson validation reports;
+- reusable curriculum packages;
 - presentation quality checks;
-- local scene-image generation;
-- additional lesson schemas;
-- larger curriculum support.
+- additional learner-response modes;
+- additional support types;
+- local image generation where useful;
+- support for larger curriculum structures.
 
 ---
 
@@ -545,7 +1065,41 @@ The goal is:
 
 > **Give the teacher a structured language for describing a lesson, then let software handle the repetitive production work.**
 
-This preserves pedagogical control while applying software engineering to the parts of lesson preparation that can be made systematic and reusable.
+The project deliberately keeps pedagogical control with the teacher while applying software engineering to the parts of lesson preparation that can be systematic, reusable, and deterministic.
+
+---
+
+## Why This Is Both a Software and Educational Project
+
+From a software engineering perspective, Arabic Deck Builder explores:
+
+- typed domain modelling;
+- parsing and validation;
+- transformation pipelines;
+- modular architecture;
+- abstraction boundaries;
+- asset handling;
+- external-library integration;
+- exhaustive type handling;
+- refactoring from real repetition;
+- semantic versioning.
+
+From an educational perspective, it explores:
+
+- controlled language progression;
+- retrieval practice;
+- scaffolding;
+- fading support;
+- comprehension before production;
+- communicative tasks;
+- personalization;
+- noticing;
+- formative assessment;
+- teacher-controlled sequencing.
+
+The project therefore sits at the intersection of:
+
+**Software Engineering × Educational Technology × Arabic Language Teaching**
 
 ---
 
