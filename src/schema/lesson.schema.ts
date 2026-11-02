@@ -235,6 +235,20 @@ const errorCorrectionActivitySchema = z.object({
   support: supportPlanSchema.optional(),
 });
 
+const selfCheckItemSchema = z.object({
+  text: z.string().min(1),
+
+  prompt: z.string().min(1).optional(),
+});
+
+const selfCheckActivitySchema = z.object({
+  type: z.literal("self_check"),
+
+  title: z.string().min(1).optional(),
+
+  items: z.array(selfCheckItemSchema).min(1).max(6),
+});
+
 const activitySchema = z.discriminatedUnion("type", [
   introduceActivitySchema,
   questionRevealActivitySchema,
@@ -248,6 +262,7 @@ const activitySchema = z.discriminatedUnion("type", [
   rolePlayActivitySchema,
   noticingActivitySchema,
   errorCorrectionActivitySchema,
+  selfCheckActivitySchema,
 ]);
 
 export const lessonSchema = z.object({

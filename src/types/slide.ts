@@ -156,6 +156,19 @@ export type ErrorCorrectionSlide = {
   showCorrection: boolean;
 };
 
+export type SelfCheckItem = {
+  text: string;
+  prompt?: string;
+};
+
+export type SelfCheckSlide = {
+  type: "self_check";
+
+  title: string;
+
+  items: SelfCheckItem[];
+};
+
 export type SlideSpec =
   | IntroduceSlide
   | QuestionSlide
@@ -169,4 +182,5 @@ export type SlideSpec =
   | InformationGapSlide
   | RolePlaySlide
   | NoticingSlide
-  | ErrorCorrectionSlide;
+  | ErrorCorrectionSlide
+  | SelfCheckSlide;

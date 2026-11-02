@@ -413,6 +413,21 @@ export function planSlides(lesson: Lesson): SlideSpec[] {
 
         break;
       }
+
+      case "self_check": {
+        slides.push({
+          type: "self_check",
+
+          title: activity.title ?? "أَسْتَطِيعُ أَنْ...",
+
+          items: activity.items.map((item) => ({
+            text: item.text,
+            prompt: item.prompt,
+          })),
+        });
+
+        break;
+      }
     }
   }
   return slides;

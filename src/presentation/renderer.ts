@@ -12,6 +12,7 @@ import { renderQuestionSlide } from "./layouts/question.ts";
 import { renderRecallSlide } from "./layouts/recall.ts";
 import { renderRevealSlide } from "./layouts/reveal.ts";
 import { renderRolePlaySlide } from "./layouts/role-play.ts";
+import { renderSelfCheckSlide } from "./layouts/self-check.ts";
 import { renderTransformSlide } from "./layouts/transform.ts";
 import type { PowerPointSlide, Presentation } from "./pptx.ts";
 
@@ -46,5 +47,7 @@ export function renderSlide(
       return renderNoticingSlide(presentation, slide);
     case "error_correction":
       return renderErrorCorrectionSlide(presentation, slide);
+    case "self_check":
+      return renderSelfCheckSlide(presentation, slide);
   }
 }
