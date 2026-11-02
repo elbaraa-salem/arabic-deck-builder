@@ -6,3 +6,4 @@ output/
 study.md
 assets/images/*
 !assets/images/.gitkeep
+studying/*

@@ -10,7 +10,7 @@ export function planSlides(lesson: Lesson): SlideSpec[] {
         slides.push({
           type: "introduce",
           arabic: activity.arabic,
-          russian: activity.russian,
+          translation: activity.translation,
           image: activity.image,
         });
 
@@ -43,7 +43,7 @@ export function planSlides(lesson: Lesson): SlideSpec[] {
               visibleLines.push({
                 speaker: line.speaker,
                 arabic: line.arabic,
-                russian: line.russian,
+                translation: line.translation,
               });
 
               slides.push({

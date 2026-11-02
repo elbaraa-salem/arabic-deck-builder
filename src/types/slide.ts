@@ -1,7 +1,7 @@
 export type IntroduceSlide = {
   type: "introduce";
   arabic: string;
-  russian?: string;
+  translation?: string;
   image: string;
 };
 
@@ -21,7 +21,7 @@ export type RevealSlide = {
 export type DialogueSlideLine = {
   speaker: "A" | "B";
   arabic: string;
-  russian?: string;
+  translation?: string;
 };
 
 export type DialogueSpeakers = {

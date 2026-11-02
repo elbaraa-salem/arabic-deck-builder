@@ -112,17 +112,17 @@ export function renderDialogueSlide(
       margin: 0,
     });
 
-    if (line.russian) {
-      slide.addText(line.russian, {
+    if (line.translation) {
+      slide.addText(line.translation, {
         x,
         y: y + 0.5,
         w: 4.9,
         h: 0.3,
 
-        fontFace: theme.fonts.russian,
+        fontFace: theme.fonts.translation,
         fontSize: 11,
 
-        color: theme.colors.russian,
+        color: theme.colors.translation,
 
         align: isSpeakerA ? "right" : "left",
 

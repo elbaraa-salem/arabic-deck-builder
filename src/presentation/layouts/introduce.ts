@@ -43,15 +43,15 @@ export function renderIntroduceSlide(
       margin: 0,
     });
 
-    if (spec.russian) {
-      slide.addText(spec.russian, {
+    if (spec.translation) {
+      slide.addText(spec.translation, {
         x: 1.5,
         y: 5.35,
         w: 10.33,
         h: 0.5,
-        fontFace: theme.fonts.russian,
+        fontFace: theme.fonts.translation,
         fontSize: 18,
-        color: theme.colors.russian,
+        color: theme.colors.translation,
         align: "center",
         valign: "middle",
         margin: 0,
@@ -82,15 +82,15 @@ export function renderIntroduceSlide(
       margin: 0,
     });
 
-    if (spec.russian) {
-      slide.addText(spec.russian, {
+    if (spec.translation) {
+      slide.addText(spec.translation, {
         x: 1.5,
         y: 5.8,
         w: 10.33,
         h: 0.5,
-        fontFace: theme.fonts.russian,
+        fontFace: theme.fonts.translation,
         fontSize: 18,
-        color: theme.colors.russian,
+        color: theme.colors.translation,
         align: "center",
         valign: "middle",
         margin: 0,

@@ -3,7 +3,7 @@ import { z } from "zod";
 const introduceActivitySchema = z.object({
   type: z.literal("introduce"),
   arabic: z.string().min(1),
-  russian: z.string().min(1).optional(),
+  translation: z.string().min(1).optional(),
   image: z.string().min(1),
 });
 
@@ -17,7 +17,7 @@ const questionRevealActivitySchema = z.object({
 const dialogueLineSchema = z.object({
   speaker: z.enum(["A", "B"]),
   arabic: z.string().min(1),
-  russian: z.string().min(1).optional(),
+  translation: z.string().min(1).optional(),
 });
 
 const dialogueSegmentSchema = z.object({
