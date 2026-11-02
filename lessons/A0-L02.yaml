@@ -4,168 +4,168 @@ title: هَذَا وهَذِهِ
 goal: يشير الطالب إلى الأشياء والأشخاص ويسأل ويجيب باستخدام ما ومن وهذا وهذه
 
 activities:
-  # - type: introduce
-  #   arabic: كِتَاب
-  #   translation: книга
-  #   image: book
+  - type: introduce
+    arabic: كِتَاب
+    translation: книга
+    image: book
 
-  # - type: introduce
-  #   arabic: بَيْت
-  #   image: house
+  - type: introduce
+    arabic: بَيْت
+    image: house
 
-  # - type: question_reveal
-  #   question: مَا هَذَا؟
-  #   answer: هَذَا كِتَاب
-  #   image: book
+  - type: question_reveal
+    question: مَا هَذَا؟
+    answer: هَذَا كِتَاب
+    image: book
 
-  # - type: question_reveal
-  #   question: مَا هَذَا؟
-  #   answer: هَذَا بَيْت
-  #   image: house
+  - type: question_reveal
+    question: مَا هَذَا؟
+    answer: هَذَا بَيْت
+    image: house
 
-  # - type: recall
+  - type: recall
 
-  #   prompt:
-  #     question: مَا هَذَا؟
-  #     image: book
+    prompt:
+      question: مَا هَذَا؟
+      image: book
 
-  #   answer: كِتَاب
+    answer: كِتَاب
 
-  #   support:
-  #     stages:
-  #       - translation: книга
-  #         hint: ك...
+    support:
+      stages:
+        - translation: книга
+          hint: ك...
 
-  #       - hint: ك...
+        - hint: ك...
 
-  #       - {}
+        - {}
 
-  # - type: recall
+  - type: recall
 
-  #   prompt:
-  #     question: مَا هَذَا؟
-  #     image: house
+    prompt:
+      question: مَا هَذَا؟
+      image: house
 
-  #   answer: بَيْت
+    answer: بَيْت
 
-  #   support:
-  #     stages:
-  #       - translation: house
-  #         hint: بَ...
+    support:
+      stages:
+        - translation: house
+          hint: بَ...
 
-  #       - hint: بَ...
+        - hint: بَ...
 
-  #       - {}
+        - {}
 
-  # - type: discriminate
+  - type: discriminate
 
-  #   prompt:
-  #     question: هَذَا أَمْ هَذِهِ؟
-  #     image: book
+    prompt:
+      question: هَذَا أَمْ هَذِهِ؟
+      image: book
 
-  #   choices:
-  #     - هَذَا
-  #     - هَذِهِ
+    choices:
+      - هَذَا
+      - هَذِهِ
 
-  #   answer: هَذَا
+    answer: هَذَا
 
-  #   support:
-  #     stages:
-  #       - translation: Что правильно?
+    support:
+      stages:
+        - translation: Что правильно?
 
-  #       - {}
+        - {}
 
-  # - type: transform
+  - type: transform
 
-  #   instruction: غَيِّرِ الجُمْلَةَ
+    instruction: غَيِّرِ الجُمْلَةَ
 
-  #   model: أَنَا مِنْ مِصْر
+    model: أَنَا مِنْ مِصْر
 
-  #   cue:
-  #     text: رُوسْيَا
+    cue:
+      text: رُوسْيَا
 
-  #   answer: أَنَا مِنْ رُوسْيَا
+    answer: أَنَا مِنْ رُوسْيَا
 
-  #   support:
-  #     stages:
-  #       - translation: Я из России
-  #         hint: أَنَا مِنْ ...
+    support:
+      stages:
+        - translation: Я из России
+          hint: أَنَا مِنْ ...
 
-  #       - hint: أَنَا مِنْ ...
+        - hint: أَنَا مِنْ ...
 
-  #       - {}
+        - {}
 
-  # - type: personalize
+  - type: personalize
 
-  #   model: أَحْمَد مِنْ مِصْر
+    model: أَحْمَد مِنْ مِصْر
 
-  #   prompt:
-  #     question: وَأَنْتَ؟ مِنْ أَيْنَ أَنْتَ؟
+    prompt:
+      question: وَأَنْتَ؟ مِنْ أَيْنَ أَنْتَ؟
 
-  #   support:
-  #     stages:
-  #       - translation: А ты? Откуда ты?
-  #         hint: أَنَا مِنْ ...
+    support:
+      stages:
+        - translation: А ты? Откуда ты?
+          hint: أَنَا مِنْ ...
 
-  #       - hint: أَنَا مِنْ ...
+        - hint: أَنَا مِنْ ...
 
-  #       - {}
+        - {}
 
-  # - type: personalize
+  - type: personalize
 
-  #   model: اِسْمِي أَحْمَد
+    model: اِسْمِي أَحْمَد
 
-  #   prompt:
-  #     question: مَا اسْمُكَ؟
+    prompt:
+      question: مَا اسْمُكَ؟
 
-  #   support:
-  #     stages:
-  #       - hint: اِسْمِي ...
+    support:
+      stages:
+        - hint: اِسْمِي ...
 
-  #       - {}
+        - {}
 
-  # - type: personalize
+  - type: personalize
 
-  #   prompt:
-  #     question: مَاذَا تُحِبُّ أَنْ تَفْعَلَ فِي وَقْتِ الفَرَاغِ؟
+    prompt:
+      question: مَاذَا تُحِبُّ أَنْ تَفْعَلَ فِي وَقْتِ الفَرَاغِ؟
 
-  #   support:
-  #     stages:
-  #       - hint: أُحِبُّ أَنْ ...
+    support:
+      stages:
+        - hint: أُحِبُّ أَنْ ...
 
-  #       - {}
+        - {}
 
-  # - type: interpret
+  - type: interpret
 
-  #   passage: أَحْمَد مِنْ مِصْر. هُوَ طَبِيب.
+    passage: أَحْمَد مِنْ مِصْر. هُوَ طَبِيب.
 
-  #   question: مِنْ أَيْنَ أَحْمَد؟
+    question: مِنْ أَيْنَ أَحْمَد؟
 
-  #   choices:
-  #     - مِصْر
-  #     - رُوسْيَا
-  #     - فَرَنْسَا
+    choices:
+      - مِصْر
+      - رُوسْيَا
+      - فَرَنْسَا
 
-  #   answer: مِصْر
+    answer: مِصْر
 
-  #   support:
-  #     stages:
-  #       - translation: Откуда Ахмед?
+    support:
+      stages:
+        - translation: Откуда Ахмед?
 
-  #       - {}
+        - {}
 
-  # - type: interpret
+  - type: interpret
 
-  #   passage: أَحْمَد مِنْ مِصْر. هُوَ طَبِيب.
+    passage: أَحْمَد مِنْ مِصْر. هُوَ طَبِيب.
 
-  #   question: مَا عَمَلُ أَحْمَد؟
+    question: مَا عَمَلُ أَحْمَد؟
 
-  #   choices:
-  #     - طَبِيب
-  #     - مُدَرِّس
-  #     - مُهَنْدِس
+    choices:
+      - طَبِيب
+      - مُدَرِّس
+      - مُهَنْدِس
 
-  #   answer: طَبِيب
+    answer: طَبِيب
 
   - type: information_gap
 
@@ -192,5 +192,30 @@ activities:
           hint: مِنْ أَيْنَ ...؟ / كَمْ عُمْرُ ...؟
 
         - hint: مِنْ أَيْنَ ...؟ / كَمْ عُمْرُ ...؟
+
+        - {}
+
+  - type: role_play
+
+    instruction: مَثِّلِ المَوْقِفَ
+
+    situation: تَعَرَّفْتَ عَلَى شَخْصٍ جَدِيدٍ
+
+    roles:
+      student: طَالِب مِنْ رُوسْيَا
+      partner: شَخْص عَرَبِيّ
+
+    goals:
+      - سَلِّمْ عَلَيْهِ
+      - اسْأَلْهُ عَنْ اسْمِهِ
+      - اسْأَلْهُ مِنْ أَيْنَ هُوَ
+      - قُلْ لَهُ اسْمَكَ وَبَلَدَكَ
+
+    support:
+      stages:
+        - translation: Познакомься с новым человеком.
+          hint: السَّلامُ عَلَيْكُم / مَا اسْمُكَ؟ / مِنْ أَيْنَ أَنْتَ؟
+
+        - hint: السَّلامُ عَلَيْكُم / مَا اسْمُكَ؟ / مِنْ أَيْنَ أَنْتَ؟
 
         - {}

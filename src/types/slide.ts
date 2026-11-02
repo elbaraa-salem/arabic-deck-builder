@@ -111,6 +111,25 @@ export type InformationGapSlide = {
   showAnswers: boolean;
 };
 
+export type RolePlaySlide = {
+  type: "role_play";
+
+  instruction: string;
+
+  situation: string;
+
+  roles: {
+    student: string;
+    partner: string;
+  };
+
+  goals: string[];
+
+  image?: string;
+
+  support: SupportStage;
+};
+
 export type SlideSpec =
   | IntroduceSlide
   | QuestionSlide
@@ -121,4 +140,5 @@ export type SlideSpec =
   | TransformSlide
   | PersonalizeSlide
   | InterpretSlide
-  | InformationGapSlide;
+  | InformationGapSlide
+  | RolePlaySlide;

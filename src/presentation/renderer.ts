@@ -9,6 +9,7 @@ import { renderPersonalizeSlide } from "./layouts/personalize.ts";
 import { renderQuestionSlide } from "./layouts/question.ts";
 import { renderRecallSlide } from "./layouts/recall.ts";
 import { renderRevealSlide } from "./layouts/reveal.ts";
+import { renderRolePlaySlide } from "./layouts/role-play.ts";
 import { renderTransformSlide } from "./layouts/transform.ts";
 import type { PowerPointSlide, Presentation } from "./pptx.ts";
 
@@ -37,5 +38,7 @@ export function renderSlide(
       return renderInterpretSlide(presentation, slide);
     case "information_gap":
       return renderInformationGapSlide(presentation, slide);
+    case "role_play":
+      return renderRolePlaySlide(presentation, slide);
   }
 }

@@ -180,6 +180,26 @@ const informationGapActivitySchema = z
       path: ["facts"],
     },
   );
+
+const rolePlayActivitySchema = z.object({
+  type: z.literal("role_play"),
+
+  instruction: z.string().min(1),
+
+  situation: z.string().min(1),
+
+  roles: z.object({
+    student: z.string().min(1),
+    partner: z.string().min(1),
+  }),
+
+  goals: z.array(z.string().min(1)).min(1).max(6),
+
+  image: z.string().min(1).optional(),
+
+  support: supportPlanSchema.optional(),
+});
+
 const activitySchema = z.discriminatedUnion("type", [
   introduceActivitySchema,
   questionRevealActivitySchema,
@@ -190,6 +210,7 @@ const activitySchema = z.discriminatedUnion("type", [
   personalizeActivitySchema,
   interpretActivitySchema,
   informationGapActivitySchema,
+  rolePlayActivitySchema,
 ]);
 
 export const lessonSchema = z.object({

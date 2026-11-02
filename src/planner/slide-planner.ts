@@ -295,6 +295,34 @@ export function planSlides(lesson: Lesson): SlideSpec[] {
 
         break;
       }
+
+      case "role_play": {
+        const supportStages = getSupportStages(activity.support);
+
+        for (const support of supportStages) {
+          slides.push({
+            type: "role_play",
+
+            instruction: activity.instruction,
+
+            situation: activity.situation,
+
+            roles: {
+              student: activity.roles.student,
+
+              partner: activity.roles.partner,
+            },
+
+            goals: [...activity.goals],
+
+            image: activity.image,
+
+            support,
+          });
+        }
+
+        break;
+      }
     }
   }
   return slides;
