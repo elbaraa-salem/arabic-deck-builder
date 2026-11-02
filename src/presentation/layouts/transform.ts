@@ -22,9 +22,9 @@ export function renderTransformSlide(
   addContentDecorations(slide);
 
   slide.addText(spec.instruction, {
-    x: 1.5,
+    x: theme.layout.contentX,
     y: 0.35,
-    w: 10.3,
+    w: theme.layout.contentWidth,
     h: 0.55,
 
     fontFace: theme.fonts.arabic,
@@ -39,9 +39,9 @@ export function renderTransformSlide(
   });
 
   slide.addText(spec.model, {
-    x: 1.5,
+    x: theme.layout.contentX,
     y: 1.15,
-    w: 10.3,
+    w: theme.layout.contentWidth,
     h: 0.8,
 
     fontFace: theme.fonts.arabic,
@@ -91,9 +91,9 @@ export function renderTransformSlide(
   }
 
   slide.addText(spec.cue.text, {
-    x: 2,
+    x: theme.layout.innerContentX,
     y: cueY,
-    w: 9.3,
+    w: theme.layout.innerContentWidth,
     h: 0.65,
 
     fontFace: theme.fonts.arabic,
@@ -111,9 +111,9 @@ export function renderTransformSlide(
 
   if (spec.support.translation) {
     slide.addText(spec.support.translation, {
-      x: 2,
+      x: theme.layout.innerContentX,
       y: 5.2,
-      w: 9.3,
+      w: theme.layout.innerContentWidth,
       h: 0.35,
 
       fontFace: theme.fonts.translation,
@@ -130,9 +130,9 @@ export function renderTransformSlide(
 
   if (spec.support.hint) {
     slide.addText(spec.support.hint, {
-      x: 2,
+      x: theme.layout.innerContentX,
       y: 5.65,
-      w: 9.3,
+      w: theme.layout.innerContentWidth,
       h: 0.5,
 
       fontFace: theme.fonts.arabic,
@@ -150,9 +150,9 @@ export function renderTransformSlide(
 
   if (spec.showAnswer) {
     slide.addText(spec.answer, {
-      x: 1.5,
+      x: theme.layout.contentX,
       y: 5.35,
-      w: 10.3,
+      w: theme.layout.contentWidth,
       h: 0.8,
 
       fontFace: theme.fonts.arabic,

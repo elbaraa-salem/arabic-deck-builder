@@ -21,9 +21,9 @@ export function renderLessonEndSlide(
   });
 
   slide.addText(spec.title, {
-    x: 1.5,
+    x: theme.layout.contentX,
     y: 2.0,
-    w: 10.3,
+    w: theme.layout.contentWidth,
     h: 1.1,
 
     fontFace: theme.fonts.arabic,
@@ -44,9 +44,9 @@ export function renderLessonEndSlide(
 
   if (spec.subtitle) {
     slide.addText(spec.subtitle, {
-      x: 1.5,
+      x: theme.layout.contentX,
       y: 3.4,
-      w: 10.3,
+      w: theme.layout.contentWidth,
       h: 0.75,
 
       fontFace: theme.fonts.arabic,
@@ -66,9 +66,9 @@ export function renderLessonEndSlide(
 
   if (spec.translation) {
     slide.addText(spec.translation, {
-      x: 2,
+      x: theme.layout.innerContentX,
       y: 4.5,
-      w: 9.3,
+      w: theme.layout.innerContentWidth,
       h: 0.5,
 
       fontFace: theme.fonts.translation,

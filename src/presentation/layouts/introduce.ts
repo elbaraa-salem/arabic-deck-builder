@@ -48,7 +48,7 @@ export function renderIntroduceSlide(
 
     if (spec.translation) {
       slide.addText(spec.translation, {
-        x: 1.5,
+        x: theme.layout.contentX,
         y: 5.35,
         w: 10.33,
         h: 0.5,
@@ -71,7 +71,7 @@ export function renderIntroduceSlide(
     slide.addImage(image);
 
     slide.addText(spec.arabic, {
-      x: 1.5,
+      x: theme.layout.contentX,
       y: 4.9,
       w: 10.33,
       h: 0.9,
@@ -87,7 +87,7 @@ export function renderIntroduceSlide(
 
     if (spec.translation) {
       slide.addText(spec.translation, {
-        x: 1.5,
+        x: theme.layout.contentX,
         y: 5.8,
         w: 10.33,
         h: 0.5,

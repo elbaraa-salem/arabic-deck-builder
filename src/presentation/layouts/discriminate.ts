@@ -24,9 +24,9 @@ export function renderDiscriminateSlide(
   addContentDecorations(slide);
 
   slide.addText(spec.question, {
-    x: 1.5,
+    x: theme.layout.contentX,
     y: 0.4,
-    w: 10.3,
+    w: theme.layout.contentWidth,
     h: 0.7,
 
     fontFace: theme.fonts.arabic,
@@ -44,9 +44,9 @@ export function renderDiscriminateSlide(
 
   if (spec.support.translation) {
     slide.addText(spec.support.translation, {
-      x: 2,
+      x: theme.layout.innerContentX,
       y: 1.12,
-      w: 9.3,
+      w: theme.layout.innerContentWidth,
       h: 0.35,
 
       fontFace: theme.fonts.translation,
@@ -63,9 +63,9 @@ export function renderDiscriminateSlide(
 
   if (spec.support.hint) {
     slide.addText(spec.support.hint, {
-      x: 2,
+      x: theme.layout.innerContentX,
       y: 1.52,
-      w: 9.3,
+      w: theme.layout.innerContentWidth,
       h: 0.4,
 
       fontFace: theme.fonts.arabic,

@@ -22,9 +22,9 @@ export function renderRecallSlide(
   addContentDecorations(slide);
 
   slide.addText(spec.question, {
-    x: 1.5,
+    x: theme.layout.contentX,
     y: 0.5,
-    w: 10.3,
+    w: theme.layout.contentWidth,
     h: 0.7,
 
     fontFace: theme.fonts.arabic,
@@ -55,9 +55,9 @@ export function renderRecallSlide(
 
   if (spec.support.translation) {
     slide.addText(spec.support.translation, {
-      x: 2,
+      x: theme.layout.innerContentX,
       y: 5.05,
-      w: 9.3,
+      w: theme.layout.innerContentWidth,
       h: 0.4,
 
       fontFace: theme.fonts.translation,
@@ -74,9 +74,9 @@ export function renderRecallSlide(
 
   if (spec.support.hint) {
     slide.addText(spec.support.hint, {
-      x: 2,
+      x: theme.layout.innerContentX,
       y: 5.55,
-      w: 9.3,
+      w: theme.layout.innerContentWidth,
       h: 0.45,
 
       fontFace: theme.fonts.arabic,
@@ -96,9 +96,9 @@ export function renderRecallSlide(
 
   if (spec.showAnswer) {
     slide.addText(spec.answer, {
-      x: 2,
+      x: theme.layout.innerContentX,
       y: 5.3,
-      w: 9.3,
+      w: theme.layout.innerContentWidth,
       h: 0.85,
 
       fontFace: theme.fonts.arabic,

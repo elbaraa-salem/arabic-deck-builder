@@ -22,9 +22,9 @@ export function renderErrorCorrectionSlide(
   addContentDecorations(slide);
 
   slide.addText(spec.instruction, {
-    x: 1.5,
+    x: theme.layout.contentX,
     y: 0.35,
-    w: 10.3,
+    w: theme.layout.contentWidth,
     h: 0.5,
 
     fontFace: theme.fonts.arabic,
@@ -56,9 +56,9 @@ export function renderErrorCorrectionSlide(
   }
 
   slide.addText(spec.incorrect, {
-    x: 1.5,
+    x: theme.layout.contentX,
     y: incorrectY,
-    w: 10.3,
+    w: theme.layout.contentWidth,
     h: 0.9,
 
     fontFace: theme.fonts.arabic,
@@ -78,9 +78,9 @@ export function renderErrorCorrectionSlide(
 
   if (spec.support.translation) {
     slide.addText(spec.support.translation, {
-      x: 2,
+      x: theme.layout.innerContentX,
       y: supportY,
-      w: 9.3,
+      w: theme.layout.innerContentWidth,
       h: 0.35,
 
       fontFace: theme.fonts.translation,
@@ -99,9 +99,9 @@ export function renderErrorCorrectionSlide(
 
   if (spec.support.hint) {
     slide.addText(spec.support.hint, {
-      x: 2,
+      x: theme.layout.innerContentX,
       y: supportY,
-      w: 9.3,
+      w: theme.layout.innerContentWidth,
       h: 0.5,
 
       fontFace: theme.fonts.arabic,
@@ -119,9 +119,9 @@ export function renderErrorCorrectionSlide(
 
   if (spec.showCorrection) {
     slide.addText(spec.correction, {
-      x: 1.5,
+      x: theme.layout.contentX,
       y: 5.1,
-      w: 10.3,
+      w: theme.layout.contentWidth,
       h: 0.8,
 
       fontFace: theme.fonts.arabic,
@@ -140,9 +140,9 @@ export function renderErrorCorrectionSlide(
 
     if (spec.explanation) {
       slide.addText(spec.explanation, {
-        x: 2,
+        x: theme.layout.innerContentX,
         y: 6.0,
-        w: 9.3,
+        w: theme.layout.innerContentWidth,
         h: 0.55,
 
         fontFace: theme.fonts.arabic,

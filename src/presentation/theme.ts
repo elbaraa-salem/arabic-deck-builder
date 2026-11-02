@@ -76,4 +76,12 @@ export const theme = {
     factValue: 22,
     factAnswer: 25,
   },
+
+  layout: {
+    contentX: 1.5,
+    contentWidth: 10.3,
+
+    innerContentX: 2,
+    innerContentWidth: 9.3,
+  },
 };

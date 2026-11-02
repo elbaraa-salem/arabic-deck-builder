@@ -22,9 +22,9 @@ export function renderInformationGapSlide(
   addCleanDecorations(slide);
 
   slide.addText(spec.instruction, {
-    x: 1.5,
+    x: theme.layout.contentX,
     y: 0.3,
-    w: 10.3,
+    w: theme.layout.contentWidth,
     h: 0.5,
 
     fontFace: theme.fonts.arabic,
@@ -41,9 +41,9 @@ export function renderInformationGapSlide(
 
   if (spec.subject) {
     slide.addText(spec.subject, {
-      x: 1.5,
+      x: theme.layout.contentX,
       y: 0.9,
-      w: 10.3,
+      w: theme.layout.contentWidth,
       h: 0.7,
 
       fontFace: theme.fonts.arabic,
@@ -152,9 +152,9 @@ export function renderInformationGapSlide(
 
   if (spec.support.translation) {
     slide.addText(spec.support.translation, {
-      x: 2,
+      x: theme.layout.innerContentX,
       y: supportY,
-      w: 9.3,
+      w: theme.layout.innerContentWidth,
       h: 0.35,
 
       fontFace: theme.fonts.translation,
@@ -173,9 +173,9 @@ export function renderInformationGapSlide(
 
   if (spec.support.hint) {
     slide.addText(spec.support.hint, {
-      x: 2,
+      x: theme.layout.innerContentX,
       y: supportY,
-      w: 9.3,
+      w: theme.layout.innerContentWidth,
       h: 0.5,
 
       fontFace: theme.fonts.arabic,

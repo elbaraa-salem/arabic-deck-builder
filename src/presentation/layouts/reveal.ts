@@ -21,7 +21,7 @@ export function renderRevealSlide(
   const imagePath = resolveImagePath(spec.image);
 
   slide.addText(spec.question, {
-    x: 1.5,
+    x: theme.layout.contentX,
     y: 0.5,
     w: 10.33,
     h: 0.8,
@@ -44,7 +44,7 @@ export function renderRevealSlide(
   );
 
   slide.addText(spec.answer, {
-    x: 1.5,
+    x: theme.layout.contentX,
     y: 5.2,
     w: 10.33,
     h: 0.8,

@@ -21,7 +21,7 @@ export function renderQuestionSlide(
   const imagePath = resolveImagePath(spec.image);
 
   slide.addText(spec.question, {
-    x: 1.5,
+    x: theme.layout.contentX,
     y: 0.8,
     w: 10.33,
     h: 0.9,

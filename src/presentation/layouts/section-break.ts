@@ -20,9 +20,9 @@ export function renderSectionBreakSlide(
   });
 
   slide.addText(spec.title, {
-    x: 1.5,
+    x: theme.layout.contentX,
     y: 2.3,
-    w: 10.3,
+    w: theme.layout.contentWidth,
     h: 1.1,
 
     fontFace: theme.fonts.arabic,
@@ -43,9 +43,9 @@ export function renderSectionBreakSlide(
 
   if (spec.subtitle) {
     slide.addText(spec.subtitle, {
-      x: 1.5,
+      x: theme.layout.contentX,
       y: 3.55,
-      w: 10.3,
+      w: theme.layout.contentWidth,
       h: 0.65,
 
       fontFace: theme.fonts.arabic,
@@ -65,9 +65,9 @@ export function renderSectionBreakSlide(
 
   if (spec.translation) {
     slide.addText(spec.translation, {
-      x: 2,
+      x: theme.layout.innerContentX,
       y: 4.7,
-      w: 9.3,
+      w: theme.layout.innerContentWidth,
       h: 0.45,
 
       fontFace: theme.fonts.translation,

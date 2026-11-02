@@ -18,9 +18,9 @@ export function renderSelfCheckSlide(
   addContentDecorations(slide);
 
   slide.addText(spec.title, {
-    x: 1.5,
+    x: theme.layout.contentX,
     y: 0.55,
-    w: 10.3,
+    w: theme.layout.contentWidth,
     h: 0.75,
 
     fontFace: theme.fonts.arabic,

@@ -22,9 +22,9 @@ export function renderRolePlaySlide(
   addCleanDecorations(slide);
 
   slide.addText(spec.instruction, {
-    x: 1.5,
+    x: theme.layout.contentX,
     y: 0.25,
-    w: 10.3,
+    w: theme.layout.contentWidth,
     h: 0.45,
 
     fontFace: theme.fonts.arabic,
@@ -155,9 +155,9 @@ export function renderRolePlaySlide(
   const goalsText = spec.goals.map((goal) => `• ${goal}`).join("\n");
 
   slide.addText("هَدَفُكَ", {
-    x: 1.5,
+    x: theme.layout.contentX,
     y: 4.15,
-    w: 10.3,
+    w: theme.layout.contentWidth,
     h: 0.4,
 
     fontFace: theme.fonts.arabic,
@@ -194,9 +194,9 @@ export function renderRolePlaySlide(
 
   if (spec.support.translation) {
     slide.addText(spec.support.translation, {
-      x: 2,
+      x: theme.layout.innerContentX,
       y: supportY,
-      w: 9.3,
+      w: theme.layout.innerContentWidth,
       h: 0.35,
 
       fontFace: theme.fonts.translation,

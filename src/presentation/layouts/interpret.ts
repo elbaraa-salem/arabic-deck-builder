@@ -62,9 +62,9 @@ export function renderInterpretSlide(
   }
 
   slide.addText(spec.question, {
-    x: 1.5,
+    x: theme.layout.contentX,
     y: questionY,
-    w: 10.3,
+    w: theme.layout.contentWidth,
     h: 0.65,
 
     fontFace: theme.fonts.arabic,
@@ -85,9 +85,9 @@ export function renderInterpretSlide(
 
   if (spec.support.translation) {
     slide.addText(spec.support.translation, {
-      x: 2,
+      x: theme.layout.innerContentX,
       y: choicesStartY,
-      w: 9.3,
+      w: theme.layout.innerContentWidth,
       h: 0.35,
 
       fontFace: theme.fonts.translation,
@@ -106,9 +106,9 @@ export function renderInterpretSlide(
 
   if (spec.support.hint) {
     slide.addText(spec.support.hint, {
-      x: 2,
+      x: theme.layout.innerContentX,
       y: choicesStartY,
-      w: 9.3,
+      w: theme.layout.innerContentWidth,
       h: 0.4,
 
       fontFace: theme.fonts.arabic,

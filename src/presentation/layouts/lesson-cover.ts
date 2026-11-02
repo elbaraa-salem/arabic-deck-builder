@@ -20,9 +20,9 @@ export function renderLessonCoverSlide(
   });
 
   slide.addText(spec.title, {
-    x: 1.5,
+    x: theme.layout.contentX,
     y: 1.55,
-    w: 10.3,
+    w: theme.layout.contentWidth,
     h: 1.1,
 
     fontFace: theme.fonts.arabic,
@@ -43,9 +43,9 @@ export function renderLessonCoverSlide(
 
   if (spec.subtitle) {
     slide.addText(spec.subtitle, {
-      x: 1.5,
+      x: theme.layout.contentX,
       y: 3.05,
-      w: 10.3,
+      w: theme.layout.contentWidth,
       h: 0.75,
 
       fontFace: theme.fonts.arabic,
@@ -65,9 +65,9 @@ export function renderLessonCoverSlide(
 
   if (spec.translation) {
     slide.addText(spec.translation, {
-      x: 2,
+      x: theme.layout.innerContentX,
       y: 4.15,
-      w: 9.3,
+      w: theme.layout.innerContentWidth,
       h: 0.5,
 
       fontFace: theme.fonts.translation,
