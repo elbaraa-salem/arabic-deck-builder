@@ -323,6 +323,52 @@ export function planSlides(lesson: Lesson): SlideSpec[] {
 
         break;
       }
+
+      case "noticing": {
+        const supportStages = getSupportStages(activity.support);
+
+        for (const support of supportStages) {
+          slides.push({
+            type: "noticing",
+
+            instruction: activity.instruction,
+
+            items: activity.items.map((item) => ({
+              text: item.text,
+              image: item.image,
+            })),
+
+            question: activity.question,
+
+            insight: activity.insight,
+
+            support,
+
+            showInsight: false,
+          });
+        }
+
+        slides.push({
+          type: "noticing",
+
+          instruction: activity.instruction,
+
+          items: activity.items.map((item) => ({
+            text: item.text,
+            image: item.image,
+          })),
+
+          question: activity.question,
+
+          insight: activity.insight,
+
+          support: {},
+
+          showInsight: true,
+        });
+
+        break;
+      }
     }
   }
   return slides;

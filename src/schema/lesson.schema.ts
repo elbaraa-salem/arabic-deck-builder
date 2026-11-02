@@ -200,6 +200,25 @@ const rolePlayActivitySchema = z.object({
   support: supportPlanSchema.optional(),
 });
 
+const noticingItemSchema = z.object({
+  text: z.string().min(1),
+  image: z.string().min(1).optional(),
+});
+
+const noticingActivitySchema = z.object({
+  type: z.literal("noticing"),
+
+  instruction: z.string().min(1),
+
+  items: z.array(noticingItemSchema).min(2).max(4),
+
+  question: z.string().min(1),
+
+  insight: z.string().min(1),
+
+  support: supportPlanSchema.optional(),
+});
+
 const activitySchema = z.discriminatedUnion("type", [
   introduceActivitySchema,
   questionRevealActivitySchema,
@@ -211,6 +230,7 @@ const activitySchema = z.discriminatedUnion("type", [
   interpretActivitySchema,
   informationGapActivitySchema,
   rolePlayActivitySchema,
+  noticingActivitySchema,
 ]);
 
 export const lessonSchema = z.object({

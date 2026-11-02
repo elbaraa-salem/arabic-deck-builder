@@ -5,6 +5,7 @@ import { renderInformationGapSlide } from "./layouts/information-gap.ts";
 import { renderInterpretSlide } from "./layouts/interpret.ts";
 
 import { renderIntroduceSlide } from "./layouts/introduce.ts";
+import { renderNoticingSlide } from "./layouts/noticing.ts";
 import { renderPersonalizeSlide } from "./layouts/personalize.ts";
 import { renderQuestionSlide } from "./layouts/question.ts";
 import { renderRecallSlide } from "./layouts/recall.ts";
@@ -40,5 +41,7 @@ export function renderSlide(
       return renderInformationGapSlide(presentation, slide);
     case "role_play":
       return renderRolePlaySlide(presentation, slide);
+    case "noticing":
+      return renderNoticingSlide(presentation, slide);
   }
 }

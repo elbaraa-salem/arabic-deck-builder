@@ -130,6 +130,21 @@ export type RolePlaySlide = {
   support: SupportStage;
 };
 
+export type NoticingItem = {
+  text: string;
+  image?: string;
+};
+
+export type NoticingSlide = {
+  type: "noticing";
+  instruction: string;
+  items: NoticingItem[];
+  question: string;
+  insight: string;
+  support: SupportStage;
+  showInsight: boolean;
+};
+
 export type SlideSpec =
   | IntroduceSlide
   | QuestionSlide
@@ -141,4 +156,5 @@ export type SlideSpec =
   | PersonalizeSlide
   | InterpretSlide
   | InformationGapSlide
-  | RolePlaySlide;
+  | RolePlaySlide
+  | NoticingSlide;
