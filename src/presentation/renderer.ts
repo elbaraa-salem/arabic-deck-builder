@@ -1,6 +1,7 @@
 import type { SlideSpec } from "../types/slide.ts";
 import { renderDialogueSlide } from "./layouts/dialogue.ts";
 import { renderDiscriminateSlide } from "./layouts/discriminate.ts";
+import { renderErrorCorrectionSlide } from "./layouts/error-correction.ts";
 import { renderInformationGapSlide } from "./layouts/information-gap.ts";
 import { renderInterpretSlide } from "./layouts/interpret.ts";
 
@@ -43,5 +44,7 @@ export function renderSlide(
       return renderRolePlaySlide(presentation, slide);
     case "noticing":
       return renderNoticingSlide(presentation, slide);
+    case "error_correction":
+      return renderErrorCorrectionSlide(presentation, slide);
   }
 }

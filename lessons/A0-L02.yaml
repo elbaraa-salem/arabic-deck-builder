@@ -243,3 +243,24 @@ activities:
         - hint: هَذَا ↔ هَذِهِ
 
         - {}
+
+  - type: error_correction
+
+    instruction: صَحِّحِ الجُمْلَةَ
+
+    incorrect: هَذَا سَيَّارَة
+
+    correction: هَذِهِ سَيَّارَة
+
+    explanation: سَيَّارَة كَلِمَة مُؤَنَّثَة، لِذَلِكَ نَسْتَعْمِلُ هَذِهِ.
+
+    image: car
+
+    support:
+      stages:
+        - translation: Исправь предложение.
+          hint: هَذَا أَمْ هَذِهِ؟
+
+        - hint: هَذَا أَمْ هَذِهِ؟
+
+        - {}

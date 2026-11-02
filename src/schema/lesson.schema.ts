@@ -219,6 +219,22 @@ const noticingActivitySchema = z.object({
   support: supportPlanSchema.optional(),
 });
 
+const errorCorrectionActivitySchema = z.object({
+  type: z.literal("error_correction"),
+
+  instruction: z.string().min(1),
+
+  incorrect: z.string().min(1),
+
+  correction: z.string().min(1),
+
+  explanation: z.string().min(1).optional(),
+
+  image: z.string().min(1).optional(),
+
+  support: supportPlanSchema.optional(),
+});
+
 const activitySchema = z.discriminatedUnion("type", [
   introduceActivitySchema,
   questionRevealActivitySchema,
@@ -231,6 +247,7 @@ const activitySchema = z.discriminatedUnion("type", [
   informationGapActivitySchema,
   rolePlayActivitySchema,
   noticingActivitySchema,
+  errorCorrectionActivitySchema,
 ]);
 
 export const lessonSchema = z.object({

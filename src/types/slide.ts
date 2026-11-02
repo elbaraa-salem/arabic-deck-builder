@@ -145,6 +145,17 @@ export type NoticingSlide = {
   showInsight: boolean;
 };
 
+export type ErrorCorrectionSlide = {
+  type: "error_correction";
+  instruction: string;
+  incorrect: string;
+  correction: string;
+  explanation?: string;
+  image?: string;
+  support: SupportStage;
+  showCorrection: boolean;
+};
+
 export type SlideSpec =
   | IntroduceSlide
   | QuestionSlide
@@ -157,4 +168,5 @@ export type SlideSpec =
   | InterpretSlide
   | InformationGapSlide
   | RolePlaySlide
-  | NoticingSlide;
+  | NoticingSlide
+  | ErrorCorrectionSlide;

@@ -369,6 +369,50 @@ export function planSlides(lesson: Lesson): SlideSpec[] {
 
         break;
       }
+
+      case "error_correction": {
+        const supportStages = getSupportStages(activity.support);
+
+        for (const support of supportStages) {
+          slides.push({
+            type: "error_correction",
+
+            instruction: activity.instruction,
+
+            incorrect: activity.incorrect,
+
+            correction: activity.correction,
+
+            explanation: activity.explanation,
+
+            image: activity.image,
+
+            support,
+
+            showCorrection: false,
+          });
+        }
+
+        slides.push({
+          type: "error_correction",
+
+          instruction: activity.instruction,
+
+          incorrect: activity.incorrect,
+
+          correction: activity.correction,
+
+          explanation: activity.explanation,
+
+          image: activity.image,
+
+          support: {},
+
+          showCorrection: true,
+        });
+
+        break;
+      }
     }
   }
   return slides;
