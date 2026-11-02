@@ -144,6 +144,42 @@ const interpretActivitySchema = z
     },
   );
 
+const informationGapFactSchema = z
+  .object({
+    label: z.string().min(1),
+
+    value: z.string().min(1).optional(),
+
+    answer: z.string().min(1).optional(),
+  })
+  .refine(
+    (fact) => (fact.value !== undefined) !== (fact.answer !== undefined),
+    {
+      message: "fact must contain either value or answer",
+    },
+  );
+
+const informationGapActivitySchema = z
+  .object({
+    type: z.literal("information_gap"),
+
+    instruction: z.string().min(1),
+
+    subject: z.string().min(1).optional(),
+
+    image: z.string().min(1).optional(),
+
+    facts: z.array(informationGapFactSchema).min(2).max(6),
+
+    support: supportPlanSchema.optional(),
+  })
+  .refine(
+    (activity) => activity.facts.some((fact) => fact.answer !== undefined),
+    {
+      message: "information gap must contain at least one missing fact",
+      path: ["facts"],
+    },
+  );
 const activitySchema = z.discriminatedUnion("type", [
   introduceActivitySchema,
   questionRevealActivitySchema,
@@ -153,6 +189,7 @@ const activitySchema = z.discriminatedUnion("type", [
   transformActivitySchema,
   personalizeActivitySchema,
   interpretActivitySchema,
+  informationGapActivitySchema,
 ]);
 
 export const lessonSchema = z.object({

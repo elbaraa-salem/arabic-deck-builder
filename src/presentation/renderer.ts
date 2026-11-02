@@ -1,6 +1,7 @@
 import type { SlideSpec } from "../types/slide.ts";
 import { renderDialogueSlide } from "./layouts/dialogue.ts";
 import { renderDiscriminateSlide } from "./layouts/discriminate.ts";
+import { renderInformationGapSlide } from "./layouts/information-gap.ts";
 import { renderInterpretSlide } from "./layouts/interpret.ts";
 
 import { renderIntroduceSlide } from "./layouts/introduce.ts";
@@ -34,5 +35,7 @@ export function renderSlide(
       return renderPersonalizeSlide(presentation, slide);
     case "interpret":
       return renderInterpretSlide(presentation, slide);
+    case "information_gap":
+      return renderInformationGapSlide(presentation, slide);
   }
 }

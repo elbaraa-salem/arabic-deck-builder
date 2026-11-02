@@ -89,6 +89,28 @@ export type InterpretSlide = {
   showAnswer: boolean;
 };
 
+export type InformationGapFact = {
+  label: string;
+  value?: string;
+  answer?: string;
+};
+
+export type InformationGapSlide = {
+  type: "information_gap";
+
+  instruction: string;
+
+  subject?: string;
+
+  image?: string;
+
+  facts: InformationGapFact[];
+
+  support: SupportStage;
+
+  showAnswers: boolean;
+};
+
 export type SlideSpec =
   | IntroduceSlide
   | QuestionSlide
@@ -98,4 +120,5 @@ export type SlideSpec =
   | DiscriminateSlide
   | TransformSlide
   | PersonalizeSlide
-  | InterpretSlide;
+  | InterpretSlide
+  | InformationGapSlide;

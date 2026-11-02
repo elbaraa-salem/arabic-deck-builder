@@ -247,6 +247,54 @@ export function planSlides(lesson: Lesson): SlideSpec[] {
 
         break;
       }
+
+      case "information_gap": {
+        const supportStages = getSupportStages(activity.support);
+
+        for (const support of supportStages) {
+          slides.push({
+            type: "information_gap",
+
+            instruction: activity.instruction,
+
+            subject: activity.subject,
+
+            image: activity.image,
+
+            facts: activity.facts.map((fact) => ({
+              label: fact.label,
+              value: fact.value,
+              answer: fact.answer,
+            })),
+
+            support,
+
+            showAnswers: false,
+          });
+        }
+
+        slides.push({
+          type: "information_gap",
+
+          instruction: activity.instruction,
+
+          subject: activity.subject,
+
+          image: activity.image,
+
+          facts: activity.facts.map((fact) => ({
+            label: fact.label,
+            value: fact.value,
+            answer: fact.answer,
+          })),
+
+          support: {},
+
+          showAnswers: true,
+        });
+
+        break;
+      }
     }
   }
   return slides;
