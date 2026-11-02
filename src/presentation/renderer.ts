@@ -1,4 +1,5 @@
 import type { SlideSpec } from "../types/slide.ts";
+import { renderDialogueSlide } from "./layouts/dialogue.ts";
 
 import { renderIntroduceSlide } from "./layouts/introduce.ts";
 import { renderQuestionSlide } from "./layouts/question.ts";
@@ -16,5 +17,7 @@ export function renderSlide(
       return renderQuestionSlide(presentation, slide);
     case "reveal":
       return renderRevealSlide(presentation, slide);
+    case "dialogue":
+      return renderDialogueSlide(presentation, slide);
   }
 }

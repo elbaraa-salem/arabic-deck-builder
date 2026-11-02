@@ -1,21 +1,23 @@
 import type { Lesson } from "../schema/lesson.schema.ts";
-import type { SlideSpec } from "../types/slide.ts";
+import type { DialogueSlideLine, SlideSpec } from "../types/slide.ts";
 
 export function planSlides(lesson: Lesson): SlideSpec[] {
   const slides: SlideSpec[] = [];
 
   for (const activity of lesson.activities) {
     switch (activity.type) {
-      case "introduce":
+      case "introduce": {
         slides.push({
           type: "introduce",
           arabic: activity.arabic,
           russian: activity.russian,
           image: activity.image,
         });
-        break;
 
-      case "question_reveal":
+        break;
+      }
+
+      case "question_reveal": {
         slides.push({
           type: "question",
           question: activity.question,
@@ -28,7 +30,33 @@ export function planSlides(lesson: Lesson): SlideSpec[] {
           answer: activity.answer,
           image: activity.image,
         });
+
         break;
+      }
+
+      case "dialogue_build": {
+        const visibleLines: DialogueSlideLine[] = [];
+
+        for (const line of activity.lines) {
+          visibleLines.push({
+            speaker: line.speaker,
+            arabic: line.arabic,
+            russian: line.russian,
+          });
+
+          slides.push({
+            type: "dialogue",
+            speakers: {
+              A: activity.speakers.A,
+              B: activity.speakers.B,
+            },
+            image: activity.image,
+            lines: [...visibleLines],
+          });
+        }
+
+        break;
+      }
     }
   }
 

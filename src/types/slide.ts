@@ -18,4 +18,26 @@ export type RevealSlide = {
   image: string;
 };
 
-export type SlideSpec = IntroduceSlide | QuestionSlide | RevealSlide;
+export type DialogueSlideLine = {
+  speaker: "A" | "B";
+  arabic: string;
+  russian?: string;
+};
+
+export type DialogueSpeakers = {
+  A: string;
+  B: string;
+};
+
+export type DialogueSlide = {
+  type: "dialogue";
+  speakers: DialogueSpeakers;
+  image?: string;
+  lines: DialogueSlideLine[];
+};
+
+export type SlideSpec =
+  | IntroduceSlide
+  | QuestionSlide
+  | RevealSlide
+  | DialogueSlide;

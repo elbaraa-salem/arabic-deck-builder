@@ -23,6 +23,55 @@ activities:
     answer: هَذَا بَيْت
     image: house
 
-  - type: introduce
-    arabic: طَوِيل
-    image: tall
+  - type: dialogue_build
+    speakers:
+      A: محمد
+      B: أحمد
+
+    image: greeting
+
+    lines:
+      - speaker: A
+        arabic: السَّلامُ عَلَيْكُم
+        russian: Здравствуйте
+
+      - speaker: B
+        arabic: وَعَلَيْكُمُ السَّلام
+
+      - speaker: A
+        arabic: مَا اسْمُكَ؟
+
+      - speaker: B
+        arabic: اِسْمِي أَحْمَد
+
+      - speaker: B
+        arabic: وَمَا اِسمُكَ؟
+
+      - speaker: A
+        arabic: اِسمِي مُحمدَّ
+
+  - type: dialogue_build
+    speakers:
+      A: محمد
+      B: أحمد
+
+    image: greeting
+
+    lines:
+      - speaker: A
+        arabic: من أين أنت؟
+
+      - speaker: B
+        arabic: أنا من مصر
+
+      - speaker: B
+        arabic: وأنت؟
+
+      - speaker: A
+        arabic: أنا من رُوسيا
+
+      - speaker: B
+        arabic: أَهلا وسَهلا
+
+      - speaker: A
+        arabic: أَهلا وسَهلا

@@ -14,9 +14,29 @@ const questionRevealActivitySchema = z.object({
   image: z.string().min(1),
 });
 
+const dialogueLineSchema = z.object({
+  speaker: z.enum(["A", "B"]),
+  arabic: z.string().min(1),
+  russian: z.string().min(1).optional(),
+});
+
+const dialogueBuildActivitySchema = z.object({
+  type: z.literal("dialogue_build"),
+
+  speakers: z.object({
+    A: z.string().min(1),
+    B: z.string().min(1),
+  }),
+
+  image: z.string().min(1).optional(),
+
+  lines: z.array(dialogueLineSchema).min(2).max(6),
+});
+
 const activitySchema = z.discriminatedUnion("type", [
   introduceActivitySchema,
   questionRevealActivitySchema,
+  dialogueBuildActivitySchema,
 ]);
 
 export const lessonSchema = z.object({
