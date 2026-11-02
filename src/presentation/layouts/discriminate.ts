@@ -30,7 +30,7 @@ export function renderDiscriminateSlide(
     h: 0.7,
 
     fontFace: theme.fonts.arabic,
-    fontSize: 30,
+    fontSize: theme.typography.prompt,
 
     color: theme.colors.arabic,
 
@@ -51,7 +51,7 @@ export function renderDiscriminateSlide(
 
       fontFace: theme.fonts.translation,
 
-      fontSize: 15,
+      fontSize: theme.typography.translation,
 
       color: theme.colors.translation,
 
@@ -70,7 +70,7 @@ export function renderDiscriminateSlide(
 
       fontFace: theme.fonts.arabic,
 
-      fontSize: 18,
+      fontSize: theme.typography.support,
 
       color: theme.colors.accent,
 
@@ -124,7 +124,7 @@ export function renderDiscriminateSlide(
 
       fontFace: theme.fonts.arabic,
 
-      fontSize: shouldHighlight ? 28 : 24,
+      fontSize: shouldHighlight ? theme.typography.choiceCorrect : theme.typography.choice,
 
       color: shouldHighlight ? theme.colors.accent : theme.colors.choice,
 

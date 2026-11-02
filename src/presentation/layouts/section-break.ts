@@ -27,7 +27,7 @@ export function renderSectionBreakSlide(
 
     fontFace: theme.fonts.arabic,
 
-    fontSize: 40,
+    fontSize: theme.typography.sectionTitle,
 
     color: theme.colors.arabic,
 
@@ -50,7 +50,7 @@ export function renderSectionBreakSlide(
 
       fontFace: theme.fonts.arabic,
 
-      fontSize: 25,
+      fontSize: theme.typography.sectionSubtitle,
 
       color: theme.colors.accent,
 
@@ -72,7 +72,7 @@ export function renderSectionBreakSlide(
 
       fontFace: theme.fonts.translation,
 
-      fontSize: 17,
+      fontSize: theme.typography.translation,
 
       color: theme.colors.translation,
 

@@ -28,7 +28,7 @@ export function renderRolePlaySlide(
     h: 0.45,
 
     fontFace: theme.fonts.arabic,
-    fontSize: 19,
+    fontSize: theme.typography.instruction,
 
     color: theme.colors.choice,
 
@@ -45,7 +45,7 @@ export function renderRolePlaySlide(
     h: 0.75,
 
     fontFace: theme.fonts.arabic,
-    fontSize: 28,
+    fontSize: theme.typography.activityTitle,
 
     color: theme.colors.arabic,
 
@@ -83,7 +83,7 @@ export function renderRolePlaySlide(
     h: 0.35,
 
     fontFace: theme.fonts.arabic,
-    fontSize: 16,
+    fontSize: theme.typography.label,
 
     color: theme.colors.accent,
 
@@ -102,7 +102,7 @@ export function renderRolePlaySlide(
     h: 0.55,
 
     fontFace: theme.fonts.arabic,
-    fontSize: 23,
+    fontSize: theme.typography.arabicCompact,
 
     color: theme.colors.arabic,
 
@@ -121,7 +121,7 @@ export function renderRolePlaySlide(
     h: 0.35,
 
     fontFace: theme.fonts.arabic,
-    fontSize: 16,
+    fontSize: theme.typography.label,
 
     color: theme.colors.accent,
 
@@ -140,7 +140,7 @@ export function renderRolePlaySlide(
     h: 0.55,
 
     fontFace: theme.fonts.arabic,
-    fontSize: 23,
+    fontSize: theme.typography.arabicCompact,
 
     color: theme.colors.arabic,
 
@@ -161,7 +161,7 @@ export function renderRolePlaySlide(
     h: 0.4,
 
     fontFace: theme.fonts.arabic,
-    fontSize: 18,
+    fontSize: theme.typography.instructionCompact,
 
     color: theme.colors.accent,
     bold: true,
@@ -179,7 +179,7 @@ export function renderRolePlaySlide(
     h: 1.75,
 
     fontFace: theme.fonts.arabic,
-    fontSize: 16,
+    fontSize: theme.typography.bodySmall,
 
     color: theme.colors.choice,
 
@@ -201,7 +201,7 @@ export function renderRolePlaySlide(
 
       fontFace: theme.fonts.translation,
 
-      fontSize: 14,
+      fontSize: theme.typography.translationSmall,
 
       color: theme.colors.translation,
 
@@ -222,7 +222,7 @@ export function renderRolePlaySlide(
 
       fontFace: theme.fonts.arabic,
 
-      fontSize: 18,
+      fontSize: theme.typography.support,
 
       color: theme.colors.accent,
 

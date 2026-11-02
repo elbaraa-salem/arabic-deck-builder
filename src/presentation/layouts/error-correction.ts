@@ -28,7 +28,7 @@ export function renderErrorCorrectionSlide(
     h: 0.5,
 
     fontFace: theme.fonts.arabic,
-    fontSize: 19,
+    fontSize: theme.typography.instruction,
 
     color: theme.colors.choice,
 
@@ -62,7 +62,7 @@ export function renderErrorCorrectionSlide(
     h: 0.9,
 
     fontFace: theme.fonts.arabic,
-    fontSize: 34,
+    fontSize: theme.typography.headline,
 
     color: theme.colors.arabic,
 
@@ -85,7 +85,7 @@ export function renderErrorCorrectionSlide(
 
       fontFace: theme.fonts.translation,
 
-      fontSize: 15,
+      fontSize: theme.typography.translation,
 
       color: theme.colors.translation,
 
@@ -106,7 +106,7 @@ export function renderErrorCorrectionSlide(
 
       fontFace: theme.fonts.arabic,
 
-      fontSize: 20,
+      fontSize: theme.typography.supportDense,
 
       color: theme.colors.accent,
 
@@ -126,7 +126,7 @@ export function renderErrorCorrectionSlide(
 
       fontFace: theme.fonts.arabic,
 
-      fontSize: 31,
+      fontSize: theme.typography.answer,
 
       color: theme.colors.accent,
 
@@ -147,7 +147,7 @@ export function renderErrorCorrectionSlide(
 
         fontFace: theme.fonts.arabic,
 
-        fontSize: 17,
+        fontSize: theme.typography.explanation,
 
         color: theme.colors.choice,
 

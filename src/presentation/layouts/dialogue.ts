@@ -28,7 +28,7 @@ export function renderDialogueSlide(
     h: 0.45,
 
     fontFace: theme.fonts.arabic,
-    fontSize: 16,
+    fontSize: theme.typography.label,
 
     color: theme.colors.accent,
 
@@ -47,7 +47,7 @@ export function renderDialogueSlide(
     h: 0.45,
 
     fontFace: theme.fonts.arabic,
-    fontSize: 16,
+    fontSize: theme.typography.label,
 
     color: theme.colors.accent,
 
@@ -100,7 +100,7 @@ export function renderDialogueSlide(
       h: 0.55,
 
       fontFace: theme.fonts.arabic,
-      fontSize: 23,
+      fontSize: theme.typography.arabicCompact,
 
       color: theme.colors.arabic,
 
@@ -123,7 +123,7 @@ export function renderDialogueSlide(
         h: 0.3,
 
         fontFace: theme.fonts.translation,
-        fontSize: 11,
+        fontSize: theme.typography.translationTiny,
 
         color: theme.colors.translation,
 

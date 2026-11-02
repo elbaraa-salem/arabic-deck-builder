@@ -28,7 +28,7 @@ export function renderNoticingSlide(
     h: 0.45,
 
     fontFace: theme.fonts.arabic,
-    fontSize: 18,
+    fontSize: theme.typography.instructionCompact,
 
     color: theme.colors.choice,
 
@@ -71,7 +71,7 @@ export function renderNoticingSlide(
 
       fontFace: theme.fonts.arabic,
 
-      fontSize: 28,
+      fontSize: theme.typography.exampleText,
 
       color: theme.colors.arabic,
 
@@ -92,7 +92,7 @@ export function renderNoticingSlide(
 
     fontFace: theme.fonts.arabic,
 
-    fontSize: 25,
+    fontSize: theme.typography.promptCompact,
 
     color: theme.colors.choice,
 
@@ -115,7 +115,7 @@ export function renderNoticingSlide(
 
       fontFace: theme.fonts.translation,
 
-      fontSize: 15,
+      fontSize: theme.typography.translation,
 
       color: theme.colors.translation,
 
@@ -136,7 +136,7 @@ export function renderNoticingSlide(
 
       fontFace: theme.fonts.arabic,
 
-      fontSize: 19,
+      fontSize: theme.typography.supportMedium,
 
       color: theme.colors.accent,
 
@@ -156,7 +156,7 @@ export function renderNoticingSlide(
 
       fontFace: theme.fonts.arabic,
 
-      fontSize: 27,
+      fontSize: theme.typography.answerEmphasis,
 
       color: theme.colors.accent,
 

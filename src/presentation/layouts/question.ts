@@ -26,7 +26,7 @@ export function renderQuestionSlide(
     w: 10.33,
     h: 0.9,
     fontFace: theme.fonts.arabic,
-    fontSize: 34,
+    fontSize: theme.typography.headline,
     color: theme.colors.arabic,
     bold: true,
     align: "center",

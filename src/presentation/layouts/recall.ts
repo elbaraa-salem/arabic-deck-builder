@@ -28,7 +28,7 @@ export function renderRecallSlide(
     h: 0.7,
 
     fontFace: theme.fonts.arabic,
-    fontSize: 30,
+    fontSize: theme.typography.prompt,
 
     color: theme.colors.arabic,
 
@@ -62,7 +62,7 @@ export function renderRecallSlide(
 
       fontFace: theme.fonts.translation,
 
-      fontSize: 16,
+      fontSize: theme.typography.translationMedium,
 
       color: theme.colors.translation,
 
@@ -81,7 +81,7 @@ export function renderRecallSlide(
 
       fontFace: theme.fonts.arabic,
 
-      fontSize: 21,
+      fontSize: theme.typography.supportStrong,
 
       color: theme.colors.accent,
 
@@ -103,7 +103,7 @@ export function renderRecallSlide(
 
       fontFace: theme.fonts.arabic,
 
-      fontSize: 34,
+      fontSize: theme.typography.answerReveal,
 
       color: theme.colors.accent,
 

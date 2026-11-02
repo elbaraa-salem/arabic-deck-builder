@@ -31,7 +31,7 @@ export function renderPersonalizeSlide(
       h: 0.65,
 
       fontFace: theme.fonts.arabic,
-      fontSize: 22,
+      fontSize: theme.typography.arabicSmall,
 
       color: theme.colors.choice,
 
@@ -51,7 +51,7 @@ export function renderPersonalizeSlide(
     h: 0.8,
 
     fontFace: theme.fonts.arabic,
-    fontSize: 31,
+    fontSize: theme.typography.promptLarge,
 
     color: theme.colors.arabic,
 
@@ -89,7 +89,7 @@ export function renderPersonalizeSlide(
 
       fontFace: theme.fonts.translation,
 
-      fontSize: 16,
+      fontSize: theme.typography.translationMedium,
 
       color: theme.colors.translation,
 
@@ -110,7 +110,7 @@ export function renderPersonalizeSlide(
 
       fontFace: theme.fonts.arabic,
 
-      fontSize: 24,
+      fontSize: theme.typography.arabicText,
 
       color: theme.colors.accent,
 

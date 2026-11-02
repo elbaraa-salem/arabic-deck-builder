@@ -28,7 +28,7 @@ export function renderLessonEndSlide(
 
     fontFace: theme.fonts.arabic,
 
-    fontSize: 42,
+    fontSize: theme.typography.lessonTitle,
 
     color: theme.colors.accent,
 
@@ -51,7 +51,7 @@ export function renderLessonEndSlide(
 
       fontFace: theme.fonts.arabic,
 
-      fontSize: 28,
+      fontSize: theme.typography.activityTitle,
 
       color: theme.colors.arabic,
 
@@ -73,7 +73,7 @@ export function renderLessonEndSlide(
 
       fontFace: theme.fonts.translation,
 
-      fontSize: 17,
+      fontSize: theme.typography.translation,
 
       color: theme.colors.translation,
 

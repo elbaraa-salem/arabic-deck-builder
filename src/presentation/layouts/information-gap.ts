@@ -29,7 +29,7 @@ export function renderInformationGapSlide(
 
     fontFace: theme.fonts.arabic,
 
-    fontSize: 20,
+    fontSize: theme.typography.instructionDense,
 
     color: theme.colors.choice,
 
@@ -48,7 +48,7 @@ export function renderInformationGapSlide(
 
       fontFace: theme.fonts.arabic,
 
-      fontSize: 31,
+      fontSize: theme.typography.promptLarge,
 
       color: theme.colors.arabic,
 
@@ -115,7 +115,7 @@ export function renderInformationGapSlide(
 
       fontFace: theme.fonts.arabic,
 
-      fontSize: 20,
+      fontSize: theme.typography.labelStrong,
 
       color: theme.colors.choice,
 
@@ -135,7 +135,7 @@ export function renderInformationGapSlide(
 
       fontFace: theme.fonts.arabic,
 
-      fontSize: spec.showAnswers && isMissing ? 25 : 22,
+      fontSize: spec.showAnswers && isMissing ? theme.typography.factAnswer : theme.typography.factValue,
 
       color: isMissing ? theme.colors.accent : theme.colors.arabic,
 
@@ -159,7 +159,7 @@ export function renderInformationGapSlide(
 
       fontFace: theme.fonts.translation,
 
-      fontSize: 15,
+      fontSize: theme.typography.translation,
 
       color: theme.colors.translation,
 
@@ -180,7 +180,7 @@ export function renderInformationGapSlide(
 
       fontFace: theme.fonts.arabic,
 
-      fontSize: 20,
+      fontSize: theme.typography.supportDense,
 
       color: theme.colors.accent,
 

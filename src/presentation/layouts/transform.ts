@@ -28,7 +28,7 @@ export function renderTransformSlide(
     h: 0.55,
 
     fontFace: theme.fonts.arabic,
-    fontSize: 21,
+    fontSize: theme.typography.instructionStrong,
 
     color: theme.colors.choice,
 
@@ -45,7 +45,7 @@ export function renderTransformSlide(
     h: 0.8,
 
     fontFace: theme.fonts.arabic,
-    fontSize: 30,
+    fontSize: theme.typography.arabicLarge,
 
     color: theme.colors.arabic,
 
@@ -64,7 +64,7 @@ export function renderTransformSlide(
     h: 0.5,
 
     fontFace: theme.fonts.translation,
-    fontSize: 24,
+    fontSize: theme.typography.arabicText,
 
     color: theme.colors.accent,
 
@@ -97,7 +97,7 @@ export function renderTransformSlide(
     h: 0.65,
 
     fontFace: theme.fonts.arabic,
-    fontSize: 27,
+    fontSize: theme.typography.answerEmphasis,
 
     color: theme.colors.accent,
 
@@ -118,7 +118,7 @@ export function renderTransformSlide(
 
       fontFace: theme.fonts.translation,
 
-      fontSize: 15,
+      fontSize: theme.typography.translation,
 
       color: theme.colors.translation,
 
@@ -137,7 +137,7 @@ export function renderTransformSlide(
 
       fontFace: theme.fonts.arabic,
 
-      fontSize: 21,
+      fontSize: theme.typography.supportStrong,
 
       color: theme.colors.choice,
 
@@ -157,7 +157,7 @@ export function renderTransformSlide(
 
       fontFace: theme.fonts.arabic,
 
-      fontSize: 32,
+      fontSize: theme.typography.answerStrong,
 
       color: theme.colors.accent,
 

@@ -25,7 +25,7 @@ export function renderSelfCheckSlide(
 
     fontFace: theme.fonts.arabic,
 
-    fontSize: 30,
+    fontSize: theme.typography.prompt,
 
     color: theme.colors.arabic,
 
@@ -56,7 +56,7 @@ export function renderSelfCheckSlide(
 
       fontFace: theme.fonts.translation,
 
-      fontSize: 22,
+      fontSize: theme.typography.arabicSmall,
 
       color: theme.colors.accent,
 
@@ -73,7 +73,7 @@ export function renderSelfCheckSlide(
 
       fontFace: theme.fonts.arabic,
 
-      fontSize: 21,
+      fontSize: theme.typography.instructionStrong,
 
       color: theme.colors.arabic,
 
@@ -94,7 +94,7 @@ export function renderSelfCheckSlide(
 
         fontFace: theme.fonts.arabic,
 
-        fontSize: 18,
+        fontSize: theme.typography.support,
 
         color: theme.colors.choice,
 
