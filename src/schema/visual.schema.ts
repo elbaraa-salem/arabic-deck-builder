@@ -10,6 +10,7 @@ export const educationalVisualSchema = z.discriminatedUnion("type", [
   z.object({
     type: z.literal("number"),
     value: z.int().nonnegative(),
+    numerals: z.enum(["eastern", "western"]).default("eastern"),
   }),
   z.object({
     type: z.literal("quantity"),

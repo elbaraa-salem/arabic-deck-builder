@@ -1,3 +1,5 @@
+import type { NumeralStyle } from "../types/visual.ts";
+
 function toEasternArabicDigits(value: number): string {
   const digits = "٠١٢٣٤٥٦٧٨٩";
 
@@ -27,14 +29,27 @@ function getFontSize(digitCount: number): number {
   return Math.min(75, Math.floor(480 / digitCount));
 }
 
-export function createNumberSvg(value: number): string {
+export function createNumberSvg(value: number, numerals: NumeralStyle = "eastern"): string {
   if (!Number.isSafeInteger(value) || value < 0) {
     throw new Error(
       `Invalid number visual: ${value}. Expected a non-negative safe integer.`,
     );
   }
 
-  const arabicNumber = toEasternArabicDigits(value);
+  let renderedNumber: string;
+
+  switch (numerals) {
+    case "eastern":
+      renderedNumber = toEasternArabicDigits(value);
+      break;
+    case "western":
+      renderedNumber = String(value);
+      break;
+    default: {
+      const exhaustive: never = numerals;
+      throw new Error(`Invalid numeral style: ${exhaustive}`);
+    }
+  }
 
   const fontSize = getFontSize(String(value).length);
 
@@ -69,7 +84,7 @@ export function createNumberSvg(value: number): string {
         font-weight="700"
         fill="#184F4C"
       >
-        ${arabicNumber}
+        ${renderedNumber}
       </text>
     </svg>
   `.trim();

@@ -4,9 +4,12 @@ export type ClockVisual = {
   minute: number;
 };
 
+export type NumeralStyle = "eastern" | "western";
+
 export type NumberVisual = {
   type: "number";
   value: number;
+  numerals: NumeralStyle;
 };
 
 export type QuantityVisual = {

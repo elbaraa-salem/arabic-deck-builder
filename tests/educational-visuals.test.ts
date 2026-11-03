@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
-import { mkdtempSync, writeFileSync, rmSync } from "node:fs";
+import { existsSync, mkdtempSync, readFileSync, writeFileSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
-import { join, resolve } from "node:path";
+import { basename, join, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import { execFileSync } from "node:child_process";
 import { test } from "node:test";
@@ -11,6 +11,7 @@ import { planSlides } from "../src/planner/slide-planner.ts";
 import { createNumberSvg } from "../src/visuals/number.ts";
 import { renderPresentation } from "../src/presentation/render-presentation.ts";
 import { preflightLesson } from "../src/validation/preflight.ts";
+import { resolveVisualSource } from "../src/visuals/visual-source-resolver.ts";
 
 const clock = { type: "clock", hour: 10, minute: 30 };
 const number = { type: "number", value: 1200 };
@@ -55,7 +56,7 @@ test("every existing visual slot enforces exclusivity and normalizes sources", (
   const activity = { type: "noticing", instruction: "I", question: "Q", insight: "I", items: [item, item] };
   const slide = planSlides(lessonSchema.parse(lesson([activity])))[0];
   assert.equal(slide.type, "noticing");
-  if (slide.type === "noticing") assert.deepEqual(slide.items[0].visual, { kind: "generated", spec: number });
+  if (slide.type === "noticing") assert.deepEqual(slide.items[0].visual, { kind: "generated", spec: { ...number, numerals: "eastern" } });
   assert.equal(lessonSchema.safeParse(lesson([{ ...activity, items: [{ ...item, image: "book" }, item] }])).success, false);
 });
 
@@ -90,6 +91,84 @@ test("structured visuals generate, while asset and rendering failures stay disti
     const inspection = JSON.parse(result);
     assert.equal(inspection.issues[0].type, "visual");
     assert.deepEqual(inspection.missingImages, []);
+  } finally {
+    rmSync(directory, { recursive: true, force: true });
+  }
+});
+
+test("number numeral styles default to eastern and generate distinct deterministic files", async () => {
+  const activities: unknown[] = [];
+  const textContent = (svg: string) => {
+    const match = /<text\b[^>]*>([^<]*)<\/text>/.exec(svg);
+    assert.ok(match);
+    return match[1].trim();
+  };
+
+  for (const [value, easternText] of [
+    [0, "٠"],
+    [1200, "١٢٠٠"],
+    [Number.MAX_SAFE_INTEGER, "٩٠٠٧١٩٩٢٥٤٧٤٠٩٩١"],
+  ] as const) {
+    const defaultSpec = educationalVisualSchema.parse({ type: "number", value });
+    assert.deepEqual(defaultSpec, { type: "number", value, numerals: "eastern" });
+    const defaultPath = resolveVisualSource({ kind: "generated", spec: defaultSpec });
+    const paths = new Set<string>();
+
+    for (const numerals of ["eastern", "western"] as const) {
+      const visual = { type: "number", value, numerals };
+      const activity = { ...required, visual };
+      activities.push(activity);
+      const slides = planSlides(lessonSchema.parse(lesson([activity])));
+      const question = slides[0];
+      assert.equal(question.type, "question");
+      if (question.type !== "question") assert.fail("Expected question slide");
+      assert.deepEqual(question.visual, { kind: "generated", spec: visual });
+
+      const path = resolveVisualSource(question.visual);
+      paths.add(path);
+      assert.ok(existsSync(path));
+      assert.equal(basename(path), `number-${numerals}-${value}.svg`);
+      assert.equal(resolveVisualSource(question.visual), path);
+      if (numerals === "eastern") assert.equal(path, defaultPath);
+
+      const svg = createNumberSvg(value, numerals);
+      assert.equal(readFileSync(path, "utf8"), svg);
+      assert.equal(textContent(svg), numerals === "eastern" ? easternText : String(value));
+      assert.equal(svg, createNumberSvg(value, numerals));
+      if (value === Number.MAX_SAFE_INTEGER) assert.match(svg, /font-size="30"/);
+    }
+    assert.equal(paths.size, 2);
+    assert.equal(createNumberSvg(value), createNumberSvg(value, "eastern"));
+    assert.equal(
+      createNumberSvg(value, "eastern").replace(/(<text\b[^>]*>)[^<]*(<\/text>)/, "$1$2"),
+      createNumberSvg(value, "western").replace(/(<text\b[^>]*>)[^<]*(<\/text>)/, "$1$2"),
+    );
+  }
+
+  for (const numerals of ["roman", "EASTERN", "", null, 1]) {
+    const result = lessonSchema.safeParse(lesson([{ ...required, visual: { ...number, numerals } }]));
+    assert.equal(result.success, false);
+    if (!result.success) assert.deepEqual(result.error.issues[0].path, ["activities", 0, "visual", "numerals"]);
+  }
+  for (const numerals of ["eastern", "western"] as const) {
+    for (const value of [-1, 1.5, Number.MAX_SAFE_INTEGER + 1, Infinity]) {
+      assert.equal(educationalVisualSchema.safeParse({ type: "number", value, numerals }).success, false);
+      assert.throws(() => createNumberSvg(value, numerals), /non-negative safe integer/);
+    }
+  }
+
+  // Include omitted numerals alongside explicit styles through preflight and PPTX rendering.
+  activities.push({ ...required, visual: number });
+  const directory = mkdtempSync(join(tmpdir(), "number-numerals-"));
+  try {
+    const input = lesson(activities);
+    const lessonPath = join(directory, "numerals.yaml");
+    writeFileSync(lessonPath, JSON.stringify(input));
+    const inspection = await preflightLesson(lessonPath);
+    assert.equal(inspection.ok, true);
+    assert.equal(inspection.visualCount, 6);
+    await renderPresentation(planSlides(lessonSchema.parse(input)), join(directory, "numerals.pptx"));
+    assert.ok(existsSync(join(directory, "numerals.pptx")));
   } finally {
     rmSync(directory, { recursive: true, force: true });
   }

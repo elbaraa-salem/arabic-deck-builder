@@ -42,8 +42,8 @@ export function resolveGeneratedVisual(spec: EducationalVisual): string {
       );
     case "number":
       return writeGeneratedVisual(
-        `number-${spec.value}.svg`,
-        createNumberSvg(spec.value),
+        `number-${spec.numerals}-${spec.value}.svg`,
+        createNumberSvg(spec.value, spec.numerals),
       );
     case "quantity": {
       const itemKey = createHash("sha256").update(spec.item).digest("hex");
