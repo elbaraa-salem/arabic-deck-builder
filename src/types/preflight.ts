@@ -1,15 +1,37 @@
 import type { SlideSpec } from "./slide.ts";
 
+export type PreflightIssueType =
+  | "file"
+  | "yaml"
+  | "schema"
+  | "planning"
+  | "asset"
+  | "unknown";
+
+export type PreflightIssue = {
+  type: PreflightIssueType;
+
+  message: string;
+
+  path?: string;
+};
+
 export type PreflightResult = {
   lessonPath: string;
+
   ok: boolean;
+
   slideCount: number;
+
   imageCount: number;
+
   missingImages: string[];
-  errors: string[];
+
+  issues: PreflightIssue[];
 };
 
 export type PreparedLesson = {
   slides: SlideSpec[];
+
   imageKeys: string[];
 };

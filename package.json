@@ -8,6 +8,7 @@
     "generate": "node src/index.ts",
     "generate:all": "node src/generator/generate-all.ts",
     "check": "node src/validation/check-lesson.ts",
+    "check:all": "node src/validation/check-all.ts",
     "typecheck": "tsc --noEmit"
   },
   "keywords": [

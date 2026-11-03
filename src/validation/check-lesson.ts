@@ -1,3 +1,5 @@
+import { formatPreflightIssue } from "./format-issue.ts";
+
 import { preflightLesson } from "./preflight.ts";
 
 const lessonPath = process.argv[2];
@@ -19,8 +21,8 @@ if (!result.ok) {
 
   console.log("");
 
-  for (const error of result.errors) {
-    console.error(error);
+  for (const issue of result.issues) {
+    console.error(formatPreflightIssue(issue));
   }
 
   process.exit(1);
