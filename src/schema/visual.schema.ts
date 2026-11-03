@@ -16,6 +16,10 @@ export const educationalVisualSchema = z.discriminatedUnion("type", [
     item: z.string().min(1),
     count: z.int().min(1).max(20),
   }),
+  z.object({
+    type: z.literal("direction"),
+    direction: z.enum(["left", "right", "up", "down"]),
+  }),
 ]) satisfies z.ZodType<EducationalVisual>;
 
 export function withVisualSlot<T extends z.ZodRawShape>(

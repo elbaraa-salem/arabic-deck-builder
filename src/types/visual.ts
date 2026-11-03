@@ -15,7 +15,16 @@ export type QuantityVisual = {
   count: number;
 };
 
-export type EducationalVisual = ClockVisual | NumberVisual | QuantityVisual;
+export type DirectionVisual = {
+  type: "direction";
+  direction: "left" | "right" | "up" | "down";
+};
+
+export type EducationalVisual =
+  | ClockVisual
+  | NumberVisual
+  | QuantityVisual
+  | DirectionVisual;
 
 export type VisualSource =
   | { kind: "asset"; key: string }

@@ -8,6 +8,7 @@ import { createClockSvg } from "./clock.ts";
 
 import { createNumberSvg } from "./number.ts";
 import { createQuantitySvg } from "./quantity.ts";
+import { createDirectionSvg } from "./direction.ts";
 
 const generatedDirectory = resolve(
   process.cwd(),
@@ -51,6 +52,11 @@ export function resolveGeneratedVisual(spec: EducationalVisual): string {
         createQuantitySvg(spec.item, spec.count),
       );
     }
+    case "direction":
+      return writeGeneratedVisual(
+        `direction-${spec.direction}.svg`,
+        createDirectionSvg(spec.direction),
+      );
     default: {
       const exhaustive: never = spec;
       throw new Error(
