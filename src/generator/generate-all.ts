@@ -2,7 +2,7 @@ import { readdir } from "node:fs/promises";
 
 import { join } from "node:path";
 
-import { generateLesson } from "./generator/generate-lesson.ts";
+import { generateLesson } from "./generate-lesson.ts";
 
 const lessonsDirectory = "lessons";
 

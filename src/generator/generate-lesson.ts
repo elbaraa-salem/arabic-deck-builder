@@ -7,7 +7,7 @@ import { loadLesson } from "../parser/lesson.parser.ts";
 import { planSlides } from "../planner/slide-planner.ts";
 
 import { renderPresentation } from "../presentation/render-presentation.ts";
-import type { GenerationResult } from "../types/generateLesson.ts";
+import type { GenerationResult } from "../types/generation.ts";
 
 export async function generateLesson(
   lessonPath: string,
