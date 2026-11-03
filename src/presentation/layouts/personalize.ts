@@ -1,6 +1,6 @@
 import type { PersonalizeSlide } from "../../types/slide.ts";
 
-import { resolveImagePath } from "../../assets/asset-resolver.ts";
+import { resolveVisualSource } from "../../visuals/visual-source-resolver.ts";
 
 import { fitImageContain } from "../image.ts";
 
@@ -65,8 +65,8 @@ export function renderPersonalizeSlide(
 
   let supportStartY = 4.8;
 
-  if (spec.image) {
-    const imagePath = resolveImagePath(spec.image);
+  if (spec.visual) {
+    const imagePath = resolveVisualSource(spec.visual);
 
     slide.addImage(
       fitImageContain(imagePath, {

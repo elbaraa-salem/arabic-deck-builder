@@ -1,23 +1,24 @@
+import type { VisualSource } from "./visual.ts";
 import type { SupportStage } from "./support.ts";
 
 export type IntroduceSlide = {
   type: "introduce";
   arabic: string;
   translation?: string;
-  image: string;
+  visual: VisualSource;
 };
 
 export type QuestionSlide = {
   type: "question";
   question: string;
-  image: string;
+  visual: VisualSource;
 };
 
 export type RevealSlide = {
   type: "reveal";
   question: string;
   answer: string;
-  image: string;
+  visual: VisualSource;
 };
 
 export type DialogueSlideLine = {
@@ -34,14 +35,14 @@ export type DialogueSpeakers = {
 export type DialogueSlide = {
   type: "dialogue";
   speakers: DialogueSpeakers;
-  image?: string;
+  visual?: VisualSource;
   lines: DialogueSlideLine[];
 };
 
 export type RecallSlide = {
   type: "recall";
   question: string;
-  image?: string;
+  visual?: VisualSource;
   support: SupportStage;
   answer: string;
   showAnswer: boolean;
@@ -50,7 +51,7 @@ export type RecallSlide = {
 export type DiscriminateSlide = {
   type: "discriminate";
   question: string;
-  image?: string;
+  visual?: VisualSource;
   choices: string[];
   answer: string;
   support: SupportStage;
@@ -63,7 +64,7 @@ export type TransformSlide = {
   model: string;
   cue: {
     text: string;
-    image?: string;
+    visual?: VisualSource;
   };
   answer: string;
   support: SupportStage;
@@ -74,7 +75,7 @@ export type PersonalizeSlide = {
   type: "personalize";
   model?: string;
   question: string;
-  image?: string;
+  visual?: VisualSource;
   support: SupportStage;
 };
 
@@ -84,7 +85,7 @@ export type InterpretSlide = {
   question: string;
   choices: string[];
   answer: string;
-  image?: string;
+  visual?: VisualSource;
   support: SupportStage;
   showAnswer: boolean;
 };
@@ -102,7 +103,7 @@ export type InformationGapSlide = {
 
   subject?: string;
 
-  image?: string;
+  visual?: VisualSource;
 
   facts: InformationGapFact[];
 
@@ -125,14 +126,14 @@ export type RolePlaySlide = {
 
   goals: string[];
 
-  image?: string;
+  visual?: VisualSource;
 
   support: SupportStage;
 };
 
 export type NoticingItem = {
   text: string;
-  image?: string;
+  visual?: VisualSource;
 };
 
 export type NoticingSlide = {
@@ -151,7 +152,7 @@ export type ErrorCorrectionSlide = {
   incorrect: string;
   correction: string;
   explanation?: string;
-  image?: string;
+  visual?: VisualSource;
   support: SupportStage;
   showCorrection: boolean;
 };

@@ -24,7 +24,7 @@ export type PreflightResult = {
 
   slideCount: number;
 
-  imageCount: number;
+  visualCount: number;
 
   missingImages: string[];
 
@@ -33,6 +33,4 @@ export type PreflightResult = {
 
 export type PreparedLesson = {
   slides: SlideSpec[];
-
-  imageKeys: string[];
 };

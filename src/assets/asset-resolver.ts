@@ -1,19 +1,12 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 
-import {
-  isGeneratedVisual,
-  resolveGeneratedVisual,
-} from "../visuals/visual-resolver.ts";
 
 const IMAGES_DIR = join(process.cwd(), "assets", "images");
 
 const IMAGE_EXTENSIONS = [".png", ".jpg", ".jpeg", ".webp"];
 
 export function resolveImagePath(imageKey: string): string {
-  if (isGeneratedVisual(imageKey)) {
-    return resolveGeneratedVisual(imageKey);
-  }
   for (const extension of IMAGE_EXTENSIONS) {
     const candidatePath = join(IMAGES_DIR, `${imageKey}${extension}`);
 

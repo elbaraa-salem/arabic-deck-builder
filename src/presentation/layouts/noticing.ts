@@ -1,6 +1,6 @@
 import type { NoticingSlide } from "../../types/slide.ts";
 
-import { resolveImagePath } from "../../assets/asset-resolver.ts";
+import { resolveVisualSource } from "../../visuals/visual-source-resolver.ts";
 
 import { fitImageContain } from "../image.ts";
 
@@ -49,8 +49,8 @@ export function renderNoticingSlide(
 
     const x = startX + index * itemWidth;
 
-    if (item.image) {
-      const imagePath = resolveImagePath(item.image);
+    if (item.visual) {
+      const imagePath = resolveVisualSource(item.visual);
 
       slide.addImage(
         fitImageContain(imagePath, {
@@ -64,7 +64,7 @@ export function renderNoticingSlide(
 
     slide.addText(item.text, {
       x,
-      y: item.image ? 3.55 : 2.0,
+      y: item.visual ? 3.55 : 2.0,
 
       w: itemWidth,
       h: 0.7,

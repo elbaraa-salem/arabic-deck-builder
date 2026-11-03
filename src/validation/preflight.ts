@@ -2,7 +2,7 @@ import { YAMLParseError } from "yaml";
 
 import { ZodError } from "zod";
 
-import { resolveImagePath } from "../assets/asset-resolver.ts";
+import { resolveVisualSource } from "../visuals/visual-source-resolver.ts";
 
 import { loadLesson } from "../parser/lesson.parser.ts";
 
@@ -16,15 +16,14 @@ import type {
   PreparedLesson,
 } from "../types/preflight.ts";
 
-import { collectSlideImageKeys } from "./slide-assets.ts";
+import { collectSlideVisualSources } from "./slide-assets.ts";
 
 import { formatPreflightIssue } from "./format-issue.ts";
-import { isGeneratedVisual } from "../visuals/visual-resolver.ts";
 
 type InspectionResult = {
   slides?: SlideSpec[];
 
-  imageKeys: string[];
+  visualCount: number;
 
   missingImages: string[];
 
@@ -82,7 +81,7 @@ async function inspectLesson(lessonPath: string): Promise<InspectionResult> {
     lesson = await loadLesson(lessonPath);
   } catch (error) {
     return {
-      imageKeys: [],
+      visualCount: 0,
 
       missingImages: [],
 
@@ -96,7 +95,7 @@ async function inspectLesson(lessonPath: string): Promise<InspectionResult> {
     slides = planSlides(lesson);
   } catch (error) {
     return {
-      imageKeys: [],
+      visualCount: 0,
 
       missingImages: [],
 
@@ -110,21 +109,21 @@ async function inspectLesson(lessonPath: string): Promise<InspectionResult> {
     };
   }
 
-  const imageKeys = collectSlideImageKeys(slides);
+  const sources = collectSlideVisualSources(slides);
 
   const missingImages: string[] = [];
 
   const issues: PreflightIssue[] = [];
 
-  for (const imageKey of imageKeys) {
+  for (const source of sources) {
     try {
-      resolveImagePath(imageKey);
+      resolveVisualSource(source);
     } catch (error) {
-      if (isGeneratedVisual(imageKey)) {
+      if (source.kind === "generated") {
         issues.push({
           type: "visual",
 
-          path: imageKey,
+          path: JSON.stringify(source.spec),
 
           message: error instanceof Error ? error.message : String(error),
         });
@@ -132,12 +131,12 @@ async function inspectLesson(lessonPath: string): Promise<InspectionResult> {
         continue;
       }
 
-      missingImages.push(imageKey);
+      missingImages.push(source.key);
 
       issues.push({
         type: "asset",
 
-        path: imageKey,
+        path: source.key,
 
         message: "Image asset was not found.",
       });
@@ -147,7 +146,7 @@ async function inspectLesson(lessonPath: string): Promise<InspectionResult> {
   return {
     slides,
 
-    imageKeys,
+    visualCount: sources.length,
 
     missingImages,
 
@@ -170,8 +169,6 @@ export async function prepareLesson(
 
   return {
     slides: inspection.slides,
-
-    imageKeys: inspection.imageKeys,
   };
 }
 
@@ -187,7 +184,7 @@ export async function preflightLesson(
 
     slideCount: inspection.slides?.length ?? 0,
 
-    imageCount: inspection.imageKeys.length,
+    visualCount: inspection.visualCount,
 
     missingImages: inspection.missingImages,
 

@@ -24,7 +24,7 @@ function getFontSize(digitCount: number): number {
     return 95;
   }
 
-  return 75;
+  return Math.min(75, Math.floor(480 / digitCount));
 }
 
 export function createNumberSvg(value: number): string {

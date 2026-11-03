@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { withVisualSlot } from "./visual.schema.ts";
 
 const lessonCoverActivitySchema = z.object({
   type: z.literal("lesson_cover"),
@@ -30,19 +31,17 @@ const lessonEndActivitySchema = z.object({
   translation: z.string().min(1).optional(),
 });
 
-const introduceActivitySchema = z.object({
+const introduceActivitySchema = withVisualSlot({
   type: z.literal("introduce"),
   arabic: z.string().min(1),
   translation: z.string().min(1).optional(),
-  image: z.string().min(1),
-});
+}, true);
 
-const questionRevealActivitySchema = z.object({
+const questionRevealActivitySchema = withVisualSlot({
   type: z.literal("question_reveal"),
   question: z.string().min(1),
   answer: z.string().min(1),
-  image: z.string().min(1),
-});
+}, true);
 
 const dialogueLineSchema = z.object({
   speaker: z.enum(["A", "B"]),
@@ -54,15 +53,13 @@ const dialogueSegmentSchema = z.object({
   lines: z.array(dialogueLineSchema).min(1).max(6),
 });
 
-const dialogueBuildActivitySchema = z.object({
+const dialogueBuildActivitySchema = withVisualSlot({
   type: z.literal("dialogue_build"),
 
   speakers: z.object({
     A: z.string().min(1),
     B: z.string().min(1),
   }),
-
-  image: z.string().min(1).optional(),
 
   segments: z.array(dialogueSegmentSchema).min(1),
 });
@@ -79,9 +76,8 @@ const supportPlanSchema = z.object({
 const recallActivitySchema = z.object({
   type: z.literal("recall"),
 
-  prompt: z.object({
+  prompt: withVisualSlot({
     question: z.string().min(1),
-    image: z.string().min(1).optional(),
   }),
 
   answer: z.string().min(1),
@@ -93,9 +89,8 @@ const discriminateActivitySchema = z
   .object({
     type: z.literal("discriminate"),
 
-    prompt: z.object({
+    prompt: withVisualSlot({
       question: z.string().min(1),
-      image: z.string().min(1).optional(),
     }),
 
     choices: z.array(z.string().min(1)).min(2).max(4),
@@ -123,9 +118,8 @@ const transformActivitySchema = z.object({
 
   model: z.string().min(1),
 
-  cue: z.object({
+  cue: withVisualSlot({
     text: z.string().min(1),
-    image: z.string().min(1).optional(),
   }),
 
   answer: z.string().min(1),
@@ -138,16 +132,14 @@ const personalizeActivitySchema = z.object({
 
   model: z.string().min(1).optional(),
 
-  prompt: z.object({
+  prompt: withVisualSlot({
     question: z.string().min(1),
-    image: z.string().min(1).optional(),
   }),
 
   support: supportPlanSchema.optional(),
 });
 
-const interpretActivitySchema = z
-  .object({
+const interpretActivitySchema = withVisualSlot({
     type: z.literal("interpret"),
 
     passage: z.string().min(1),
@@ -157,8 +149,6 @@ const interpretActivitySchema = z
     choices: z.array(z.string().min(1)).min(2).max(4),
 
     answer: z.string().min(1),
-
-    image: z.string().min(1).optional(),
 
     support: supportPlanSchema.optional(),
   })
@@ -189,15 +179,12 @@ const informationGapFactSchema = z
     },
   );
 
-const informationGapActivitySchema = z
-  .object({
+const informationGapActivitySchema = withVisualSlot({
     type: z.literal("information_gap"),
 
     instruction: z.string().min(1),
 
     subject: z.string().min(1).optional(),
-
-    image: z.string().min(1).optional(),
 
     facts: z.array(informationGapFactSchema).min(2).max(6),
 
@@ -211,7 +198,7 @@ const informationGapActivitySchema = z
     },
   );
 
-const rolePlayActivitySchema = z.object({
+const rolePlayActivitySchema = withVisualSlot({
   type: z.literal("role_play"),
 
   instruction: z.string().min(1),
@@ -225,14 +212,11 @@ const rolePlayActivitySchema = z.object({
 
   goals: z.array(z.string().min(1)).min(1).max(6),
 
-  image: z.string().min(1).optional(),
-
   support: supportPlanSchema.optional(),
 });
 
-const noticingItemSchema = z.object({
+const noticingItemSchema = withVisualSlot({
   text: z.string().min(1),
-  image: z.string().min(1).optional(),
 });
 
 const noticingActivitySchema = z.object({
@@ -249,7 +233,7 @@ const noticingActivitySchema = z.object({
   support: supportPlanSchema.optional(),
 });
 
-const errorCorrectionActivitySchema = z.object({
+const errorCorrectionActivitySchema = withVisualSlot({
   type: z.literal("error_correction"),
 
   instruction: z.string().min(1),
@@ -259,8 +243,6 @@ const errorCorrectionActivitySchema = z.object({
   correction: z.string().min(1),
 
   explanation: z.string().min(1).optional(),
-
-  image: z.string().min(1).optional(),
 
   support: supportPlanSchema.optional(),
 });

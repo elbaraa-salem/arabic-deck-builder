@@ -1,6 +1,6 @@
 import type { InterpretSlide } from "../../types/slide.ts";
 
-import { resolveImagePath } from "../../assets/asset-resolver.ts";
+import { resolveVisualSource } from "../../visuals/visual-source-resolver.ts";
 
 import { fitImageContain } from "../image.ts";
 
@@ -46,8 +46,8 @@ export function renderInterpretSlide(
 
   let questionY = 2.05;
 
-  if (spec.image) {
-    const imagePath = resolveImagePath(spec.image);
+  if (spec.visual) {
+    const imagePath = resolveVisualSource(spec.visual);
 
     slide.addImage(
       fitImageContain(imagePath, {

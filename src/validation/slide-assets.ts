@@ -1,18 +1,26 @@
+import type { VisualSource } from "../types/visual.ts";
 import type { SlideSpec } from "../types/slide.ts";
 
 function assertNever(value: never): never {
   throw new Error(`Unhandled slide type: ${JSON.stringify(value)}`);
 }
 
-export function collectSlideImageKeys(slides: SlideSpec[]): string[] {
-  const images = new Set<string>();
+function getVisualSourceKey(source: VisualSource): string {
+  return JSON.stringify(source);
+}
+
+export function collectSlideVisualSources(slides: SlideSpec[]): VisualSource[] {
+  const visuals = new Map<string, VisualSource>();
+  function add(source: VisualSource): void {
+    visuals.set(getVisualSourceKey(source), source);
+  }
 
   for (const slide of slides) {
     switch (slide.type) {
       case "introduce":
       case "question":
       case "reveal":
-        images.add(slide.image);
+        add(slide.visual);
 
         break;
 
@@ -24,23 +32,23 @@ export function collectSlideImageKeys(slides: SlideSpec[]): string[] {
       case "information_gap":
       case "role_play":
       case "error_correction":
-        if (slide.image) {
-          images.add(slide.image);
+        if (slide.visual) {
+          add(slide.visual);
         }
 
         break;
 
       case "transform":
-        if (slide.cue.image) {
-          images.add(slide.cue.image);
+        if (slide.cue.visual) {
+          add(slide.cue.visual);
         }
 
         break;
 
       case "noticing":
         for (const item of slide.items) {
-          if (item.image) {
-            images.add(item.image);
+          if (item.visual) {
+            add(item.visual);
           }
         }
 
@@ -57,5 +65,7 @@ export function collectSlideImageKeys(slides: SlideSpec[]): string[] {
     }
   }
 
-  return [...images].sort();
+  return [...visuals.values()].sort((a, b) =>
+    getVisualSourceKey(a).localeCompare(getVisualSourceKey(b)),
+  );
 }

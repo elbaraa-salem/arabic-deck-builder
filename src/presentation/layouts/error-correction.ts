@@ -1,6 +1,6 @@
 import type { ErrorCorrectionSlide } from "../../types/slide.ts";
 
-import { resolveImagePath } from "../../assets/asset-resolver.ts";
+import { resolveVisualSource } from "../../visuals/visual-source-resolver.ts";
 
 import { fitImageContain } from "../image.ts";
 
@@ -40,8 +40,8 @@ export function renderErrorCorrectionSlide(
 
   let incorrectY = 1.65;
 
-  if (spec.image) {
-    const imagePath = resolveImagePath(spec.image);
+  if (spec.visual) {
+    const imagePath = resolveVisualSource(spec.visual);
 
     slide.addImage(
       fitImageContain(imagePath, {

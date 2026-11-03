@@ -42,7 +42,7 @@ for (const file of lessonFiles) {
 
     console.log(`  Slides: ${result.slideCount}`);
 
-    console.log(`  Images: ${result.imageCount}`);
+    console.log(`  Visuals: ${result.visualCount}`);
   } else {
     preflightFailed += 1;
 

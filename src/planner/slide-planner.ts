@@ -1,3 +1,4 @@
+import { normalizeVisualSource } from "./visual.ts";
 import type { Lesson } from "../schema/lesson.schema.ts";
 
 import type { DialogueSlideLine, SlideSpec } from "../types/slide.ts";
@@ -28,7 +29,7 @@ export function planSlides(lesson: Lesson): SlideSpec[] {
           type: "introduce",
           arabic: activity.arabic,
           translation: activity.translation,
-          image: activity.image,
+          visual: normalizeVisualSource(activity)!,
         });
 
         break;
@@ -38,14 +39,14 @@ export function planSlides(lesson: Lesson): SlideSpec[] {
         slides.push({
           type: "question",
           question: activity.question,
-          image: activity.image,
+          visual: normalizeVisualSource(activity)!,
         });
 
         slides.push({
           type: "reveal",
           question: activity.question,
           answer: activity.answer,
-          image: activity.image,
+          visual: normalizeVisualSource(activity)!,
         });
 
         break;
@@ -70,7 +71,7 @@ export function planSlides(lesson: Lesson): SlideSpec[] {
                 B: activity.speakers.B,
               },
 
-              image: activity.image,
+              visual: normalizeVisualSource(activity),
 
               lines: [...visibleLines],
             });
@@ -90,7 +91,7 @@ export function planSlides(lesson: Lesson): SlideSpec[] {
 
             question: activity.prompt.question,
 
-            image: activity.prompt.image,
+            visual: normalizeVisualSource(activity.prompt),
 
             support,
 
@@ -104,7 +105,7 @@ export function planSlides(lesson: Lesson): SlideSpec[] {
 
             question: activity.prompt.question,
 
-            image: activity.prompt.image,
+            visual: normalizeVisualSource(activity.prompt),
 
             support: {},
 
@@ -127,7 +128,7 @@ export function planSlides(lesson: Lesson): SlideSpec[] {
 
             question: activity.prompt.question,
 
-            image: activity.prompt.image,
+            visual: normalizeVisualSource(activity.prompt),
 
             choices: [...activity.choices],
 
@@ -143,7 +144,7 @@ export function planSlides(lesson: Lesson): SlideSpec[] {
 
             question: activity.prompt.question,
 
-            image: activity.prompt.image,
+            visual: normalizeVisualSource(activity.prompt),
 
             choices: [...activity.choices],
 
@@ -162,7 +163,7 @@ export function planSlides(lesson: Lesson): SlideSpec[] {
         const cue = {
           text: activity.cue.text,
 
-          image: activity.cue.image,
+          visual: normalizeVisualSource(activity.cue),
         };
 
         addSupportSequence(
@@ -217,7 +218,7 @@ export function planSlides(lesson: Lesson): SlideSpec[] {
 
             question: activity.prompt.question,
 
-            image: activity.prompt.image,
+            visual: normalizeVisualSource(activity.prompt),
 
             support,
           }),
@@ -242,7 +243,7 @@ export function planSlides(lesson: Lesson): SlideSpec[] {
 
             answer: activity.answer,
 
-            image: activity.image,
+            visual: normalizeVisualSource(activity),
 
             support,
 
@@ -260,7 +261,7 @@ export function planSlides(lesson: Lesson): SlideSpec[] {
 
             answer: activity.answer,
 
-            image: activity.image,
+            visual: normalizeVisualSource(activity),
 
             support: {},
 
@@ -289,7 +290,7 @@ export function planSlides(lesson: Lesson): SlideSpec[] {
 
             subject: activity.subject,
 
-            image: activity.image,
+            visual: normalizeVisualSource(activity),
 
             facts,
 
@@ -305,7 +306,7 @@ export function planSlides(lesson: Lesson): SlideSpec[] {
 
             subject: activity.subject,
 
-            image: activity.image,
+            visual: normalizeVisualSource(activity),
 
             facts,
 
@@ -338,7 +339,7 @@ export function planSlides(lesson: Lesson): SlideSpec[] {
 
             goals: [...activity.goals],
 
-            image: activity.image,
+            visual: normalizeVisualSource(activity),
 
             support,
           }),
@@ -350,7 +351,7 @@ export function planSlides(lesson: Lesson): SlideSpec[] {
       case "noticing": {
         const items = activity.items.map((item) => ({
           text: item.text,
-          image: item.image,
+          visual: normalizeVisualSource(item),
         }));
 
         addSupportSequence(
@@ -409,7 +410,7 @@ export function planSlides(lesson: Lesson): SlideSpec[] {
 
             explanation: activity.explanation,
 
-            image: activity.image,
+            visual: normalizeVisualSource(activity),
 
             support,
 
@@ -427,7 +428,7 @@ export function planSlides(lesson: Lesson): SlideSpec[] {
 
             explanation: activity.explanation,
 
-            image: activity.image,
+            visual: normalizeVisualSource(activity),
 
             support: {},
 

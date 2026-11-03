@@ -32,7 +32,7 @@ console.log("Status: OK");
 
 console.log(`Slides: ${result.slideCount}`);
 
-console.log(`Images: ${result.imageCount}`);
+console.log(`Visuals: ${result.visualCount}`);
 
 console.log("");
 

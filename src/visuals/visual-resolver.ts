@@ -1,3 +1,4 @@
+import type { EducationalVisual } from "../types/visual.ts";
 import { mkdirSync, writeFileSync } from "node:fs";
 
 import { resolve } from "node:path";
@@ -28,50 +29,18 @@ function writeGeneratedVisual(filename: string, svg: string): string {
   return outputPath;
 }
 
-function resolveClockVisual(value: string): string {
-  const match = /^(\d{1,2}):(\d{2})$/.exec(value);
-
-  if (!match) {
-    throw new Error(`Invalid clock visual: @clock/${value}`);
+export function resolveGeneratedVisual(spec: EducationalVisual): string {
+  switch (spec.type) {
+    case "clock":
+      return writeGeneratedVisual(
+        `clock-${spec.hour}-${spec.minute}.svg`,
+        createClockSvg(spec.hour, spec.minute),
+      );
+    case "number":
+      return writeGeneratedVisual(`number-${spec.value}.svg`, createNumberSvg(spec.value));
+    default: {
+      const exhaustive: never = spec;
+      throw new Error(`Unknown educational visual: ${JSON.stringify(exhaustive)}`);
+    }
   }
-
-  const hour = Number(match[1]);
-
-  const minute = Number(match[2]);
-
-  const svg = createClockSvg(hour, minute);
-
-  return writeGeneratedVisual(`clock-${hour}-${minute}.svg`, svg);
-}
-
-function resolveNumberVisual(value: string): string {
-  if (!/^\d+$/.test(value)) {
-    throw new Error(`Invalid number visual: @number/${value}`);
-  }
-
-  const number = Number(value);
-
-  const svg = createNumberSvg(number);
-
-  return writeGeneratedVisual(`number-${number}.svg`, svg);
-}
-
-export function isGeneratedVisual(key: string): boolean {
-  return key.startsWith("@");
-}
-
-export function resolveGeneratedVisual(key: string): string {
-  const clockPrefix = "@clock/";
-
-  if (key.startsWith(clockPrefix)) {
-    return resolveClockVisual(key.slice(clockPrefix.length));
-  }
-
-  const numberPrefix = "@number/";
-
-  if (key.startsWith(numberPrefix)) {
-    return resolveNumberVisual(key.slice(numberPrefix.length));
-  }
-
-  throw new Error(`Unknown educational visual: ${key}`);
 }

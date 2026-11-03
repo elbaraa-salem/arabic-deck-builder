@@ -1,6 +1,6 @@
 import type { RolePlaySlide } from "../../types/slide.ts";
 
-import { resolveImagePath } from "../../assets/asset-resolver.ts";
+import { resolveVisualSource } from "../../visuals/visual-source-resolver.ts";
 
 import { fitImageContain } from "../image.ts";
 
@@ -57,10 +57,10 @@ export function renderRolePlaySlide(
     margin: 0,
   });
 
-  const hasImage = spec.image !== undefined;
+  const hasImage = spec.visual !== undefined;
 
-  if (spec.image) {
-    const imagePath = resolveImagePath(spec.image);
+  if (spec.visual) {
+    const imagePath = resolveVisualSource(spec.visual);
 
     slide.addImage(
       fitImageContain(imagePath, {

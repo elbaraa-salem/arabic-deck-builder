@@ -1,6 +1,6 @@
 import type { TransformSlide } from "../../types/slide.ts";
 
-import { resolveImagePath } from "../../assets/asset-resolver.ts";
+import { resolveVisualSource } from "../../visuals/visual-source-resolver.ts";
 
 import { fitImageContain } from "../image.ts";
 
@@ -75,8 +75,8 @@ export function renderTransformSlide(
 
   let cueY = 2.65;
 
-  if (spec.cue.image) {
-    const imagePath = resolveImagePath(spec.cue.image);
+  if (spec.cue.visual) {
+    const imagePath = resolveVisualSource(spec.cue.visual);
 
     slide.addImage(
       fitImageContain(imagePath, {
