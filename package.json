@@ -5,6 +5,7 @@
   "description": "Local Arabic lesson PowerPoint generator",
   "scripts": {
     "dev": "node src/index.ts",
+    "generate": "node src/index.ts",
     "typecheck": "tsc --noEmit"
   },
   "keywords": [
