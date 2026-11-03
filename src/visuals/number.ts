@@ -7,14 +7,36 @@ function toEasternArabicDigits(value: number): string {
     .join("");
 }
 
+function getFontSize(digitCount: number): number {
+  if (digitCount <= 3) {
+    return 190;
+  }
+
+  if (digitCount === 4) {
+    return 160;
+  }
+
+  if (digitCount <= 6) {
+    return 125;
+  }
+
+  if (digitCount <= 9) {
+    return 95;
+  }
+
+  return 75;
+}
+
 export function createNumberSvg(value: number): string {
-  if (!Number.isInteger(value) || value < 0 || value > 999) {
+  if (!Number.isSafeInteger(value) || value < 0) {
     throw new Error(
-      `Invalid number visual: ${value}. Expected an integer from 0 to 999.`,
+      `Invalid number visual: ${value}. Expected a non-negative safe integer.`,
     );
   }
 
   const arabicNumber = toEasternArabicDigits(value);
+
+  const fontSize = getFontSize(String(value).length);
 
   const width = 600;
   const height = 400;
@@ -43,7 +65,7 @@ export function createNumberSvg(value: number): string {
         text-anchor="middle"
         dominant-baseline="middle"
         font-family="Noto Sans Arabic, sans-serif"
-        font-size="190"
+        font-size="${fontSize}"
         font-weight="700"
         fill="#184F4C"
       >

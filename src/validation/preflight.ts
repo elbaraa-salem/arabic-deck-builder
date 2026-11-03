@@ -19,6 +19,7 @@ import type {
 import { collectSlideImageKeys } from "./slide-assets.ts";
 
 import { formatPreflightIssue } from "./format-issue.ts";
+import { isGeneratedVisual } from "../visuals/visual-resolver.ts";
 
 type InspectionResult = {
   slides?: SlideSpec[];
@@ -113,21 +114,35 @@ async function inspectLesson(lessonPath: string): Promise<InspectionResult> {
 
   const missingImages: string[] = [];
 
+  const issues: PreflightIssue[] = [];
+
   for (const imageKey of imageKeys) {
     try {
       resolveImagePath(imageKey);
-    } catch {
+    } catch (error) {
+      if (isGeneratedVisual(imageKey)) {
+        issues.push({
+          type: "visual",
+
+          path: imageKey,
+
+          message: error instanceof Error ? error.message : String(error),
+        });
+
+        continue;
+      }
+
       missingImages.push(imageKey);
+
+      issues.push({
+        type: "asset",
+
+        path: imageKey,
+
+        message: "Image asset was not found.",
+      });
     }
   }
-
-  const issues: PreflightIssue[] = missingImages.map((image) => ({
-    type: "asset",
-
-    path: image,
-
-    message: "Image asset was not found.",
-  }));
 
   return {
     slides,

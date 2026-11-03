@@ -21,7 +21,7 @@ activities:
   - type: question_reveal
     question: مَا هَذَا الرَّقْمُ؟
     answer: سَبْعَةٌ وَعِشْرُونَ
-    image: "@number/999"
+    image: "@number/3333"
 
   - type: introduce
     arabic: كِتَاب

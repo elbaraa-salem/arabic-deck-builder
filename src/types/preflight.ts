@@ -6,6 +6,7 @@ export type PreflightIssueType =
   | "schema"
   | "planning"
   | "asset"
+  | "visual"
   | "unknown";
 
 export type PreflightIssue = {
