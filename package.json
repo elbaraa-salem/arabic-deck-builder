@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "node src/index.ts",
     "generate": "node src/index.ts",
+    "generate:all": "node src/generate-all.ts",
     "typecheck": "tsc --noEmit"
   },
   "keywords": [

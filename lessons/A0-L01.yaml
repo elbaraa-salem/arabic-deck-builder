@@ -1,9 +1,15 @@
-id: A0-L01
+id: A0-L02
 level: A0
-title: التَّحِيَّةُ والتعارف
-goal: يُعَرِّف الطالب بنفسه و يتعرف على شخص ما
+title: هَذَا وهَذِهِ
+goal: يشير الطالب إلى الأشياء والأشخاص ويسأل ويجيب باستخدام ما ومن وهذا وهذه
+translation_language: ru
 
 activities:
+  - type: lesson_cover
+    title: الأُسْرَة
+    subtitle: الدَّرْسُ الخَامِس
+    translation: Семья
+
   - type: dialogue_build
 
     speakers:
@@ -89,3 +95,11 @@ activities:
 
           - speaker: B
             arabic: أَنا مِن رُوسْيَا
+
+  - type: lesson_end
+
+    title: أَحْسَنْتَ
+
+    subtitle: إِلَى اللِّقَاءِ
+
+    translation: До встречи!
