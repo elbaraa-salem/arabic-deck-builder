@@ -10,7 +10,8 @@
     "check": "node src/validation/check-lesson.ts",
     "check:all": "node src/validation/check-all.ts",
     "produce": "node src/production/produce-all.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "source:intake": "node src/source-intake/cli.ts"
   },
   "keywords": [
     "arabic",

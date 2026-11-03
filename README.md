@@ -49,7 +49,7 @@ A single instructional activity can therefore generate multiple presentation sta
 
 **Completed release milestone: `v0.6.0 — Educational Visuals`**
 
-**Current development milestone: `v0.7.0 — Source Ingestion` (schema foundation)**
+**Current development milestone: `v0.7.0 — Source Ingestion` (source intake and schema foundation)**
 
 The generation pipeline, teaching activities, presentation design system, production tools, and typed educational visuals are implemented.
 
@@ -845,6 +845,38 @@ Instructional logic remains in the planner, allowing teaching behavior and visua
 
 ---
 
+## Source Intake
+
+Inventory a PDF, one page image, or a directory of page images:
+
+```bash
+npm run source:intake -- path/to/book.pdf
+npm run source:intake -- path/to/page.png
+npm run source:intake -- path/to/book-pages
+```
+
+Image intake supports PNG, JPG/JPEG, and WebP, using the installed `image-size` library to inspect actual dimensions and format. Directory intake reads supported files directly inside the directory (not subdirectories), ignores unrelated files, and orders page names naturally: `page-1`, `page-2`, `page-10`. Physical page indices start at 1. Corrupt images fail intake rather than being silently omitted.
+
+**PDF prerequisite:** install Poppler's `pdfinfo` and `pdftotext` and make them available on `PATH`. For example, use `sudo apt install poppler-utils` on Debian/Ubuntu, `sudo pacman -S poppler` on Arch, or `brew install poppler` on macOS. PDF intake checks both tools and reports a clear error when unavailable; image intake does not require them. No native canvas or PDF rendering dependency is used.
+
+PDF inspection records each page's dimensions and counts embedded Unicode letters/numbers without storing the extracted text. At least **20 letters/numbers** is treated as evidence of meaningful embedded text, suggesting `embedded_text`; otherwise the suggestion is `vision`. The manifest's `embeddedTextCharacterCount` records that letter/number count. This conservative heuristic avoids treating a page number alone as usable text. It does not prove that a page is scanned, that text is correct/complete, or that image content is unimportant. Hybrid is reserved in the schema, but the inspector does not claim to detect hybrid pages. Encrypted PDFs requiring a password and unreadable PDFs fail clearly; there is no password-input option yet.
+
+The command validates a `SourceIntakeManifest` and writes deterministic YAML under `output/source-intake/<source-name>-<path-hash>.yaml`. The hash distinguishes same-named inputs at different paths. All paths in the manifest are relative to the invocation's working directory; run from the repository root for consistent paths. Images use pixel dimensions and reference the existing image file; PDFs use point dimensions and are **not rendered to page images**. Repeated inspection of the same unchanged source from the same working directory produces the same manifest and filename, without timestamps or binary data.
+
+The terminal reports source kind, total pages, embedded-text pages, visual-extraction pages, and the manifest path. A failed inspection writes no manifest.
+
+```text
+Source file
+    ↓
+SourceIntakeManifest
+    ↓
+Future page extraction
+    ↓
+SourceMaterial
+```
+
+This stage classifies and inventories physical pages only. It does **not** perform OCR, vision, semantic extraction, or conversion to `SourceMaterial`, curriculum units, or lesson YAML. Before expanding ingestion, manually run the command against a real scanned/book PDF, a page-image directory, and ideally a text PDF; review the manifest's per-page evidence and suggestions. `v0.7.0` remains in progress.
+
 ## Source Material Foundation
 
 The first part of `v0.7.0` models what exists in source material independently of teaching lessons:
@@ -857,7 +889,7 @@ Pedagogical Analysis
 Curriculum Design
 ```
 
-Only the **source-material model and Zod validation** are implemented here. PDF parsing, page rendering, OCR, vision extraction, image extraction, and audio transcription remain future ingestion work. Analysis and curriculum design are separate future layers.
+The **source-material model and Zod validation** preserve extracted material. Source intake now inspects PDF page metadata and embedded-text evidence separately; page rendering, OCR, vision extraction, image extraction, and audio transcription remain future ingestion work. Analysis and curriculum design are separate future layers.
 
 **`SourceUnit` ≠ Curriculum Lesson.** A source unit records the book's organization. Its title is optional when the source provides none; its ID, order, and references still identify it. Later work may split, combine, reorder, reuse, or discard its material. There is no automatic mapping to the existing lesson schema, activities, planner, or PowerPoint generation.
 
@@ -1271,17 +1303,19 @@ Foundation implemented:
 
 - independent source-material domain model and reusable validation schemas;
 - multiple documents, source units, page blocks, and extraction provenance;
-- source semantic material, example YAML, and regression tests.
+- source semantic material, example YAML, and regression tests;
+- source intake CLI for PDF, image, and page-image directory inventory;
+- per-page PDF embedded-text evidence and validated deterministic intake manifests.
 
 Still planned:
 
-- PDF lesson-source ingestion;
+- PDF page rendering and content extraction beyond intake;
 - scanned page and image processing;
 - extraction of vocabulary, structures, grammar, dialogues, and exercises;
 - populating the source-material model from extracted content;
 - preparation of extracted material for lesson design.
 
-**Status: in progress — schema foundation only**
+**Status: in progress — source intake and schema foundation; extraction remains planned**
 
 ---
 
