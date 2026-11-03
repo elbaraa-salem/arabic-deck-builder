@@ -20,6 +20,14 @@ export const educationalVisualSchema = z.discriminatedUnion("type", [
     type: z.literal("direction"),
     direction: z.enum(["left", "right", "up", "down"]),
   }),
+  z.object({
+    type: z.literal("fraction"),
+    numerator: z.int().min(1),
+    denominator: z.int().min(2).max(12),
+  }).refine((fraction) => fraction.numerator <= fraction.denominator, {
+    message: "numerator must be less than or equal to denominator",
+    path: ["numerator"],
+  }),
 ]) satisfies z.ZodType<EducationalVisual>;
 
 export function withVisualSlot<T extends z.ZodRawShape>(

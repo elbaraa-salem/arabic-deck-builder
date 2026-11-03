@@ -20,11 +20,18 @@ export type DirectionVisual = {
   direction: "left" | "right" | "up" | "down";
 };
 
+export type FractionVisual = {
+  type: "fraction";
+  numerator: number;
+  denominator: number;
+};
+
 export type EducationalVisual =
   | ClockVisual
   | NumberVisual
   | QuantityVisual
-  | DirectionVisual;
+  | DirectionVisual
+  | FractionVisual;
 
 export type VisualSource =
   | { kind: "asset"; key: string }
