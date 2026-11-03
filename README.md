@@ -47,13 +47,15 @@ A single instructional activity can therefore generate multiple presentation sta
 
 ## Current Status
 
-**Current stable release: `v0.2.0`**
+**Completed release milestone: `v0.6.0 — Educational Visuals`**
 
-**Current development milestone: `v0.3.0 — Teaching Activities`**
+**Next planned milestone: `v0.7.0 — Source Ingestion`**
 
-The core generation pipeline and image asset system are complete.
+The generation pipeline, teaching activities, presentation design system, production tools, and typed educational visuals are implemented.
 
-The current development version adds a larger pedagogical activity system, progressive learner support, long-dialogue segmentation, and structural lesson slides.
+Educational visuals include clocks, numbers with Eastern or Western numerals, quantity compositions, directions, and circular fractions. Static image assets continue to work in the same visual slots.
+
+Package metadata still declares `0.5.0`; the release version bump and tagging are separate from this documentation preparation.
 
 The main pipeline is:
 
@@ -102,7 +104,7 @@ The teacher writes a structured lesson once. The planner decides how many presen
 - progressive reveal states;
 - reusable presentation pipeline.
 
-### Image system
+### Static image system
 
 - logical image asset names;
 - asset path resolution;
@@ -139,13 +141,141 @@ instead of language-specific property names.
 
 ---
 
+## Educational Visuals
+
+An existing lesson visual slot accepts either a static image asset key:
+
+```yaml
+image: book
+```
+
+or a typed generated visual:
+
+```yaml
+visual:
+  type: clock
+  hour: 10
+  minute: 30
+```
+
+Supply exactly one of `image` or `visual` for `introduce` and `question_reveal`. Other existing visual slots are optional and accept at most one source. Keep the source in the activity's existing location: `prompt` for `recall`, `discriminate`, and `personalize`; `cue` for `transform`; each item for `noticing`; or the activity itself for `dialogue_build`, `interpret`, `information_gap`, `role_play`, and `error_correction`. Other activities have no visual slot.
+
+Static keys resolve under `assets/images/`, using `.png`, `.jpg`, `.jpeg`, or `.webp`. For example, `image: book` can resolve to `assets/images/book.jpg`.
+
+### Clock
+
+A mathematically generated analog clock:
+
+```yaml
+visual:
+  type: clock
+  hour: 10
+  minute: 30
+```
+
+`hour` must be an integer from **0–23**; `minute` must be an integer from **0–59**.
+
+### Number
+
+Eastern numerals are the default. This renders **١٢٠٠**:
+
+```yaml
+visual:
+  type: number
+  value: 1200
+```
+
+The same style can be selected explicitly:
+
+```yaml
+visual:
+  type: number
+  value: 1200
+  numerals: eastern
+```
+
+Western numerals render **1200**:
+
+```yaml
+visual:
+  type: number
+  value: 1200
+  numerals: western
+```
+
+`value` must be a non-negative JavaScript safe integer, from **0–9,007,199,254,740,991**. `numerals` accepts only `eastern` or `western` and defaults to `eastern` during validation. Typography scales for longer numbers.
+
+### Quantity
+
+Repeat one static image asset in an automatically computed grid:
+
+```yaml
+visual:
+  type: quantity
+  item: apple
+  count: 5
+```
+
+`item` must be a non-empty asset key; provide a matching asset such as `assets/images/apple.png` to use this example. `count` must be an integer from **1–20**. The renderer resolves the asset once, preserves its aspect ratio, and embeds its data once in a self-contained SVG reused by the repeated instances.
+
+### Direction
+
+A single arrow communicates direction without text labels:
+
+```yaml
+visual:
+  type: direction
+  direction: left
+```
+
+Supported values are exactly **`left`, `right`, `up`, `down`**. Other values are rejected rather than normalized.
+
+### Fraction
+
+A circle divided into equal sectors, with the requested number highlighted:
+
+```yaml
+visual:
+  type: fraction
+  numerator: 3
+  denominator: 4
+```
+
+Both values must be integers. `denominator` must be **2–12**, and `numerator` must be **1–denominator**, inclusive. Full fractions such as `12/12` highlight the entire circle while keeping sector boundaries visible. No text labels are added.
+
+### Visual flow and preflight
+
+```text
+Lesson YAML
+    ↓
+Zod validation
+    ↓
+Planner normalization
+    ↓
+VisualSource
+├── static asset
+└── generated educational visual
+    ↓
+Visual resolver
+    ↓
+Presentation layout
+```
+
+The planner normalizes `image` into `{ kind: "asset", key }` and `visual` into `{ kind: "generated", spec }`. Layouts consume this shared presentation-facing source model; they do not parse YAML visual structures. The source resolver delegates static lookup to the asset resolver and generated specs to the educational visual renderer. Resolved files use the existing image-fitting pipeline.
+
+Generated SVGs and filenames are deterministic for the same validated inputs and source assets, and are written under `output/.generated-visuals/`. Number filenames distinguish numeral styles, such as `number-eastern-1200.svg` and `number-western-1200.svg`.
+
+Preflight resolves both kinds before presentation generation. Missing static images are reported as **`[ASSET]`**; generated visual failures are **`[VISUAL]`**, including missing assets referenced by quantity visuals. Malformed visual specifications normally fail earlier as **`[SCHEMA]`** issues. CLI reports use `Visuals: N` for the number of distinct visual sources, including static and generated sources.
+
+---
+
 ## Teaching Activity System
 
 The project currently supports thirteen core instructional activity types.
 
 ### 1. `introduce`
 
-Introduces new language using Arabic, optional translation support, and an image.
+Introduces new language using Arabic, optional translation support, and a visual source.
 
 ```yaml
 - type: introduce
@@ -741,7 +871,8 @@ arabic-deck-builder/
 │   │
 │   ├── planner/
 │   │   ├── slide-planner.ts
-│   │   └── support.ts
+│   │   ├── support.ts
+│   │   └── visual.ts
 │   │
 │   ├── presentation/
 │   │   ├── image.ts
@@ -769,11 +900,32 @@ arabic-deck-builder/
 │   │       └── transform.ts
 │   │
 │   ├── schema/
-│   │   └── lesson.schema.ts
+│   │   ├── lesson.schema.ts
+│   │   └── visual.schema.ts
+│   │
+│   ├── visuals/
+│   │   ├── clock.ts
+│   │   ├── number.ts
+│   │   ├── quantity.ts
+│   │   ├── direction.ts
+│   │   ├── fraction.ts
+│   │   ├── visual-resolver.ts
+│   │   └── visual-source-resolver.ts
+│   │
+│   ├── validation/
+│   │   ├── preflight.ts
+│   │   └── slide-assets.ts
 │   │
 │   └── types/
 │       ├── slide.ts
-│       └── support.ts
+│       ├── support.ts
+│       └── visual.ts
+│
+├── tests/
+│   ├── educational-visuals.test.ts
+│   ├── quantity-visuals.test.ts
+│   ├── direction-visuals.test.ts
+│   └── fraction-visuals.test.ts
 │
 ├── package.json
 └── tsconfig.json
@@ -940,13 +1092,31 @@ Check TypeScript:
 npm run typecheck
 ```
 
-Generate the current lesson:
+Check all lessons before generating presentations:
 
 ```bash
-npm run dev
+npm run check:all
 ```
 
-The generated presentation is written to the `output/` directory.
+Generate one lesson:
+
+```bash
+npm run generate -- lessons/A0-L02.yaml
+```
+
+Preflight all lessons and then generate the full batch:
+
+```bash
+npm run produce
+```
+
+Run the visual regression suites:
+
+```bash
+node --test tests/educational-visuals.test.ts tests/quantity-visuals.test.ts tests/direction-visuals.test.ts tests/fraction-visuals.test.ts
+```
+
+Generated presentations are written to `output/`; generated visual SVGs are written to `output/.generated-visuals/`.
 
 ---
 
@@ -1047,18 +1217,21 @@ Completed:
 
 ### `v0.6.0` — Educational Visuals
 
-Planned:
+Completed:
 
-Deterministic educational graphics for cases where photographic or generated images are not ideal.
+- typed educational visual model and shared `VisualSource` representation;
+- deterministic clock visuals;
+- number visuals with default Eastern and optional Western numeral styles;
+- quantity compositions from static assets;
+- direction arrows for left, right, up, and down;
+- circular fraction visuals with equal sectors;
+- reusable discriminated-union schema validation;
+- planner normalization of static and generated visual sources;
+- preflight integration with separate asset and visual issue classifications;
+- deterministic generated SVG output through a shared writer;
+- regression tests for validation, geometry, numeral styles, resolution, and presentation generation.
 
-Possible examples:
-
-- clocks;
-- quantities;
-- numbers;
-- directions;
-- diagrams;
-- simple educational illustrations.
+**Status: completed**
 
 ---
 
@@ -1117,7 +1290,7 @@ Planned:
 
 Possible future work includes:
 
-- automated tests;
+- broader automated test coverage;
 - presentation quality checks;
 - additional learner-response modes;
 - additional support types;
