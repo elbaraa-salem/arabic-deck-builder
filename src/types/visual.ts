@@ -9,7 +9,13 @@ export type NumberVisual = {
   value: number;
 };
 
-export type EducationalVisual = ClockVisual | NumberVisual;
+export type QuantityVisual = {
+  type: "quantity";
+  item: string;
+  count: number;
+};
+
+export type EducationalVisual = ClockVisual | NumberVisual | QuantityVisual;
 
 export type VisualSource =
   | { kind: "asset"; key: string }

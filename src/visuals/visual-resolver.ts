@@ -1,11 +1,13 @@
 import type { EducationalVisual } from "../types/visual.ts";
 import { mkdirSync, writeFileSync } from "node:fs";
+import { createHash } from "node:crypto";
 
 import { resolve } from "node:path";
 
 import { createClockSvg } from "./clock.ts";
 
 import { createNumberSvg } from "./number.ts";
+import { createQuantitySvg } from "./quantity.ts";
 
 const generatedDirectory = resolve(
   process.cwd(),
@@ -37,10 +39,23 @@ export function resolveGeneratedVisual(spec: EducationalVisual): string {
         createClockSvg(spec.hour, spec.minute),
       );
     case "number":
-      return writeGeneratedVisual(`number-${spec.value}.svg`, createNumberSvg(spec.value));
+      return writeGeneratedVisual(
+        `number-${spec.value}.svg`,
+        createNumberSvg(spec.value),
+      );
+    case "quantity": {
+      const itemKey = createHash("sha256").update(spec.item).digest("hex");
+
+      return writeGeneratedVisual(
+        `quantity-${itemKey}-${spec.count}.svg`,
+        createQuantitySvg(spec.item, spec.count),
+      );
+    }
     default: {
       const exhaustive: never = spec;
-      throw new Error(`Unknown educational visual: ${JSON.stringify(exhaustive)}`);
+      throw new Error(
+        `Unknown educational visual: ${JSON.stringify(exhaustive)}`,
+      );
     }
   }
 }

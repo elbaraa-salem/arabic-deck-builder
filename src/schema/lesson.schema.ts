@@ -31,17 +31,23 @@ const lessonEndActivitySchema = z.object({
   translation: z.string().min(1).optional(),
 });
 
-const introduceActivitySchema = withVisualSlot({
-  type: z.literal("introduce"),
-  arabic: z.string().min(1),
-  translation: z.string().min(1).optional(),
-}, true);
+const introduceActivitySchema = withVisualSlot(
+  {
+    type: z.literal("introduce"),
+    arabic: z.string().min(1),
+    translation: z.string().min(1).optional(),
+  },
+  true,
+);
 
-const questionRevealActivitySchema = withVisualSlot({
-  type: z.literal("question_reveal"),
-  question: z.string().min(1),
-  answer: z.string().min(1),
-}, true);
+const questionRevealActivitySchema = withVisualSlot(
+  {
+    type: z.literal("question_reveal"),
+    question: z.string().min(1),
+    answer: z.string().min(1),
+  },
+  true,
+);
 
 const dialogueLineSchema = z.object({
   speaker: z.enum(["A", "B"]),
@@ -140,18 +146,18 @@ const personalizeActivitySchema = z.object({
 });
 
 const interpretActivitySchema = withVisualSlot({
-    type: z.literal("interpret"),
+  type: z.literal("interpret"),
 
-    passage: z.string().min(1),
+  passage: z.string().min(1),
 
-    question: z.string().min(1),
+  question: z.string().min(1),
 
-    choices: z.array(z.string().min(1)).min(2).max(4),
+  choices: z.array(z.string().min(1)).min(2).max(4),
 
-    answer: z.string().min(1),
+  answer: z.string().min(1),
 
-    support: supportPlanSchema.optional(),
-  })
+  support: supportPlanSchema.optional(),
+})
   .refine((activity) => activity.choices.includes(activity.answer), {
     message: "answer must be one of the choices",
     path: ["answer"],
@@ -180,23 +186,22 @@ const informationGapFactSchema = z
   );
 
 const informationGapActivitySchema = withVisualSlot({
-    type: z.literal("information_gap"),
+  type: z.literal("information_gap"),
 
-    instruction: z.string().min(1),
+  instruction: z.string().min(1),
 
-    subject: z.string().min(1).optional(),
+  subject: z.string().min(1).optional(),
 
-    facts: z.array(informationGapFactSchema).min(2).max(6),
+  facts: z.array(informationGapFactSchema).min(2).max(6),
 
-    support: supportPlanSchema.optional(),
-  })
-  .refine(
-    (activity) => activity.facts.some((fact) => fact.answer !== undefined),
-    {
-      message: "information gap must contain at least one missing fact",
-      path: ["facts"],
-    },
-  );
+  support: supportPlanSchema.optional(),
+}).refine(
+  (activity) => activity.facts.some((fact) => fact.answer !== undefined),
+  {
+    message: "information gap must contain at least one missing fact",
+    path: ["facts"],
+  },
+);
 
 const rolePlayActivitySchema = withVisualSlot({
   type: z.literal("role_play"),
