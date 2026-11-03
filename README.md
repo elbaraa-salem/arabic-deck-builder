@@ -49,13 +49,11 @@ A single instructional activity can therefore generate multiple presentation sta
 
 **Completed release milestone: `v0.6.0 — Educational Visuals`**
 
-**Next planned milestone: `v0.7.0 — Source Ingestion`**
+**Current development milestone: `v0.7.0 — Source Ingestion` (schema foundation)**
 
 The generation pipeline, teaching activities, presentation design system, production tools, and typed educational visuals are implemented.
 
 Educational visuals include clocks, numbers with Eastern or Western numerals, quantity compositions, directions, and circular fractions. Static image assets continue to work in the same visual slots.
-
-Package metadata still declares `0.5.0`; the release version bump and tagging are separate from this documentation preparation.
 
 The main pipeline is:
 
@@ -847,6 +845,38 @@ Instructional logic remains in the planner, allowing teaching behavior and visua
 
 ---
 
+## Source Material Foundation
+
+The first part of `v0.7.0` models what exists in source material independently of teaching lessons:
+
+```text
+Source Material
+    ↓
+Pedagogical Analysis
+    ↓
+Curriculum Design
+```
+
+Only the **source-material model and Zod validation** are implemented here. PDF parsing, page rendering, OCR, vision extraction, image extraction, and audio transcription remain future ingestion work. Analysis and curriculum design are separate future layers.
+
+**`SourceUnit` ≠ Curriculum Lesson.** A source unit records the book's organization. Its title is optional when the source provides none; its ID, order, and references still identify it. Later work may split, combine, reorder, reuse, or discard its material. There is no automatic mapping to the existing lesson schema, activities, planner, or PowerPoint generation.
+
+The root `SourceMaterial` has `schemaVersion: "1.0"` (the data format version, independent of the application release) and one or more documents. Each `SourceDocument` holds optional bibliographic metadata, pages, and ordered source units. A document may describe a whole book or only selected pages. Multiple documents can coexist without implementing merging logic.
+
+Pages carry a required positive integer `pageIndex` identifying their physical/sequence position in the document, plus an optional non-empty `pageLabel` preserving printed text such as `"25"`, `"iv"`, or `"أ"`. Labels need not be numeric or match the index. Source/image file references, extraction metadata, and normalized blocks preserve the page content. Extraction methods are `embedded_text`, `ocr`, `vision`, `manual`, or `hybrid`; confidence, when known, is between 0 and 1. Blocks may record more specific extraction metadata and an optional normalized `region: { x, y, width, height }`. Coordinates are between 0 and 1; dimensions are greater than 0 and at most 1, with the whole region contained within the page. Semantic items reach regions through block references. A scanned page can reference its image and record OCR or vision provenance without any embedded PDF text. Empty page/block/unit collections allow ingestion in progress.
+
+Source units collect vocabulary (including contextual and incidental words), structures, explicit or incidental grammar, communicative functions, dialogue/reading texts, listening material, writing tasks, exercise evidence, visual elements, and contextual notes. These describe source observations, not decisions about what students must learn. Listening may have audio, a transcript, both, or neither while extraction is incomplete.
+
+Every semantic item has an ID and one or more source references containing a document ID, positive `pageIndex`, optional block ID, and optional extraction metadata. Glosses are language-tagged. Approximate levels use a free-text label with an optional `source_stated` or `estimated` basis, without requiring CEFR precision. Source text is preserved without spelling, punctuation, or vocalization corrections; future corrections belong in separate annotations.
+
+The schema checks structure, numeric bounds, unique document/page/block/unit identities (including unique page indices per document), and matching block/page indices. References and visual relationships are structurally validated; cross-reference resolution and source-file existence checks are not implemented. Referenced files and pages need not all be present in a partial capture. Non-empty text is checked without trimming or rewriting it.
+
+See [the source-material YAML example](examples/source-material-example.yaml) for a compact, invented two-unit book sample, including vision/OCR pages and all semantic categories. Its PDF, image, and audio paths are illustrative, not supplied assets. Validate data with `sourceMaterialSchema` from `src/schema/source-material.schema.ts`; the existing lesson-generation CLI does not accept this format.
+
+Domain types and schemas are split into three cohesive modules each: source references/provenance, semantic items, and the material/document/page/unit hierarchy. Regression coverage lives in `tests/source-material.test.ts` and validates the example through the real schema.
+
+---
+
 ## Project Structure
 
 ```text
@@ -1237,13 +1267,21 @@ Completed:
 
 ### `v0.7.0` — Source Ingestion
 
-Planned:
+Foundation implemented:
+
+- independent source-material domain model and reusable validation schemas;
+- multiple documents, source units, page blocks, and extraction provenance;
+- source semantic material, example YAML, and regression tests.
+
+Still planned:
 
 - PDF lesson-source ingestion;
 - scanned page and image processing;
 - extraction of vocabulary, structures, grammar, dialogues, and exercises;
-- structured representation of source material;
+- populating the source-material model from extracted content;
 - preparation of extracted material for lesson design.
+
+**Status: in progress — schema foundation only**
 
 ---
 

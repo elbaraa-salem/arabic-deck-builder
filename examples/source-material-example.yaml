@@ -1,0 +1,189 @@
+# Invented schema demonstration, not an extraction from a published textbook.
+# File paths illustrate source references; no PDF/image/audio files are required.
+schemaVersion: "1.0"
+documents:
+  - id: arabic-starter
+    title: العربية للمبتدئين — نموذج مصدر
+    author: فريق التأليف التجريبي
+    publisher: منشور تجريبي
+    edition: "1"
+    language: ar
+    approximateLevel:
+      label: مبتدئ
+      basis: source_stated
+    sourceFile: sources/arabic-starter.pdf
+    totalPageCount: 24
+    # Only sampled pages are captured; a whole book can add all remaining pages.
+    pages:
+      - pageIndex: 2
+        pageLabel: "iv"
+        extraction:
+          method: embedded_text
+          confidence: 0.99
+        blocks:
+          - id: p2-dialogue
+            pageIndex: 2
+            kind: dialogue
+            text: |-
+              أحمد: السَّلامُ عَلَيْكُمْ.
+              مريم: وَعَلَيْكُمُ السَّلامُ. مَا اسْمُكَ؟
+              أحمد: اسْمِي أَحْمَدُ.
+          - id: p2-grammar
+            pageIndex: 2
+            kind: grammar_box
+            text: "الضمائر: أَنَا، أَنْتَ، أَنْتِ."
+      - pageIndex: 3
+        pageLabel: "1"
+        imageFile: sources/pages/page-003.png
+        extraction:
+          method: vision
+          confidence: 0.86
+          notes: صفحة ممسوحة؛ بعض علامات التشكيل غير واضحة.
+        blocks:
+          - id: p3-reading
+            pageIndex: 3
+            kind: paragraph
+            region: { x: 0.1, y: 0.12, width: 0.8, height: 0.25 }
+            text: "أَنَا مَرْيَمُ. أَنَا مِنْ مِصْرَ. هَذَا كِتَابِي."
+          - id: p3-picture
+            pageIndex: 3
+            kind: visual
+            region: { x: 0.25, y: 0.45, width: 0.5, height: 0.35 }
+            imageFile: sources/images/book-page-003.png
+      - pageIndex: 8
+        pageLabel: "6"
+        imageFile: sources/pages/page-008.png
+        extraction:
+          method: ocr
+          confidence: 0.91
+        blocks:
+          - id: p8-listening
+            pageIndex: 8
+            kind: exercise
+            text: "اِسْتَمِعْ: أَيْنَ الكِتَابُ؟ الكِتَابُ عَلَى المَكْتَبِ."
+            extraction:
+              method: hybrid
+              confidence: 0.95
+              notes: نُسخ النص آليًا ثم روجع يدويًا.
+    units:
+      - id: introductions
+        title: الوحدة الأولى — التعارف
+        order: 1
+        references:
+          - { documentId: arabic-starter, pageIndex: 2 }
+          - { documentId: arabic-starter, pageIndex: 3 }
+        vocabulary:
+          - id: name
+            surface: اسْمِي
+            lemma: اِسْم
+            partOfSpeech: اسم
+            exposure: explicit_target
+            glosses:
+              - { language: en, text: my name }
+              - { language: ru, text: моё имя }
+            example: اسْمِي أَحْمَدُ.
+            references:
+              - { documentId: arabic-starter, pageIndex: 2, blockId: p2-dialogue }
+          - id: book
+            surface: كِتَابِي
+            lemma: كِتَاب
+            exposure: contextual
+            references:
+              - documentId: arabic-starter
+                pageIndex: 3
+                blockId: p3-reading
+                extraction: { method: vision, confidence: 0.86 }
+        structures:
+          - id: origin-pattern
+            pattern: أَنَا مِنْ...
+            communicativeUse: ذكر البلد
+            examples: [أَنَا مِنْ مِصْرَ.]
+            exposure: supporting
+            references:
+              - { documentId: arabic-starter, pageIndex: 3, blockId: p3-reading }
+        grammar:
+          - id: pronouns
+            title: ضمائر المخاطب والمتكلم
+            presentation: explicit
+            examples: [أَنَا، أَنْتَ، أَنْتِ]
+            references:
+              - { documentId: arabic-starter, pageIndex: 2, blockId: p2-grammar }
+          - id: possessive-suffix
+            title: ياء المتكلم
+            presentation: incidental
+            examples: [كِتَابِي]
+            references:
+              - { documentId: arabic-starter, pageIndex: 3, blockId: p3-reading }
+        functions:
+          - id: self-introduction
+            label: التعريف بالنفس
+            examples: [اسْمِي أَحْمَدُ.]
+            references:
+              - { documentId: arabic-starter, pageIndex: 2, blockId: p2-dialogue }
+        texts:
+          - id: greeting-dialogue
+            type: dialogue
+            title: ما اسمك؟
+            lines:
+              - { speaker: أحمد, text: السَّلامُ عَلَيْكُمْ. }
+              - { speaker: مريم, text: وَعَلَيْكُمُ السَّلامُ. مَا اسْمُكَ؟ }
+              - { speaker: أحمد, text: اسْمِي أَحْمَدُ. }
+            references:
+              - { documentId: arabic-starter, pageIndex: 2, blockId: p2-dialogue }
+          - id: maryam-reading
+            type: reading
+            text: "أَنَا مَرْيَمُ. أَنَا مِنْ مِصْرَ. هَذَا كِتَابِي."
+            sourceNotes: احتُفظ بالنص كما ورد في المثال.
+            references:
+              - { documentId: arabic-starter, pageIndex: 3, blockId: p3-reading }
+        writing:
+          - id: write-introduction
+            topic: التعريف بالنفس
+            instruction: اُكْتُبِ اسْمَكَ وَبَلَدَكَ.
+            expectedOutputForm: جملتان
+            languageMaterial:
+              structures: [اسْمِي..., أَنَا مِنْ...]
+            references:
+              - { documentId: arabic-starter, pageIndex: 3 }
+        exercises:
+          - id: complete-introduction
+            format: fill_in_blank
+            instruction: أَكْمِلْ.
+            languageMaterial:
+              vocabulary: [اِسْم]
+              structures: [اسْمِي...]
+            items: ["اسْمِي ___."]
+            references:
+              - { documentId: arabic-starter, pageIndex: 3 }
+        visuals:
+          - id: book-picture
+            description: صورة كتاب بجوار نص مريم.
+            caption: كِتَابِي
+            imageFile: sources/images/book-page-003.png
+            relatedItems:
+              - { kind: vocabulary, id: book }
+              - { kind: text, id: maryam-reading }
+            references:
+              - { documentId: arabic-starter, pageIndex: 3, blockId: p3-picture }
+        contextNotes:
+          - id: greeting-context
+            text: يفتتح حوار المصدر بعبارة «السَّلامُ عَلَيْكُمْ» وردّها.
+            references:
+              - { documentId: arabic-starter, pageIndex: 2, blockId: p2-dialogue }
+      - id: classroom
+        title: الوحدة الثانية — في الفصل
+        order: 2
+        approximateLevel: { label: مبتدئ, basis: estimated }
+        references:
+          - { documentId: arabic-starter, pageIndex: 8 }
+        listening:
+          - id: locate-book
+            title: أين الكتاب؟
+            transcript: "أَيْنَ الكِتَابُ؟ الكِتَابُ عَلَى المَكْتَبِ."
+            audioFile: sources/audio/track-02.mp3
+            speakers:
+              - { id: narrator, description: صوت المتحدث في التسجيل }
+            instruction: اِسْتَمِعْ.
+            context: موقع الكتاب في الفصل.
+            references:
+              - { documentId: arabic-starter, pageIndex: 8, blockId: p8-listening }
