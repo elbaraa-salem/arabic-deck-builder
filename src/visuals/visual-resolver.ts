@@ -4,6 +4,8 @@ import { resolve } from "node:path";
 
 import { createClockSvg } from "./clock.ts";
 
+import { createNumberSvg } from "./number.ts";
+
 const generatedDirectory = resolve(
   process.cwd(),
   "output",
@@ -14,6 +16,16 @@ function ensureGeneratedDirectory(): void {
   mkdirSync(generatedDirectory, {
     recursive: true,
   });
+}
+
+function writeGeneratedVisual(filename: string, svg: string): string {
+  ensureGeneratedDirectory();
+
+  const outputPath = resolve(generatedDirectory, filename);
+
+  writeFileSync(outputPath, svg, "utf8");
+
+  return outputPath;
 }
 
 function resolveClockVisual(value: string): string {
@@ -29,15 +41,19 @@ function resolveClockVisual(value: string): string {
 
   const svg = createClockSvg(hour, minute);
 
-  ensureGeneratedDirectory();
+  return writeGeneratedVisual(`clock-${hour}-${minute}.svg`, svg);
+}
 
-  const filename = `clock-${hour}-${minute}.svg`;
+function resolveNumberVisual(value: string): string {
+  if (!/^\d+$/.test(value)) {
+    throw new Error(`Invalid number visual: @number/${value}`);
+  }
 
-  const outputPath = resolve(generatedDirectory, filename);
+  const number = Number(value);
 
-  writeFileSync(outputPath, svg, "utf8");
+  const svg = createNumberSvg(number);
 
-  return outputPath;
+  return writeGeneratedVisual(`number-${number}.svg`, svg);
 }
 
 export function isGeneratedVisual(key: string): boolean {
@@ -49,6 +65,12 @@ export function resolveGeneratedVisual(key: string): string {
 
   if (key.startsWith(clockPrefix)) {
     return resolveClockVisual(key.slice(clockPrefix.length));
+  }
+
+  const numberPrefix = "@number/";
+
+  if (key.startsWith(numberPrefix)) {
+    return resolveNumberVisual(key.slice(numberPrefix.length));
   }
 
   throw new Error(`Unknown educational visual: ${key}`);

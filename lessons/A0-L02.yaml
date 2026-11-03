@@ -18,6 +18,11 @@ activities:
     answer: السَّاعَةُ العَاشِرَةُ وَالنِّصْفُ
     image: "@clock/10:30"
 
+  - type: question_reveal
+    question: مَا هَذَا الرَّقْمُ؟
+    answer: سَبْعَةٌ وَعِشْرُونَ
+    image: "@number/999"
+
   - type: introduce
     arabic: كِتَاب
     translation: книга
