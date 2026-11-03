@@ -1,0 +1,218 @@
+# Visual QA demo only; kept outside lessons/ so batch production excludes it.
+id: educational-visuals-demo
+level: A0
+title: المرئيات التعليمية
+goal: معاينة جميع المرئيات التعليمية والتحقق من وضوحها وتناسقها
+translation_language: en
+
+activities:
+  - type: lesson_cover
+    title: المَرْئِيَّاتُ التَّعْلِيمِيَّةُ
+    subtitle: v0.6.0
+    translation: Educational Visuals · Visual QA
+
+  - type: section_break
+    title: السَّاعَةُ
+    translation: Clock
+
+  - type: introduce
+    arabic: كَمِ السَّاعَةُ؟
+    translation: "03:00"
+    visual:
+      type: clock
+      hour: 3
+      minute: 0
+
+  - type: introduce
+    arabic: كَمِ السَّاعَةُ؟
+    translation: "10:30"
+    visual:
+      type: clock
+      hour: 10
+      minute: 30
+
+  - type: introduce
+    arabic: كَمِ السَّاعَةُ؟
+    translation: "07:45"
+    visual:
+      type: clock
+      hour: 7
+      minute: 45
+
+  - type: introduce
+    arabic: كَمِ السَّاعَةُ؟
+    translation: "12:15"
+    visual:
+      type: clock
+      hour: 12
+      minute: 15
+
+  - type: section_break
+    title: الأَعْدَادُ
+    translation: Numbers
+
+  - type: introduce
+    arabic: مَا هَذَا العَدَدُ؟
+    translation: "Eastern · default"
+    visual:
+      type: number
+      value: 7
+
+  - type: introduce
+    arabic: مَا هَذَا العَدَدُ؟
+    translation: "Eastern · explicit"
+    visual:
+      type: number
+      value: 27
+      numerals: eastern
+
+  - type: introduce
+    arabic: مَا هَذَا العَدَدُ؟
+    translation: "Eastern · default"
+    visual:
+      type: number
+      value: 1200
+
+  - type: introduce
+    arabic: مَا هَذَا العَدَدُ؟
+    translation: "Western"
+    visual:
+      type: number
+      value: 1200
+      numerals: western
+
+  - type: introduce
+    arabic: مَا هَذَا العَدَدُ؟
+    translation: "Western · maximum safe integer"
+    visual:
+      type: number
+      value: 9007199254740991
+      numerals: western
+
+  - type: section_break
+    title: الكَمِّيَّاتُ
+    translation: Quantity
+
+  - type: introduce
+    arabic: كَمْ كِتَابًا تَرَى؟
+    translation: "1 book"
+    visual:
+      type: quantity
+      item: book
+      count: 1
+
+  - type: introduce
+    arabic: كَمْ كِتَابًا تَرَى؟
+    translation: "2 books"
+    visual:
+      type: quantity
+      item: book
+      count: 2
+
+  - type: introduce
+    arabic: كَمْ كِتَابًا تَرَى؟
+    translation: "5 books"
+    visual:
+      type: quantity
+      item: book
+      count: 5
+
+  - type: introduce
+    arabic: كَمْ كِتَابًا تَرَى؟
+    translation: "9 books"
+    visual:
+      type: quantity
+      item: book
+      count: 9
+
+  - type: introduce
+    arabic: كَمْ كِتَابًا تَرَى؟
+    translation: "12 books"
+    visual:
+      type: quantity
+      item: book
+      count: 12
+
+  - type: introduce
+    arabic: كَمْ كِتَابًا تَرَى؟
+    translation: "20 books"
+    visual:
+      type: quantity
+      item: book
+      count: 20
+
+  - type: section_break
+    title: الاِتِّجَاهَاتُ
+    translation: Direction
+
+  - type: introduce
+    arabic: يَسَار
+    translation: "Left"
+    visual:
+      type: direction
+      direction: left
+
+  - type: introduce
+    arabic: يَمِين
+    translation: "Right"
+    visual:
+      type: direction
+      direction: right
+
+  - type: introduce
+    arabic: أَعْلَى
+    translation: "Up"
+    visual:
+      type: direction
+      direction: up
+
+  - type: introduce
+    arabic: أَسْفَل
+    translation: "Down"
+    visual:
+      type: direction
+      direction: down
+
+  - type: section_break
+    title: الكُسُورُ
+    translation: Fraction
+
+  - type: introduce
+    arabic: مَا الكَسْرُ المُظَلَّلُ؟
+    translation: "1/2"
+    visual:
+      type: fraction
+      numerator: 1
+      denominator: 2
+
+  - type: introduce
+    arabic: مَا الكَسْرُ المُظَلَّلُ؟
+    translation: "2/3"
+    visual:
+      type: fraction
+      numerator: 2
+      denominator: 3
+
+  - type: introduce
+    arabic: مَا الكَسْرُ المُظَلَّلُ؟
+    translation: "3/4"
+    visual:
+      type: fraction
+      numerator: 3
+      denominator: 4
+
+  - type: introduce
+    arabic: مَا الكَسْرُ المُظَلَّلُ؟
+    translation: "5/8"
+    visual:
+      type: fraction
+      numerator: 5
+      denominator: 8
+
+  - type: introduce
+    arabic: مَا الكَسْرُ المُظَلَّلُ؟
+    translation: "12/12"
+    visual:
+      type: fraction
+      numerator: 12
+      denominator: 12
