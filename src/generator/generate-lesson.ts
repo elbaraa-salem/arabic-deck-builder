@@ -2,12 +2,11 @@ import { mkdir } from "node:fs/promises";
 
 import { basename, extname, join } from "node:path";
 
-import { loadLesson } from "../parser/lesson.parser.ts";
-
-import { planSlides } from "../planner/slide-planner.ts";
-
 import { renderPresentation } from "../presentation/render-presentation.ts";
+
 import type { GenerationResult } from "../types/generation.ts";
+
+import { prepareLesson } from "../validation/preflight.ts";
 
 export async function generateLesson(
   lessonPath: string,
@@ -24,19 +23,19 @@ export async function generateLesson(
 
   const outputPath = join(outputDirectory, `${lessonName}.pptx`);
 
+  const prepared = await prepareLesson(lessonPath);
+
   await mkdir(outputDirectory, {
     recursive: true,
   });
 
-  const lesson = await loadLesson(lessonPath);
-
-  const slides = planSlides(lesson);
-
-  await renderPresentation(slides, outputPath);
+  await renderPresentation(prepared.slides, outputPath);
 
   return {
     lessonPath,
+
     outputPath,
-    slideCount: slides.length,
+
+    slideCount: prepared.slides.length,
   };
 }
