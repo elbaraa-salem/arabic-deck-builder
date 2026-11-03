@@ -1027,15 +1027,21 @@ Completed:
 
 ### `v0.5.0` — Production Tools
 
-Planned:
+Completed:
 
-- command-line lesson selection;
-- generation of a specific lesson file;
-- batch lesson generation;
-- lesson validation reports;
-- missing-asset checks before generation;
-- clearer generation errors;
-- improved production workflow.
+- command-line generation of individual lessons;
+- automatic output naming;
+- batch generation of all lesson files;
+- reusable lesson generation workflow;
+- single-lesson preflight validation;
+- batch preflight validation;
+- missing-image detection before rendering;
+- categorized validation issues;
+- YAML, schema, planning, asset, and file error reporting;
+- validated production workflow;
+- full-course preflight before batch generation.
+
+**Status: completed**
 
 ---
 
